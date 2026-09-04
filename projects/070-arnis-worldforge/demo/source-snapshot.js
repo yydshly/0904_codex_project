@@ -14,5 +14,5 @@ window.ARNIS_SNAPSHOT = Object.freeze({
     "Luanti / Mineclonia"
   ],
   "source": "https://github.com/louis-e/arnis",
-  "generatedAt": "2026-09-04T16:35:37.481Z"
+  "generatedAt": "2026-09-04T20:05:42.848Z"
 });

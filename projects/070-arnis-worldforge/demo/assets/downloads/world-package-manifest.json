@@ -1,0 +1,43 @@
+{
+  "schema": "arnis-java-world-package-v1",
+  "generatedAt": "2026-09-04T19:58:05.459Z",
+  "place": "Olympiapark, Munich, Germany",
+  "worldName": "Arnis World 1",
+  "bbox": "48.1715,11.543,48.1765,11.555",
+  "mode": "geo-only",
+  "scale": 0.5,
+  "dimensions": {
+    "width": 445,
+    "depth": 278
+  },
+  "sourceDirectory": ".runtime/sample-suite-20260904T181031Z/munich-olympiapark/worlds/Arnis World 1",
+  "fileCount": 221,
+  "worldBytes": 4529054,
+  "topLevelEntries": [
+    "arnis_world_map.png",
+    "data",
+    "icon.png",
+    "level.dat",
+    "metadata.json",
+    "region"
+  ],
+  "requiredEntries": {
+    "levelDat": true,
+    "region": true,
+    "data": true,
+    "metadata": true,
+    "mapPreview": true
+  },
+  "archive": {
+    "url": "assets/downloads/arnis-munich-olympiapark-java.zip",
+    "fileName": "arnis-munich-olympiapark-java.zip",
+    "byteLength": 1540058,
+    "sha256": "9647798f0fd3e74f2281584b728262124520c0be77f05a98d3019584509228ef",
+    "rootDirectory": "Arnis World 1"
+  },
+  "install": {
+    "edition": "Minecraft Java Edition",
+    "windowsSavesPath": "%APPDATA%\\.minecraft\\saves",
+    "instruction": "解压 ZIP，把 Arnis World 1 文件夹放入 saves，然后在单人游戏中打开。"
+  }
+}

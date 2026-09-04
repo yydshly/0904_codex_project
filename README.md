@@ -20,7 +20,7 @@
 | 040 | [TopHub 能力图谱](https://tophub.today/) | 说明公开 HTML、JSON 与扩展入口如何经过节点规则、周期采集、字段整理和历史快照，转化为浏览、提醒及 API 等热点信号服务。 | 已发布 | [查看笔记](projects/040-tophub-capability-atlas/README.md) | [打开 Demo](https://yydshly.github.io/0904_codex_project/projects/040-tophub-capability-atlas/demo/) |
 | 050 | [course2md 视频图文时间轴](https://github.com/mizorewww/course2md) | 本地优先的视频图文时间轴工具：并行提取稳定关键帧与字幕或 ASR 文本，按时间戳合并为可追溯的 Markdown、HTML 和结构化 JSON。 | 已发布 | [查看笔记](projects/050-course2md/README.md) | — |
 | 060 | [NewsNow 能力控制台](https://github.com/ourongxing/newsnow) | 把多源热榜拆解为来源适配、缓存门控、字段标准化和 Web/API/MCP 交付，明确它作为外部信号输入层的价值与边界。 | 已发布 | [查看笔记](projects/060-newsnow-capability-console/README.md) | [打开 Demo](https://yydshly.github.io/0904_codex_project/projects/060-newsnow-capability-console/demo/) |
-| 070 | [Arnis World Forge](https://github.com/louis-e/arnis) | 把开放地理数据到 Minecraft / Luanti 世界的编译流水线，拆解为地形、城市语义、生态地表、世界细节和多格式写出，并提供可复制的 CLI 配置实验室。 | 已发布 | [查看笔记](projects/070-arnis-worldforge/README.md) | [打开 Demo](https://yydshly.github.io/0904_codex_project/projects/070-arnis-worldforge/demo/) |
+| 070 | [Arnis World Forge](https://github.com/louis-e/arnis) | 把 OSM、高程与地表等开放地理数据编译成 Minecraft / Luanti 方块世界；本项目实跑生成可下载的 Java 存档，并把同一 Anvil 区块转换为浏览器可交互 3D，验证其也能作为 Web 场景素材源。 | 已发布 | [查看笔记](projects/070-arnis-worldforge/README.md) | [打开 Demo](https://yydshly.github.io/0904_codex_project/projects/070-arnis-worldforge/demo/) |
 | 080 | [Sublevel Studio 能力实验台](https://github.com/MengTo/sublevel-studio) | 把一个高密度 Three.js 作品集拆解为空间叙事、实时纹理、可玩反馈与 Shader 后期，并用独立原型验证可迁移机制。 | 已发布 | [查看笔记](projects/080-sublevel-studio/README.md) | [打开 Demo](https://yydshly.github.io/0904_codex_project/projects/080-sublevel-studio/demo/) |
 | 090 | [Home Sweet Home 四态空间 Morph](https://github.com/iamtechartist/home-sweet-home) | 拆解同一座 Three.js 微缩舞台的四态空间换景，提炼“一个状态驱动多个视觉表面”的编排模式，并将它迁移为智能仓储履约演示。 | 已发布 | [查看笔记](projects/090-home-sweet-home/README.md) | [打开 Demo](https://yydshly.github.io/0904_codex_project/projects/090-home-sweet-home/demo/warehouse.html) |
 | 100 | [M3E Canvas](https://github.com/lnkiai/m3e-canvas) | 把 Material 3 Expressive 多屏草图、主题与交互编译成面向 Coding Agent 的结构化实现提示词，并提供可点击预览与可导入演示工程。 | 已发布 | [查看笔记](projects/100-m3e-canvas/README.md) | [打开 Demo](https://lnkiai.github.io/m3e-canvas/) |
@@ -92,9 +92,9 @@
 
 #### 070 · [Arnis World Forge](projects/070-arnis-worldforge/README.md)
 
-<a href="projects/070-arnis-worldforge/README.md"><img src="projects/070-arnis-worldforge/images/cover.svg" alt="Arnis World Forge 演示图" width="760"></a>
+<a href="projects/070-arnis-worldforge/README.md"><img src="projects/070-arnis-worldforge/demo/assets/actual/arnis-world-3d.png" alt="Arnis World Forge 演示图" width="760"></a>
 
-> 把开放地理数据到 Minecraft / Luanti 世界的编译流水线，拆解为地形、城市语义、生态地表、世界细节和多格式写出，并提供可复制的 CLI 配置实验室。
+> 把 OSM、高程与地表等开放地理数据编译成 Minecraft / Luanti 方块世界；本项目实跑生成可下载的 Java 存档，并把同一 Anvil 区块转换为浏览器可交互 3D，验证其也能作为 Web 场景素材源。
 
 **状态：** 已发布 · [源项目](https://github.com/louis-e/arnis) · [完整研究笔记](projects/070-arnis-worldforge/README.md) · [在线演示](https://yydshly.github.io/0904_codex_project/projects/070-arnis-worldforge/demo/)
 

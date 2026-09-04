@@ -1,30 +1,96 @@
 # Arnis World Forge · Design Contract
 
-- Entry mode: Brief-led greenfield showcase
-- Request revision: 1
+- Entry mode: Revision-led capability showcase
+- Request revision: 6
 - Target user and context: 内部技术、产品与内容团队；希望快速判断 Arnis 能做什么、如何工作、是否值得采用
-- Desired first impression: 这不是普通项目介绍页，而是一台把真实地理数据编译成方块世界的“世界铸造台”
-- Visual ambition: Editorial
-- Experience architecture: Editorial Flow，首屏提供可操作的世界预览与生成控制台，后续按能力、原理、场景、扩展和决策顺序展开
-- Visual constraints: 深色地形制图语义；高程、道路、水体、建筑、植被必须有稳定颜色编码；不依赖外部图片和 WebGL
-- Information constraints: 所有已实现能力必须能回到当前源码或官方文档；明确区分真实功能与页面示意
-- Operation constraints: 零运行时依赖；静态站点；不调用 Overpass、Overture 或高程服务；不真正生成 Minecraft 世界
-- State constraints: 场景预设、数据层、生成模式、输出格式、比例和选项可切换；命令随状态同步；复制操作必须反馈结果
-- Environment constraints: Node.js 18+；现代浏览器；支持 390px 手机、平板和桌面
-- Primary journey: 选择一个场景 → 调整生成模式/格式/比例 → 观察世界层变化 → 复制真实 Arnis CLI 命令 → 查看源码证据
-- User-defined phases: 新建子项目；获取 Arnis；展示能力
-- Required artifacts: 上游源码快照、研究 README、交互 Demo、源码同步脚本、构建脚本、封面、验证记录、总目录条目
-- Autonomy authorization: 用户明确要求“新建子项目，获取该库，展示该库的能力”；允许直接实现全部可逆的项目内工作
-- User-decision boundary: 不发布、不提交、不调用真实生成服务；若需要真实生成世界或外部部署，需另行确定目标区域与输出环境
-- Observable completion criteria: 上游仓库存在且 commit 可读；Demo 可运行；主要控制影响预览和命令；桌面/平板/390px 无关键遮挡；键盘可达；构建和目录校验通过
+- Desired first impression: 第一眼看见 Arnis 已经交付了一份真实、可下载、可安装进 Minecraft 的 Java 世界；3D 只是下载前验收，不是产品本身
+- Visual ambition: Immersive
+- Experience architecture: Hybrid Workspace；真实 3D 世界是主操作面，样例证据、从零制作路线与库的意义保留为可读文档层
+- Visual constraints: 不从 PNG 拉伸或伪造 3D；3D 几何必须来自本机 Arnis `.mca` 区块中的真实方块状态；PNG 只作为加载与能力回退；DOM 保留完整解释
+- Information constraints: 所有已实现能力必须能回到当前源码、真实生成产物或官方文档；首屏明确展示 bbox、scale、mode、输出格式和实测状态
+- Operation constraints: 允许在构建阶段解析现有 Arnis Java 世界的 Anvil/NBT 数据并导出浏览器优化网格；将同一世界的完整 `level.dat`、`region/`、`data/`、地图与元数据打成 ZIP；不再用额外任务玩法冒充 Arnis 原生能力
+- State constraints: 3D 支持拖拽旋转、滚轮缩放、键盘视角与视角复位；交付卡显示实际文件数、世界体积、ZIP 体积、SHA-256 和下载入口；加载、失败、reduced-motion 与无 WebGL 状态不影响真实世界包下载
+- Environment constraints: Node.js 20+；现代 WebGL 浏览器；支持 390px 手机、平板和桌面
+- Primary journey: 核对慕尼黑生成输入与实际世界结构 → 在 3D 中验收地形/建筑/地标 → 下载完整 Java 世界 ZIP → 按三步放入 Minecraft `saves` 并进入 → 核对 SHA-256 与复现命令
+- User-defined phases: 用已有 Arnis 能力进行真实演示；移除缺乏独特价值的文旅点击任务；交付可实际使用的世界包
+- Required artifacts: 可重复的真实世界打包脚本、完整 Java 世界 ZIP、结构/体积/SHA-256 清单、首屏下载入口、Minecraft 安装说明、更新后的构建与浏览器验证记录
+- Autonomy authorization: 用户明确要求“首先用该库的能力展示该库原有能力”；允许在本机运行已获取的 Arnis，并直接完成项目内可逆改造
+- User-decision boundary: 不发布、不提交；不冒充已在 Minecraft 客户端完成真人游玩；不新增实时生成后端、账号或付费流程；更大区域与其他版本兼容性另行验证
+- Observable completion criteria: ZIP 可实际下载且包含同一生成世界的 `level.dat`、Region、数据目录、地图和 metadata；页面数据与落盘 manifest 一致并显示 SHA-256；下载在 WebGL 失败时仍可用；安装说明明确保存目录与游戏内入口；虚构文旅任务从首屏移除；桌面/平板/390px、键盘、主题、reduced-motion、失败回退、HTTP 下载、构建与目录校验通过
 
 ## Coverage record
 
 | 用户阶段 | 要求或产物 | 表面 / 状态 | 证据 | 阶段 | 状态 | 下一动作 |
 | --- | --- | --- | --- | --- | --- | --- |
-| 新建子项目 | 独立 070 目录与研究材料 | 文件系统 | 文件清单 | 0/9 | pass | 已创建项目、封面、说明与验证记录 |
-| 获取 Arnis | 当前 main 浅克隆 | source/arnis | commit、clean status、cargo metadata/check/help | 1/9 | pass | `3384d3e0` / 3.1.0 验证通过 |
-| 展示能力 | 可交互首屏 | 桌面明暗主题 | 浏览器截图与场景、图层、能力、命令交互 | 2–6 | pass | 展示页已保留在浏览器中 |
-| 展示能力 | 响应式与键盘 | 1280 / 820 / 390px | 浏览器截图与 AX 状态 | 7 | pass | 无关键遮挡，方向键页签可用 |
-| 展示能力 | reduced-motion 与无外部资产回退 | CSS / 静态运行 | CSS 媒体查询、零外部资源与本地 SVG | 8 | pass | 运动降级与离线视觉资产已实现 |
-| 交付 | 构建、目录和文档 | CLI / 文件 | build、catalog:check、pages:build | 9 | pass | 构建与总目录检查通过 |
+| 保留子项目 | 独立 070 目录、源码与研究材料 | 文件系统 | 文件清单、git 状态 | 0/9 | pass | 保留现有结构与源码快照 |
+| 原库真实能力 | 小区域 Arnis 真实世界 + `--map-preview` | CLI / 文件 | `proof-20260905-03` 命令、日志、PNG、93 个世界文件 | 1/9 | pass | 保留可重跑脚本与可移植证据 |
+| 上游官方样例 | README 内置游戏截图与能力声明 | 文件 / 页面 | `assets/git/preview.jpg` 原样副本、上游 README 链接 | 1–3 | pass | 无 |
+| 多样例实测 | 城市地标、自然地形、Moon、Mars | CLI / 文件 | 4 个补充命令、日志、PNG、`sample-suite.json` | 1/9 | pass | 无 |
+| 样例浏览器 | 可切换样例集与同步事实 | 桌面 / 键盘 | 六项点击、方向键、DOM 与截图 | 3–6 | pass | 无 |
+| 重做首屏 | 真实成果成为唯一主视觉锚点 | 桌面深色 | 真实 PNG、实测状态、参数面板 | 2–3 | pass | 无 |
+| 结果解释 | 原图/注释、实测参数、能力证据可读 | 交互状态 | 浏览器点击与方向键切换、manifest 数据绑定 | 4–6 | pass | 无 |
+| 跨端 | 修改后桌面、820px、390px、明暗主题、键盘 | 多表面 | 浏览器截图、390px 横向溢出为 0、样例轨道可滚动 | 7 | pass | 无 |
+| 回退 | 图片加载失败与 reduced-motion 保持信息可用 | 静态运行 | 404 实测触发样例 fallback；详情仍可读 | 8 | pass | 无 |
+| 交付 | 真实产物、构建、目录和文档一致 | CLI / 文件 | build、catalog:check、pages:build（12 个项目） | 9 | pass | 无 |
+| 第一：真实展示 | 从 `.mca` 导出的可交互 3D 慕尼黑世界 | 桌面 / 平板 / 手机 / 键盘 | 504 Chunk / 605,744 方块导出清单；三视角、键盘与画布截图 | 1–8 | pass | 无 |
+| 第二：从零制作 | 输入、生成、解析、网格化、浏览器渲染的真实路线 | 页面 / README | 五步路线、原库/适配层责任边界与实现文件 | 3/9 | pass | 无 |
+| 第三：库的意义 | 价值、边界和团队可扩展方向 | 页面 / README | “可编译资产”论点、ADOPT/EXTRACT/REFERENCE 判断 | 3/9 | pass | 无 |
+| 3D 回退 | 加载中、解析失败、无 WebGL、reduced-motion | 浏览器状态 | `?world-error=1` 显示同世界 PNG，禁用无效控件；DOM 内容保留 | 6–8 | pass | 无 |
+| Revision 4 交付 | 新资产、构建、目录与文档一致 | CLI / 文件 | build、三端 browser verify、catalog:check、pages:build、diff-check | 9 | pass | 无 |
+| Revision 5 场景演示 | 在真实世界内完成三站文旅探索 | 3D 舞台 / 鼠标 / 触摸 / 键盘 | `browser-evidence-r5`：开始、三次地标触发、3/3 完成与 0/3 重置 | 4–6 | pass | 无 |
+| Revision 5 场景映射 | 状态同时改变 DOM 与三维场景 | 任务面板 / 场景标记 | 三个世界坐标投影均实际命中；镜头、标记、文案、进度同步 | 5–6 | pass | 无 |
+| Revision 5 跨端 | 桌面、820px、390px、主题、键盘、reduced-motion | 多表面 | 三端无溢出；桌面键盘完成首站；390px 三站可见可点、无过渡 | 7–8 | pass | 无 |
+| Revision 5 回退 | WebGL 失败时仍解释场景价值且不提供失效任务 | 图片回退 / DOM | `?world-error=1`：原生 PNG、任务 error、入口禁用、地标隐藏 | 6–8 | pass | 无 |
+| Revision 5 交付 | 构建、文档与验证记录一致 | CLI / 文件 | build、browser verify、catalog:check（13 项）、pages:build、diff-check | 9 | pass | 无 |
+| Revision 6 真实打包 | 同一慕尼黑 Java 世界成为可分发 ZIP | 文件 / 构建 | ZIP 结构、文件数、体积、SHA-256、源目录映射 | 1/8/9 | pass | 221 个世界文件；ZIP 1,540,058 bytes；SHA-256 `9647798f0fd3e74f2281584b728262124520c0be77f05a98d3019584509228ef`；根目录 `Arnis World 1` |
+| Revision 6 首屏交付 | 3D 验收旁直接下载真实世界，不再模拟文旅任务 | 桌面 / 键盘 | 下载链接、清单数据、安装说明、浏览器下载事件 | 2–6 | pass | 首屏显示文件数、源世界与 ZIP 体积、内容清单和安装步骤；Playwright 实际下载并复算相同 SHA-256 |
+| Revision 6 跨端与回退 | 下载和说明在 820px、390px、明暗主题、WebGL 失败时可用 | 多表面 | 无溢出、链接可达、回退仍下载、reduced-motion | 7–8 | pass | 1280 / 820 / 390px 均无横向溢出；reduced-motion 停止自动旋转；`?world-error=1` 下下载入口仍可见可用 |
+| Revision 6 工程交付 | 脚本、ZIP、manifest、构建、文档一致 | CLI / 文件 | package、build、browser verify、catalog/pages、diff-check | 9 | pass | `world:package`、`build`、`verify:browser`、根目录 catalog/pages 与 `git diff --check` 全部通过 |
+
+## Revision 2 direction record
+
+| 层级 | 当前证据 | 问题 | 最小完整改造 | 验收标准 |
+| --- | --- | --- | --- | --- |
+| 构图 | 390px 基线首屏只有大标题，合成 SVG 位于折叠线下 | 真实能力没有成为第一视觉事实 | 将真实 `--map-preview` 提升为首屏主区域，标题退为说明 | 首屏无需滚动即可看到真实输出的一部分与“实测生成”标识 |
+| 焦点 | 大号宣传语先于成果 | 卖点压过证据 | 用真实成果 + 参数状态主导，标题控制为辅助尺度 | 第一眼能回答“这是 Arnis 真生成的吗、哪里、用什么参数” |
+| 信息 | 源码指标与模拟图多，运行事实缺失 | 无法区分“代码宣称”和“实际跑通” | 增加命令、耗时、文件、尺寸与实际数据源记录 | 所有实测字段来自落盘 manifest/log |
+| 交互 | 图层开关只控制手绘 SVG | 操作的是演示者想象，不是库输出 | 原图/结果解释围绕真实 PNG；SVG 只进入原理层 | 主视觉交互不改变真实图像内容，只切换解释层 |
+| 响应式 | 手机端真实视觉在折叠线下 | 关键证据不可见 | 手机首屏先呈现紧凑真实预览，再给说明和指标 | 390px 首屏可见真实预览、实测标签和区域名 |
+
+## Revision 3 direction record
+
+| 层级 | 当前证据 | 问题 | 最小完整改造 | 验收标准 |
+| --- | --- | --- | --- | --- |
+| 能力覆盖 | 首屏只有 Arnis 海岸小城 | 无法证明城市地标、纯地形和天体 DEM 等原库能力 | 实际运行不同地点/模式，并接入上游官方游戏截图 | 至少 4 个可核验样例，来源类型不混淆 |
+| 信息结构 | 单次运行事实只服务一张图 | 多样例加入后容易堆成图库 | 使用一个主舞台 + 紧凑样例轨道，切换时同步事实 | 一次只聚焦一个样例，样例差异一眼可比较 |
+| 真实性 | 当前真实输出与合成模型已分开 | 新样例可能再次混淆“官方截图 / 本机生成 / 解释图” | 每个样例显示证据标签与命令/源码来源 | 不把官方截图写成本机生成，不把俯视 PNG 写成游戏截图 |
+| 跨端 | 当前单样例在 390px 通过 | 新增轨道可能造成横向溢出和首屏过长 | 手机使用横向可滚动样例轨道，主图仍先于详细事实 | 390px 横向溢出为 0，样例按钮可操作 |
+
+## Revision 4 direction record
+
+| 层级 | 当前证据 | 问题 | 最小完整改造 | 验收标准 |
+| --- | --- | --- | --- | --- |
+| 真实性 | 页面主要展示 `--map-preview` PNG | 用户会误解为“图片生成世界” | 直接解析现有 Java 世界 `.mca`，导出可见方块网格 | 导出清单记录世界源文件、区块、方块与材质统计 |
+| 构图 | 2D 图库承担主要视觉叙事 | 核心三维产物没有成为操作面 | 将真实 3D 查看器置于首屏和教程之前，图库降级为补充证据 | 首屏可直接拖拽、缩放并读取真实数据状态 |
+| 教学 | 流水线说明偏概念 | 无法回答“从零怎么做出同样效果” | 将 CLI 生成、Anvil 解析、网格优化、Three.js 渲染映射到本项目文件 | 每一步都有输入、输出、实现文件和不可替代的真实性边界 |
+| 意义 | 能力卡片多，采用判断分散 | 无法回答它为什么值得团队使用 | 以“地理数据编译器、验证基线、跨产品资产源”组织价值与边界 | 能同时看见价值、适合场景和不适合替代的能力 |
+| 回退 | PNG 加载失败可读 | 新 WebGL 层引入加载与能力风险 | DOM 状态 + PNG 回退 + reduced-motion 静态帧 | 3D 不可用时仍能理解真实产物并浏览原样例 |
+
+## Revision 5 direction record
+
+| 层级 | 当前证据 | 问题 | 最小完整改造 | 验收标准 |
+| --- | --- | --- | --- | --- |
+| 产品闭环 | 首屏只有查看器与技术统计 | 用户看见了世界，但不知道进入世界以后做什么 | 以现有慕尼黑世界承载一次三地标文旅探索 | 能从开始到完成，不离开三维舞台 |
+| 场景映射 | 视角按钮改变相机，世界本身没有任务状态 | 操作仍像模型查看器 | 将地标按钮投影到真实世界坐标；访问后场景标记与面板同步变化 | 每个触发都有可见的空间后果与进度后果 |
+| 信息层级 | 技术证据主导首屏 | 真实使用场景仍需靠长文解释 | 任务卡先回答“你是谁、要完成什么、完成后得到什么”，技术证据保留为次级层 | 第一屏无需阅读后文即可理解文旅导览场景 |
+| 跨端 | 手机场景已有视角工具栏 | 新任务面板和地标可能遮挡或无法触摸 | 桌面使用紧凑悬浮任务卡；手机压缩为底部任务层并保持标记可点 | 390px 无溢出，开始/地标/重置均可触达 |
+| 能力边界 | 页面已说明材质简化 | 新场景可能被误读为真实后台系统 | 明示本次展示为前端任务原型，真实项目可接内容库、账号与运营数据 | 不宣称尚未实现的持久化、多人或真实业务接口 |
+
+## Revision 6 direction record
+
+| 层级 | 当前证据 | 问题 | 最小完整改造 | 验收标准 |
+| --- | --- | --- | --- | --- |
+| 核心价值 | 三维场景上叠加文旅任务 | 任务是适配层虚构能力，不能证明 Arnis 交付价值 | 删除任务和地标层，交付完整 Java 世界 ZIP | 用户能下载由 Arnis 实际生成的世界并看到可核验结构 |
+| 信息层级 | “完成探索”成为首屏主行动 | 抢占了真正结果“Minecraft 世界文件” | 主行动改成“下载真实 Java 世界”，3D 明确标为交付前验收 | 第一屏能回答下载什么、包含什么、如何打开 |
+| 真实性 | 已有 `.mca` 几何和生成日志 | 完整世界仍只存在忽略目录，用户无法拿到 | 从同一源目录打包 `level.dat`、Region、data、地图、metadata，并生成 SHA-256 清单 | ZIP 与 3D manifest 指向同一世界，HTTP 可下载且校验一致 |
+| 跨端/回退 | WebGL 错误时只显示图片和禁用任务 | 下载不依赖 WebGL，应继续可用 | 交付卡属于 DOM 基础能力，与 WebGL 状态解耦 | 390px 和 `?world-error=1` 均可下载并阅读安装步骤 |

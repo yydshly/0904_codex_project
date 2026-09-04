@@ -5,10 +5,24 @@
   "type": "module",
   "scripts": {
     "sync": "node scripts/sync-source.mjs",
+    "proof": "node scripts/generate-proof.mjs",
+    "samples": "node scripts/generate-sample-suite.mjs",
+    "world:web": "node scripts/export-world-web.mjs",
+    "world:package": "node scripts/package-world.mjs",
+    "viewer:bundle": "node scripts/bundle-world-viewer.mjs",
     "build": "node scripts/build.mjs",
+    "verify:browser": "node scripts/verify-browser.mjs",
     "serve": "node scripts/serve.mjs"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=20"
+  },
+  "dependencies": {
+    "esbuild": "0.28.2",
+    "prismarine-nbt": "2.8.0",
+    "three": "0.185.1"
+  },
+  "devDependencies": {
+    "playwright-core": "1.62.1"
   }
 }

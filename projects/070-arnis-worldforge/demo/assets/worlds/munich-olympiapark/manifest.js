@@ -1,0 +1,280 @@
+window.ARNIS_WORLD_MANIFEST = Object.freeze({
+  "schema": "arnis-visible-quads-v1",
+  "generatedAt": "2026-09-04T19:16:57.459Z",
+  "evidence": {
+    "kind": "actual-java-anvil-world",
+    "geometry": "decoded Minecraft block states; no preview-image extrusion",
+    "materialTreatment": "simplified auditable palette derived from exact block names",
+    "undergroundTreatment": "exterior view clipped below Y=-64",
+    "sourceRegion": ".runtime/sample-suite-20260904T181031Z/munich-olympiapark/worlds/Arnis World 1/region/r.0.0.mca",
+    "sourceMetadata": ".runtime/sample-suite-20260904T181031Z/munich-olympiapark/worlds/Arnis World 1/metadata.json"
+  },
+  "place": "Olympiapark, Munich, Germany",
+  "bbox": "48.1715,11.543,48.1765,11.555",
+  "mode": "geo-only",
+  "scale": 0.5,
+  "dimensions": {
+    "width": 445,
+    "depth": 278,
+    "height": 148,
+    "sourceMinY": -64,
+    "sourceMaxY": 319,
+    "renderMinY": -64,
+    "renderMaxY": 83
+  },
+  "binary": {
+    "url": "assets/worlds/munich-olympiapark/visible-quads.bin",
+    "encoding": "uint16-le",
+    "stride": 8,
+    "record": [
+      "face",
+      "x",
+      "y",
+      "z",
+      "u",
+      "v",
+      "material",
+      "reserved"
+    ],
+    "byteLength": 4387456
+  },
+  "stats": {
+    "chunksRead": 504,
+    "sectionsRead": 12096,
+    "nonAirBlocks": 605744,
+    "visibleQuads": 274216,
+    "materialGroups": 21,
+    "sourceRegionBytes": 4218880,
+    "occupiedYRange": [
+      -64,
+      83
+    ]
+  },
+  "materials": [
+    {
+      "id": "water",
+      "label": "水体",
+      "color": "#3b91b8",
+      "transparent": true,
+      "opacity": 0.68,
+      "index": 1,
+      "blockCount": 1572,
+      "quadCount": 556
+    },
+    {
+      "id": "grass",
+      "label": "草地",
+      "color": "#6f9349",
+      "index": 2,
+      "blockCount": 108186,
+      "quadCount": 41192
+    },
+    {
+      "id": "dirt",
+      "label": "土壤",
+      "color": "#725139",
+      "index": 3,
+      "blockCount": 47559,
+      "quadCount": 602
+    },
+    {
+      "id": "stone",
+      "label": "石材",
+      "color": "#858986",
+      "index": 4,
+      "blockCount": 103014,
+      "quadCount": 20619
+    },
+    {
+      "id": "sand",
+      "label": "沙地",
+      "color": "#c7b982",
+      "index": 5,
+      "blockCount": 10891,
+      "quadCount": 114
+    },
+    {
+      "id": "concrete",
+      "label": "混凝土",
+      "color": "#b5b8ad",
+      "index": 7,
+      "blockCount": 12413,
+      "quadCount": 4816
+    },
+    {
+      "id": "white",
+      "label": "浅色构件",
+      "color": "#dedfd4",
+      "index": 8,
+      "blockCount": 49,
+      "quadCount": 82
+    },
+    {
+      "id": "brick",
+      "label": "砖石",
+      "color": "#9a5944",
+      "index": 9,
+      "blockCount": 17652,
+      "quadCount": 12081
+    },
+    {
+      "id": "wood",
+      "label": "木材",
+      "color": "#8a653e",
+      "index": 10,
+      "blockCount": 8783,
+      "quadCount": 24500
+    },
+    {
+      "id": "foliage",
+      "label": "植被",
+      "color": "#3f713b",
+      "transparent": true,
+      "opacity": 0.88,
+      "index": 11,
+      "blockCount": 58684,
+      "quadCount": 98591
+    },
+    {
+      "id": "glass",
+      "label": "玻璃",
+      "color": "#8fc8cf",
+      "transparent": true,
+      "opacity": 0.42,
+      "index": 12,
+      "blockCount": 41928,
+      "quadCount": 28798
+    },
+    {
+      "id": "metal",
+      "label": "金属",
+      "color": "#767f83",
+      "metalness": 0.35,
+      "index": 13,
+      "blockCount": 1370,
+      "quadCount": 3450
+    },
+    {
+      "id": "blue",
+      "label": "蓝色构件",
+      "color": "#527ca4",
+      "index": 14,
+      "blockCount": 836,
+      "quadCount": 1742
+    },
+    {
+      "id": "red",
+      "label": "红色构件",
+      "color": "#a64f42",
+      "index": 15,
+      "blockCount": 2,
+      "quadCount": 10
+    },
+    {
+      "id": "cyan",
+      "label": "青色构件",
+      "color": "#5b9a9a",
+      "index": 17,
+      "blockCount": 11402,
+      "quadCount": 5832
+    },
+    {
+      "id": "black",
+      "label": "深色构件",
+      "color": "#282d2d",
+      "index": 19,
+      "blockCount": 28186,
+      "quadCount": 16204
+    },
+    {
+      "id": "snow",
+      "label": "雪/冰",
+      "color": "#e9eee7",
+      "index": 20,
+      "blockCount": 914,
+      "quadCount": 716
+    },
+    {
+      "id": "orange",
+      "label": "橙色构件",
+      "color": "#b86e36",
+      "index": 21,
+      "blockCount": 16,
+      "quadCount": 32
+    },
+    {
+      "id": "gravel",
+      "label": "砂砾",
+      "color": "#77736d",
+      "index": 22,
+      "blockCount": 5787,
+      "quadCount": 2615
+    },
+    {
+      "id": "bedrock",
+      "label": "基岩",
+      "color": "#393b39",
+      "index": 23,
+      "blockCount": 123710,
+      "quadCount": 4
+    },
+    {
+      "id": "other",
+      "label": "其他方块",
+      "color": "#8b7d70",
+      "index": 24,
+      "blockCount": 22790,
+      "quadCount": 11660
+    }
+  ],
+  "topBlocks": [
+    {
+      "name": "minecraft:bedrock",
+      "count": 123710
+    },
+    {
+      "name": "minecraft:grass_block",
+      "count": 81441
+    },
+    {
+      "name": "minecraft:stone",
+      "count": 66525
+    },
+    {
+      "name": "minecraft:dirt",
+      "count": 46571
+    },
+    {
+      "name": "minecraft:white_stained_glass",
+      "count": 37125
+    },
+    {
+      "name": "minecraft:short_grass",
+      "count": 25925
+    },
+    {
+      "name": "minecraft:dark_oak_leaves",
+      "count": 17508
+    },
+    {
+      "name": "minecraft:oak_leaves",
+      "count": 16693
+    },
+    {
+      "name": "minecraft:smooth_stone",
+      "count": 14898
+    },
+    {
+      "name": "minecraft:green_terracotta",
+      "count": 13870
+    },
+    {
+      "name": "minecraft:polished_andesite",
+      "count": 12842
+    },
+    {
+      "name": "minecraft:white_concrete",
+      "count": 12338
+    }
+  ]
+});

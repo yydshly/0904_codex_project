@@ -104,15 +104,16 @@
     "slug": "arnis-worldforge",
     "name": "Arnis World Forge",
     "repository": "https://github.com/louis-e/arnis",
-    "summary": "把开放地理数据到 Minecraft / Luanti 世界的编译流水线，拆解为地形、城市语义、生态地表、世界细节和多格式写出，并提供可复制的 CLI 配置实验室。",
+    "summary": "把 OSM、高程与地表等开放地理数据编译成 Minecraft / Luanti 方块世界；本项目实跑生成可下载的 Java 存档，并把同一 Anvil 区块转换为浏览器可交互 3D，验证其也能作为 Web 场景素材源。",
     "status": "published",
-    "cover": "projects/070-arnis-worldforge/images/cover.svg",
+    "cover": "projects/070-arnis-worldforge/demo/assets/actual/arnis-world-3d.png",
     "demo": "projects/070-arnis-worldforge/demo/",
     "tags": [
       "Rust",
       "OpenStreetMap",
       "Minecraft",
       "Geospatial",
+      "Three.js",
       "Voxel World"
     ]
   },

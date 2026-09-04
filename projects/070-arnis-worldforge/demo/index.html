@@ -8,21 +8,23 @@
       content="Arnis World Forge：交互展示 Arnis 如何把开放地理数据编译成 Minecraft 与 Luanti 方块世界。"
     />
     <title>Arnis World Forge · 现实世界编译台</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath fill='%23c5f462' d='M4 9 16 3l12 6-12 7z'/%3E%3Cpath fill='%2386ad32' d='m4 9 12 7v13L4 22z'/%3E%3Cpath fill='%235f8125' d='m28 9-12 7v13l12-7z'/%3E%3C/svg%3E" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <a class="skip-link" href="#main">跳到主要内容</a>
 
     <header class="topbar">
-      <a class="brand" href="#forge" aria-label="返回 Arnis World Forge 顶部">
+      <a class="brand" href="#world-3d" aria-label="返回 Arnis World Forge 顶部">
         <span class="brand-cube" aria-hidden="true"><i></i><i></i><i></i></span>
         <span><strong>ARNIS / WORLD FORGE</strong><small>RESEARCH 070</small></span>
       </a>
       <nav aria-label="页面导航">
-        <a href="#capabilities">能力</a>
-        <a href="#pipeline">原理</a>
-        <a href="#lab">命令实验室</a>
-        <a href="#decision">我们的判断</a>
+        <a href="#world-3d">3D 实景</a>
+        <a href="#from-zero">从零制作</a>
+        <a href="#proof">实测</a>
+        <a href="#samples">样例</a>
+        <a href="#decision">意义</a>
       </nav>
       <div class="top-actions">
         <button class="theme-toggle" type="button" aria-label="切换明暗主题" aria-pressed="false">
@@ -33,12 +35,287 @@
     </header>
 
     <main id="main">
-      <section class="forge" id="forge" aria-labelledby="page-title">
-        <div class="forge-copy">
-          <p class="eyebrow"><span>OPEN GEO</span><i>→</i><span>VOXEL WORLD</span></p>
-          <h1 id="page-title">把真实世界，<br />编译成<span>可玩的地图。</span></h1>
+      <section class="world3d-hero" id="world-3d" aria-labelledby="world3d-title">
+        <div class="world3d-stage" id="world3d-stage" data-world-state="loading">
+          <canvas
+            id="world3d-canvas"
+            tabindex="0"
+            aria-label="由 Arnis 真实 Minecraft 世界区块导出的慕尼黑奥林匹克公园三维方块地图。拖拽旋转，滚轮缩放，方向键改变视角。"
+          ></canvas>
+          <img
+            class="world3d-fallback-image"
+            src="assets/samples/munich-olympiapark.png"
+            alt="慕尼黑奥林匹克公园 Arnis 原生二维预览；当三维渲染不可用时显示"
+            width="445"
+            height="278"
+          />
+          <div class="world3d-skyline" aria-hidden="true"></div>
+          <div class="world3d-status" id="world3d-status" role="status" aria-live="polite">
+            <span class="world3d-loader" aria-hidden="true"></span>
+            <div><b>正在读取真实世界区块</b><small id="world3d-progress">准备加载可见方块网格…</small></div>
+          </div>
+          <div class="world3d-badges" aria-label="三维展示证据">
+            <span><i></i> ACTUAL .MCA GEOMETRY</span>
+            <span>REAL BLOCKS / SIMPLE PALETTE</span>
+          </div>
+          <aside class="world3d-delivery" id="world3d-delivery" aria-labelledby="world3d-delivery-title">
+            <div class="delivery-kicker"><span>真实交付</span><b>JAVA WORLD · READY</b></div>
+            <div class="delivery-heading">
+              <small>OUTPUT / ZIP</small>
+              <h2 id="world3d-delivery-title">这份世界可以直接带走</h2>
+            </div>
+            <p>不是截图，也不是网页专用模型。ZIP 内包含 Arnis 实际生成的完整 Minecraft Java 世界。</p>
+            <dl class="delivery-stats" aria-label="世界交付包统计">
+              <div><dt id="world-package-files">—</dt><dd>世界文件</dd></div>
+              <div><dt id="world-package-source-size">—</dt><dd>世界体积</dd></div>
+              <div><dt id="world-package-archive-size">—</dt><dd>下载体积</dd></div>
+            </dl>
+            <p class="delivery-contents"><code>level.dat</code><code>region/*.mca</code><code>data/*.dat</code><code>metadata.json</code></p>
+            <a class="delivery-action" id="world-package-download" href="assets/downloads/arnis-munich-olympiapark-java.zip" download>
+              下载真实 Java 世界 <span id="world-package-button-size">—</span>
+            </a>
+            <details class="delivery-install">
+              <summary>下载后如何进入 Minecraft</summary>
+              <ol>
+                <li>解压 ZIP，得到 <code>Arnis World 1</code>。</li>
+                <li>放入 <code>%APPDATA%\.minecraft\saves</code>。</li>
+                <li>启动 Java Edition，在“单人游戏”中打开。</li>
+              </ol>
+              <p>SHA-256 · <code id="world-package-sha">读取清单…</code></p>
+            </details>
+          </aside>
+          <div class="world3d-toolbar" role="group" aria-label="三维视角控制">
+            <button type="button" data-world-camera="home" aria-pressed="true"><span>01</span>斜视</button>
+            <button type="button" data-world-camera="top" aria-pressed="false"><span>02</span>俯视</button>
+            <button type="button" data-world-camera="landmark" aria-pressed="false"><span>03</span>地标</button>
+            <button type="button" id="world3d-motion" aria-pressed="true"><span>↻</span>自动旋转</button>
+          </div>
+          <div class="world3d-hint"><kbd>拖拽</kbd> 旋转 · <kbd>滚轮</kbd> 缩放 · <kbd>方向键</kbd> 调整</div>
+        </div>
+
+        <header class="world3d-copy">
+          <p class="eyebrow"><span>01 / TRUE WORLD VIEW</span><i>→</i><span>MUNICH</span></p>
+          <h1 id="world3d-title">不是看一张图。<br />下载一个<br /><span>能进入的世界。</span></h1>
+          <p class="lede">左侧 3D 用于下载前验收；真正结果是完整 Minecraft Java 世界包。它包含 <code>level.dat</code>、Region、地图数据和生成元数据，解压后放入游戏存档目录即可打开。</p>
+          <div class="world3d-truth">
+            <span><i></i>真实几何</span>
+            <span>简化材质</span>
+            <span>地下裁切</span>
+          </div>
+          <dl class="world3d-stats" aria-label="真实三维世界统计">
+            <div><dt id="world-stat-blocks">—</dt><dd>存档方块</dd></div>
+            <div><dt id="world-stat-chunks">—</dt><dd>读取区块</dd></div>
+            <div><dt id="world-stat-quads">—</dt><dd>合并面片</dd></div>
+            <div><dt id="world-stat-materials">—</dt><dd>材质组</dd></div>
+          </dl>
+          <details class="world3d-evidence">
+            <summary>核对这份 3D 的数据来源</summary>
+            <p><b>来源：</b><code id="world-source-region">本机 Java Anvil region</code></p>
+            <p><b>范围：</b><code id="world-source-bbox">48.1715,11.5430,48.1765,11.5550</code></p>
+            <p><b>边界：</b>几何忠实读取方块；网页色板按方块名归类，不宣称复刻 Minecraft 原版材质。</p>
+          </details>
+        </header>
+
+        <noscript><p class="world3d-noscript">启用 JavaScript 后可操作真实三维世界；当前显示 Arnis 原生二维预览作为回退。</p></noscript>
+      </section>
+
+      <section class="section from-zero-section" id="from-zero" aria-labelledby="from-zero-title">
+        <div class="section-heading from-zero-heading">
+          <div>
+            <p class="eyebrow">02 / BUILD IT FROM ZERO</p>
+            <h2 id="from-zero-title">从经纬度开始，<br />到浏览器里漫游。</h2>
+          </div>
+          <p>这里有两条相接但不混淆的流水线：Arnis 负责把地理数据编译成游戏世界；本项目增加一个只读适配器，把世界存档转换成浏览器可高效绘制的网格。</p>
+        </div>
+        <ol class="build-route">
+          <li>
+            <span>01</span><small>SELECT</small><h3>确定区域与模式</h3>
+            <p>给出经纬度 bbox、比例和 <code>geo-terrain</code> / <code>geo-only</code> / <code>terrain-only</code>。</p>
+            <b>INPUT · 经纬度</b><i>↓</i>
+          </li>
+          <li>
+            <span>02</span><small>GENERATE</small><h3>Arnis 编译世界</h3>
+            <p>获取 OSM、Overture、高程与地表数据，生成 <code>level.dat</code>、Region 和 Chunk。</p>
+            <b>OUTPUT · .mca</b><i>↓</i>
+          </li>
+          <li>
+            <span>03</span><small>DECODE</small><h3>读取 Anvil / NBT</h3>
+            <p>构建脚本解压 Region Chunk，读取 Section 调色板和压缩后的 Block State。</p>
+            <b>OUTPUT · 方块坐标</b><i>↓</i>
+          </li>
+          <li>
+            <span>04</span><small>MESH</small><h3>只保留可见表面</h3>
+            <p>剔除被遮挡的内部面，再用贪心合并相邻同材质矩形，降低浏览器负担。</p>
+            <b>OUTPUT · QUAD BIN</b><i>↓</i>
+          </li>
+          <li>
+            <span>05</span><small>RENDER</small><h3>Three.js 实时绘制</h3>
+            <p>按材质建立 BufferGeometry，加入相机、光照、缩放、旋转和能力回退。</p>
+            <b>OUTPUT · 可交互 3D</b>
+          </li>
+        </ol>
+        <div class="implementation-split">
+          <div><span>ARNIS 原库负责</span><strong>地理数据 → Minecraft 世界</strong><code>source/arnis/</code></div>
+          <i>+</i>
+          <div><span>本项目适配层负责</span><strong>Minecraft 世界 → Web 3D</strong><code>scripts/export-world-web.mjs + demo/world-viewer.js</code></div>
+        </div>
+        <details class="build-recipe">
+          <summary><span>完整复现命令</span><b>从源码与公开数据重新生成 ↘</b></summary>
+          <pre><code>npm install
+npm run samples       # 运行 Arnis，生成包含慕尼黑的 Java 世界
+npm run world:web     # 解析最新世界的 .mca / NBT / Block State
+npm run build         # 打包 Three.js 查看器与静态页面
+npm run serve         # 打开 http://127.0.0.1:4177</code></pre>
+          <p>也可用 <code>ARNIS_WORLD_DIR</code> 指向任意包含 <code>metadata.json</code> 与 <code>region/</code> 的 Arnis Java 世界目录。</p>
+        </details>
+      </section>
+
+      <section class="proof-hero" id="proof" aria-labelledby="proof-title">
+        <header class="proof-copy">
+          <p class="eyebrow"><span>ACTUAL RUN 01</span><i>→</i><span>JAVA ANVIL</span></p>
+          <h2 id="proof-title">这是同一类世界<br />附带生成的<br />二维预览。</h2>
           <p class="lede">
-            Arnis 融合道路、建筑、高程、土地覆盖、气候、树冠与 3D 模型，直接写出 Minecraft Java、Bedrock 和 Luanti 世界。
+            PNG 不是输入，也不会再被拿去“生成 3D”。它是 Arnis 在写出 Minecraft 世界后，通过原生 <code>--map-preview</code> 追加生成的快速检查图。
+          </p>
+          <div class="proof-actions">
+            <a class="button button-primary" href="#proof-result">查看生成证据</a>
+            <a class="button button-secondary" href="#samples">浏览 6 个原库样例</a>
+          </div>
+        </header>
+
+        <figure class="proof-visual" id="proof-result">
+          <div class="proof-frame-head">
+            <span><i></i> ARNIS NATIVE MAP PREVIEW</span>
+            <b>ACTUAL OUTPUT · 432 × 345 PX</b>
+          </div>
+          <div class="proof-image-shell" data-proof-view="raw">
+            <img
+              id="actual-preview"
+              src="assets/actual/arnis-world-map.png"
+              alt="Arnis 生成的德国 Arnis 小城 Minecraft Java 世界俯视预览，可见水岸、街道、建筑、树木与码头"
+              width="432"
+              height="345"
+            />
+            <div class="proof-annotations" aria-hidden="true">
+              <span class="proof-marker marker-water"><i>01</i><b>WATER / COAST</b></span>
+              <span class="proof-marker marker-buildings"><i>02</i><b>OSM + OVERTURE</b></span>
+              <span class="proof-marker marker-road"><i>03</i><b>ROAD + SIGNAGE</b></span>
+              <span class="proof-marker marker-canopy"><i>04</i><b>LANDCOVER + CANOPY</b></span>
+            </div>
+            <div class="proof-fallback" role="status">
+              <b>真实预览图片未加载</b>
+              <span>运行事实、参数和输出清单仍可在下方读取。</span>
+            </div>
+          </div>
+          <figcaption>
+            <div>
+              <strong data-run="place">Arnis, Schleswig-Holstein, Germany</strong>
+              <span>真实地理数据 → 可玩的方块世界</span>
+            </div>
+            <div class="proof-view-tabs" role="tablist" aria-label="真实结果查看方式">
+              <button class="is-active" type="button" role="tab" aria-selected="true" data-proof-view="raw">原始输出</button>
+              <button type="button" role="tab" aria-selected="false" data-proof-view="explained">数据解释</button>
+            </div>
+          </figcaption>
+        </figure>
+
+        <aside class="proof-facts" aria-label="真实生成运行事实">
+          <div class="proof-status"><i></i><span>LOCAL RUN</span><b>PASS</b></div>
+          <dl>
+            <div><dt>BOUNDING BOX</dt><dd data-run="bbox">—</dd></div>
+            <div><dt>MODE / SCALE</dt><dd><span data-run="mode">—</span> / <span data-run="scale">—</span>×</dd></div>
+            <div><dt>TOTAL / CORE</dt><dd><span data-run="duration">—</span> / <span data-run="generationTime">—</span></dd></div>
+            <div><dt>WORLD OUTPUT</dt><dd><span data-run="fileCount">—</span> files · level.dat + regions</dd></div>
+          </dl>
+          <div class="proof-observations">
+            <span><b data-run="osmBuildingsHeightFilled">—</b>建筑高度补全</span>
+            <span><b data-run="overtureBuildingsAdded">—</b>新增建筑</span>
+            <span><b data-run="signageDecals">—</b>标牌贴图</span>
+            <span><b data-run="elevationRangeMeters">—</b>m 高差</span>
+          </div>
+          <p>实测包含 OSM、Overture、Mapterhorn、ESA WorldCover、Meta/WRI Canopy 与区域树包。</p>
+        </aside>
+      </section>
+
+      <section class="section sample-showcase" id="samples" aria-labelledby="samples-title">
+        <div class="section-heading sample-heading">
+          <div>
+            <p class="eyebrow">00 / ORIGINAL SAMPLE SUITE</p>
+            <h2 id="samples-title">一个库，<br />六种可核验结果。</h2>
+          </div>
+          <div class="section-intro">
+            <p>五个样例由当前本地 Arnis 3.1.0 真正生成；最后一项来自上游仓库 README 的官方游戏内截图。每项都会明确标记证据类型。</p>
+            <div class="sample-legend" aria-label="证据类型图例">
+              <span><i class="is-local"></i>本机实测</span>
+              <span><i class="is-upstream"></i>上游官方</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="sample-tabs" id="sample-tabs" role="tablist" aria-label="Arnis 原库样例"></div>
+
+        <div class="sample-stage">
+          <figure class="sample-visual">
+            <div class="sample-frame-head">
+              <span><i></i> ARNIS SAMPLE OUTPUT</span>
+              <b id="sample-frame-meta">LOCAL RUN · 432 × 345 PX</b>
+            </div>
+            <div class="sample-image-shell">
+              <img
+                id="sample-image"
+                src="assets/samples/arnis-coast.png"
+                alt="Arnis 本机生成的 Arnis 海岸小城俯视预览"
+                width="432"
+                height="345"
+              />
+              <div class="sample-image-fallback" role="status">
+                <b>当前样例图片未加载</b>
+                <span>地点、模式、命令和运行事实仍可在右侧读取。</span>
+              </div>
+            </div>
+            <figcaption>
+              <span id="sample-category">地理全量生成</span>
+              <strong id="sample-place">Arnis, Schleswig-Holstein, Germany</strong>
+            </figcaption>
+          </figure>
+
+          <aside class="sample-detail" aria-live="polite" aria-labelledby="sample-title">
+            <div class="sample-evidence-row">
+              <span class="sample-evidence is-local" id="sample-evidence">本机实测</span>
+              <span id="sample-counter">01 / 06</span>
+            </div>
+            <p class="sample-capability" id="sample-capability">GEO-TERRAIN + COMPLETE CITY STACK</p>
+            <h3 id="sample-title">Arnis 海岸小城</h3>
+            <p class="sample-summary" id="sample-summary">组合真实高程、建筑、道路、码头、水体、土地覆盖、树冠和标牌生成完整城镇。</p>
+            <dl class="sample-facts">
+              <div><dt>MODE</dt><dd id="sample-mode">geo-terrain</dd></div>
+              <div><dt>BODY</dt><dd id="sample-body">Earth</dd></div>
+              <div><dt>SCALE</dt><dd id="sample-scale">1×</dd></div>
+              <div><dt>OUTPUT</dt><dd id="sample-output">Minecraft Java Anvil</dd></div>
+              <div><dt>RUN / CORE</dt><dd id="sample-duration">25.1s / 5.25s</dd></div>
+              <div><dt>WORLD FILES</dt><dd id="sample-files">93</dd></div>
+            </dl>
+            <div class="sample-source-block">
+              <span>DATA / SOURCE</span>
+              <p id="sample-sources">OpenStreetMap / Overpass · Overture Maps · Mapterhorn DEM · ESA WorldCover · Canopy</p>
+            </div>
+            <details class="sample-command" id="sample-command-wrap">
+              <summary>查看本次真实命令</summary>
+              <code id="sample-command">target/debug/arnis.exe --mode=geo-terrain --map-preview</code>
+            </details>
+            <a class="sample-evidence-link" id="sample-evidence-link" href="assets/samples/sample-suite.json">EVIDENCE / 样例清单 ↗</a>
+          </aside>
+        </div>
+
+        <noscript><p class="sample-noscript">启用 JavaScript 后可切换其余五个样例；当前仍可查看 Arnis 海岸小城原始输出。</p></noscript>
+      </section>
+
+      <section class="forge forge-model" id="forge" aria-labelledby="page-title">
+        <div class="forge-copy">
+          <p class="eyebrow"><span>INTERACTIVE MODEL</span><i>→</i><span>NOT OUTPUT</span></p>
+          <h2 id="page-title">再看数据如何<br />进入<span>方块世界。</span></h2>
+          <p class="lede">
+            下面是数据层关系模型，用来解释高程、道路、建筑、水体与植被如何叠加；它不作为原库效果证据。
           </p>
           <div class="hero-actions">
             <a class="button button-primary" href="#lab">配置一次生成</a>
@@ -54,8 +331,8 @@
 
         <div class="world-console" aria-label="Arnis 能力交互示意">
           <div class="console-head">
-            <span><i></i> WORLD PREVIEW / SYNTHETIC</span>
-            <small>能力示意 · 不发起真实生成</small>
+            <span><i></i> PIPELINE MODEL / SYNTHETIC</span>
+            <small>原理示意 · 真实结果见上一屏</small>
           </div>
 
           <div class="preset-tabs" role="tablist" aria-label="示例场景">
@@ -184,11 +461,11 @@
       </section>
 
       <section class="truth-bar" aria-label="项目定位摘要">
-        <span><b>01</b>批处理生成器</span>
-        <span><b>02</b>规则式地理编译</span>
-        <span><b>03</b>真实数据优先</span>
-        <span><b>04</b>程序推断兜底</span>
-        <span><b>05</b>不是数字孪生</span>
+        <span><b data-run="osmBuildingsHeightFilled">40</b>建筑高度补全</span>
+        <span><b data-run="overtureBuildingsAdded">6</b>Overture 新增建筑</span>
+        <span><b data-run="signageDecals">23</b>标牌贴图</span>
+        <span><b data-run="signageTiles">41</b>地图瓦片</span>
+        <span><b data-run="fileCount">93</b>世界文件</span>
       </section>
 
       <section class="section capability-section" id="capabilities" aria-labelledby="capabilities-title">
@@ -360,9 +637,9 @@
 
       <section class="decision-section" id="decision" aria-labelledby="decision-title">
         <div class="decision-copy">
-          <p class="eyebrow">06 / WHY IT MATTERS</p>
-          <h2 id="decision-title">如果目标是方块世界，<br />从它开始；<br />如果目标是数字空间，<br />从它拆开。</h2>
-          <p>最值得复用的不是 Anvil 写入，而是多源地理数据经过统一、冲突修复、语义渲染再落到目标世界的编译器思路。</p>
+          <p class="eyebrow">06 / WHY THE LIBRARY MATTERS</p>
+          <h2 id="decision-title">它把“现实世界”<br />变成一种<br />可编译资产。</h2>
+          <p>意义不在于多做一张地图图像，而在于把分散、缺失、尺度不一的开放地理数据，确定性地编译成可以进入、修改、复制和继续创作的空间底座。</p>
         </div>
         <ol class="decision-path">
           <li><span>01</span><div><b>Minecraft / Luanti 项目</b><p>直接 fork，优先定制数据源、区域风格、规则和人工编辑能力。</p></div><strong>ADOPT</strong></li>
@@ -407,6 +684,11 @@
 
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
     <script src="source-snapshot.js"></script>
+    <script src="actual-run.js"></script>
+    <script src="sample-suite.js"></script>
+    <script src="assets/worlds/munich-olympiapark/manifest.js"></script>
+    <script src="assets/downloads/world-package-manifest.js"></script>
     <script src="app.js"></script>
+    <script src="world-viewer.bundle.js"></script>
   </body>
 </html>

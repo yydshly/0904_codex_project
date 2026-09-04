@@ -1,0 +1,46 @@
+{
+  "proofId": "proof-20260905-03",
+  "sourceCommit": "3384d3e042e105247df737968f02c481c142d866",
+  "sourceVersion": "3.1.0",
+  "place": "Arnis, Schleswig-Holstein, Germany",
+  "bbox": "54.6291,9.9295,54.6322,9.9362",
+  "mode": "geo-terrain",
+  "scale": 1,
+  "outputFormat": "Minecraft Java Anvil",
+  "command": "target/debug/arnis.exe --output-dir=\".runtime/proof-20260905-03/worlds\" --bbox=\"54.6291,9.9295,54.6322,9.9362\" --mode=geo-terrain --scale=1 --map-preview --benchmark",
+  "startedAt": "2026-09-04T17:51:47.755Z",
+  "completedAt": "2026-09-04T17:52:12.822Z",
+  "durationMs": 25067,
+  "generationTimeMs": 5252,
+  "previewBytes": 62790,
+  "previewWidth": 432,
+  "previewHeight": 345,
+  "worldDirectory": ".runtime/proof-20260905-03/worlds/Arnis World 1",
+  "fileCount": 93,
+  "topLevelFiles": [
+    "arnis_world_map.png",
+    "icon.png",
+    "level.dat",
+    "metadata.json"
+  ],
+  "evidence": {
+    "preview": "assets/actual/arnis-world-map.png",
+    "runtimeLog": ".runtime/proof-20260905-03/generation.log"
+  },
+  "observations": {
+    "osmBuildingsHeightFilled": 40,
+    "overtureBuildingsAdded": 6,
+    "signageDecals": 23,
+    "signageTiles": 41,
+    "treeSchematics": 355,
+    "elevationRangeMeters": 5.7
+  },
+  "dataSources": [
+    "OpenStreetMap / Overpass",
+    "Overture Maps",
+    "Mapterhorn DEM",
+    "ESA WorldCover 2021",
+    "Meta/WRI Global Canopy Height",
+    "Arnis regional tree schematics"
+  ]
+}

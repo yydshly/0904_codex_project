@@ -6,12 +6,17 @@ import { fileURLToPath } from "node:url";
 
 const scriptDirectory = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(scriptDirectory, "..", "demo");
-const port = Number(process.env.PORT || 4173);
+const port = Number(process.env.PORT || 4177);
 const types = new Map([
   [".html", "text/html; charset=utf-8"],
   [".css", "text/css; charset=utf-8"],
   [".js", "text/javascript; charset=utf-8"],
-  [".svg", "image/svg+xml"]
+  [".svg", "image/svg+xml"],
+  [".png", "image/png"],
+  [".jpg", "image/jpeg"],
+  [".jpeg", "image/jpeg"],
+  [".json", "application/json; charset=utf-8"],
+  [".bin", "application/octet-stream"]
 ]);
 
 createServer(async (request, response) => {

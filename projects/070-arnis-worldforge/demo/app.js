@@ -168,6 +168,133 @@ function hydrateSnapshot() {
   });
 }
 
+function hydrateActualRun() {
+  const run = window.ARNIS_ACTUAL_RUN;
+  if (!run) {
+    $(".proof-status b").textContent = "MISSING";
+    $(".proof-status").classList.add("is-missing");
+    return;
+  }
+
+  const values = {
+    place: run.place,
+    bbox: run.bbox,
+    mode: run.mode,
+    scale: run.scale,
+    duration: `${(run.durationMs / 1000).toFixed(1)}s`,
+    generationTime: `${(run.generationTimeMs / 1000).toFixed(2)}s`,
+    fileCount: run.fileCount,
+    ...run.observations,
+  };
+  $$('[data-run]').forEach((node) => {
+    const value = values[node.dataset.run];
+    if (value !== undefined && value !== null) node.textContent = value;
+  });
+}
+
+function sampleScaleLabel(sample) {
+  if (sample.body === "moon") return "1 block / 200m";
+  if (sample.body === "mars") return "1 block / 500m";
+  return sample.scale ? `${sample.scale}×` : "—";
+}
+
+function sampleDurationLabel(sample) {
+  if (sample.durationMs === null || sample.durationMs === undefined) return "UPSTREAM / —";
+  return `${(sample.durationMs / 1000).toFixed(1)}s / ${(sample.generationTimeMs / 1000).toFixed(2)}s`;
+}
+
+function initSampleSuite() {
+  const samples = window.ARNIS_SAMPLE_SUITE;
+  const group = $("#sample-tabs");
+  if (!Array.isArray(samples) || !samples.length || !group) return;
+
+  const image = $("#sample-image");
+  const imageShell = image.closest(".sample-image-shell");
+  const evidenceLink = $("#sample-evidence-link");
+
+  const settleImage = () => {
+    imageShell.classList.remove("is-switching");
+    imageShell.classList.toggle("has-image-error", image.naturalWidth === 0);
+  };
+  image.addEventListener("load", settleImage);
+  image.addEventListener("error", settleImage);
+
+  const renderSample = (index) => {
+    const sample = samples[index];
+    const local = sample.evidenceType === "local-run";
+    $$('[data-sample-index]', group).forEach((tab, tabIndex) => {
+      const active = tabIndex === index;
+      tab.classList.toggle("is-active", active);
+      tab.setAttribute("aria-selected", String(active));
+      tab.tabIndex = active ? 0 : -1;
+    });
+
+    imageShell.classList.remove("has-image-error");
+    imageShell.classList.add("is-switching");
+    imageShell.classList.toggle("is-official", !local);
+    image.alt = local
+      ? `Arnis 本机生成的${sample.title}俯视预览`
+      : "Arnis 上游 README 收录的 Minecraft 游戏内效果截图";
+    image.src = sample.preview;
+    if (image.complete) queueMicrotask(settleImage);
+
+    $("#sample-frame-meta").textContent = local
+      ? `LOCAL RUN · ${sample.previewWidth} × ${sample.previewHeight} PX`
+      : "UPSTREAM README · OFFICIAL ASSET";
+    $("#sample-category").textContent = sample.category;
+    $("#sample-place").textContent = sample.place;
+    $("#sample-counter").textContent = `${String(index + 1).padStart(2, "0")} / ${String(samples.length).padStart(2, "0")}`;
+    $("#sample-capability").textContent = sample.capability;
+    $("#sample-title").textContent = sample.title;
+    $("#sample-summary").textContent = sample.summary;
+    $("#sample-mode").textContent = sample.mode;
+    $("#sample-body").textContent = sample.body[0].toUpperCase() + sample.body.slice(1);
+    $("#sample-scale").textContent = sampleScaleLabel(sample);
+    $("#sample-output").textContent = sample.outputFormat;
+    $("#sample-duration").textContent = sampleDurationLabel(sample);
+    $("#sample-files").textContent = sample.fileCount ?? "—";
+    $("#sample-sources").textContent = sample.dataSources.join(" · ");
+
+    const evidence = $("#sample-evidence");
+    evidence.textContent = local ? "本机实测" : "上游官方截图";
+    evidence.classList.toggle("is-local", local);
+    evidence.classList.toggle("is-upstream", !local);
+    const commandWrap = $("#sample-command-wrap");
+    commandWrap.hidden = !local;
+    commandWrap.open = false;
+    $("#sample-command").textContent = sample.command || "";
+    evidenceLink.href = local
+      ? "assets/samples/sample-suite.json"
+      : "https://github.com/louis-e/arnis/blob/main/assets/git/preview.jpg";
+    evidenceLink.textContent = local ? "EVIDENCE / 本机运行清单 ↗" : "SOURCE / 上游原图 ↗";
+    if (local) {
+      evidenceLink.removeAttribute("target");
+      evidenceLink.removeAttribute("rel");
+    } else {
+      evidenceLink.target = "_blank";
+      evidenceLink.rel = "noreferrer";
+    }
+  };
+
+  samples.forEach((sample, index) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "sample-tab";
+    button.setAttribute("role", "tab");
+    button.setAttribute("aria-selected", String(index === 0));
+    button.setAttribute("aria-label", `${String(index + 1).padStart(2, "0")} ${sample.title} ${sample.evidenceType === "local-run" ? "本机实测" : "上游官方"}`);
+    button.dataset.sampleIndex = String(index);
+    button.dataset.evidence = sample.evidenceType;
+    button.innerHTML = `<img src="${sample.preview}" alt="" width="56" height="52" /><span><small>${String(index + 1).padStart(2, "0")} · ${sample.evidenceType === "local-run" ? "LOCAL" : "UPSTREAM"}</small><b>${sample.title}</b></span>`;
+    button.querySelector("img").addEventListener("error", () => button.classList.add("has-thumb-error"));
+    button.addEventListener("click", () => renderSample(index));
+    group.append(button);
+  });
+
+  enableTabKeyboard(group, "[data-sample-index]");
+  renderSample(0);
+}
+
 function currentFormValue(name) {
   return $(`[name="${name}"]:checked`, $("#command-form"))?.value;
 }
@@ -284,7 +411,25 @@ function initTheme() {
 }
 
 hydrateSnapshot();
+hydrateActualRun();
+initSampleSuite();
 initTheme();
+
+const actualPreview = $("#actual-preview");
+const actualPreviewShell = actualPreview.closest(".proof-image-shell");
+const markActualPreviewUnavailable = () => actualPreviewShell.classList.add("has-image-error");
+actualPreview.addEventListener("error", markActualPreviewUnavailable);
+actualPreview.addEventListener("load", () => actualPreviewShell.classList.remove("has-image-error"));
+if (actualPreview.complete && actualPreview.naturalWidth === 0) markActualPreviewUnavailable();
+
+const proofViewGroup = $(".proof-view-tabs");
+$$('[data-proof-view]', proofViewGroup).forEach((button, index) => {
+  button.tabIndex = index === 0 ? 0 : -1;
+  button.addEventListener("click", () => activateTab(button, "[data-proof-view]", "proofView", (view) => {
+    $(".proof-image-shell").dataset.proofView = view;
+  }));
+});
+enableTabKeyboard(proofViewGroup, "[data-proof-view]");
 
 const presetGroup = $(".preset-tabs");
 $$('[data-preset]', presetGroup).forEach((button, index) => {
