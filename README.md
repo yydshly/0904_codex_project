@@ -102,7 +102,7 @@
 
 #### 080 · [Sublevel Studio 能力实验台](projects/080-sublevel-studio/README.md)
 
-<a href="projects/080-sublevel-studio/README.md"><img src="projects/080-sublevel-studio/images/cover.svg" alt="Sublevel Studio 能力实验台 演示图" width="760"></a>
+<a href="projects/080-sublevel-studio/README.md"><img src="projects/080-sublevel-studio/images/showcase/02-mechanism-lab.jpg" alt="Sublevel Studio 能力实验台 演示图" width="760"></a>
 
 > 把一个高密度 Three.js 作品集拆解为空间叙事、实时纹理、可玩反馈与 Shader 后期，并用独立原型验证可迁移机制。
 
