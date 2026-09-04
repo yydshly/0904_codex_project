@@ -17,6 +17,7 @@ const statusLabels = {
   published: "已发布",
   archived: "已归档"
 };
+const pagesBaseUrl = "https://yydshly.github.io/0904_codex_project/";
 
 const mode = process.argv.includes("--write") ? "write" : process.argv.includes("--check") ? "check" : null;
 
@@ -43,6 +44,12 @@ const escapeAttribute = (value) =>
     .replaceAll("<", "&lt;")
     .replaceAll(">", "&gt;")
     .trim();
+const toReadmeDemoUrl = (value) => {
+  const demo = value?.trim();
+  if (!demo) return "";
+  if (/^https?:\/\//i.test(demo)) return demo;
+  return new URL(demo.replace(/^\/+/, ""), pagesBaseUrl).href;
+};
 
 const rawCatalog = await readFile(catalogPath, "utf8");
 let projects;
@@ -141,7 +148,8 @@ const table = orderedProjects.length
         const directoryName = `${String(project.order).padStart(3, "0")}-${project.slug}`;
         const projectLink = `[${escapeCell(project.name)}](${project.repository.trim()})`;
         const researchLink = `[查看笔记](projects/${directoryName}/README.md)`;
-        const demoLink = project.demo?.trim() ? `[打开 Demo](${project.demo.trim()})` : "—";
+        const demoUrl = toReadmeDemoUrl(project.demo);
+        const demoLink = demoUrl ? `[打开 Demo](${demoUrl})` : "—";
         return `| ${String(project.order).padStart(3, "0")} | ${projectLink} | ${escapeCell(project.summary)} | ${statusLabels[project.status]} | ${researchLink} | ${demoLink} |`;
       })
     ].join("\n")
@@ -154,7 +162,8 @@ const previews = orderedProjects
     const researchPath = `projects/${directoryName}/README.md`;
     const sourceLink = `[源项目](${project.repository.trim()})`;
     const researchLink = `[完整研究笔记](${researchPath})`;
-    const demoLink = project.demo?.trim() ? ` · [在线演示](${project.demo.trim()})` : "";
+    const demoUrl = toReadmeDemoUrl(project.demo);
+    const demoLink = demoUrl ? ` · [在线演示](${demoUrl})` : "";
     const image = `<a href="${researchPath}"><img src="${escapeAttribute(project.cover)}" alt="${escapeAttribute(project.name)} 演示图" width="760"></a>`;
 
     return [
