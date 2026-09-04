@@ -24,7 +24,7 @@
 | 080 | [Sublevel Studio 能力实验台](https://github.com/MengTo/sublevel-studio) | 把一个高密度 Three.js 作品集拆解为空间叙事、实时纹理、可玩反馈与 Shader 后期，并用独立原型验证可迁移机制。 | 已发布 | [查看笔记](projects/080-sublevel-studio/README.md) | [打开 Demo](https://yydshly.github.io/0904_codex_project/projects/080-sublevel-studio/demo/) |
 | 090 | [Home Sweet Home 四态空间 Morph](https://github.com/iamtechartist/home-sweet-home) | 用同一座 Three.js 微缩舞台展示花园、客厅、餐厅和卧室的连续换景，以及程序化几何、Shader 动效和昼夜光照能力。 | 已发布 | [查看笔记](projects/090-home-sweet-home/README.md) | [打开 Demo](https://yydshly.github.io/0904_codex_project/projects/090-home-sweet-home/demo/) |
 | 100 | [M3E Canvas](https://github.com/lnkiai/m3e-canvas) | 把 Material 3 Expressive 多屏草图、主题与交互编译成面向 Coding Agent 的结构化实现提示词，并提供可点击预览与可导入演示工程。 | 已发布 | [查看笔记](projects/100-m3e-canvas/README.md) | [打开 Demo](https://lnkiai.github.io/m3e-canvas/) |
-| 110 | [REBANG 热榜聚合架构](https://gitee.com/zhaochenchen/REBANG) | 将以中文互联网为主的公开热榜整理为来源、采集、处理、存储、聚合服务与产品展示六个模块，并明确可观察能力与未公开实现的边界。 | 已发布 | [查看笔记](projects/110-rebang-capability-map/README.md) | — |
+| 110 | [Open2Hub 热榜聚合架构](https://top.open2hub.com/) | 以 Open2Hub 的 REBANG 热榜为研究对象，将公开信息聚合能力整理为来源、采集、处理、存储、聚合服务与产品展示六个模块。 | 已发布 | [查看笔记](projects/110-open2hub/README.md) | — |
 
 ### 项目图文速览
 
@@ -128,13 +128,13 @@
 
 ---
 
-#### 110 · [REBANG 热榜聚合架构](projects/110-rebang-capability-map/README.md)
+#### 110 · [Open2Hub 热榜聚合架构](projects/110-open2hub/README.md)
 
-<a href="projects/110-rebang-capability-map/README.md"><img src="projects/110-rebang-capability-map/images/architecture.svg" alt="REBANG 热榜聚合架构 演示图" width="760"></a>
+<a href="projects/110-open2hub/README.md"><img src="projects/110-open2hub/images/architecture.svg" alt="Open2Hub 热榜聚合架构 演示图" width="760"></a>
 
-> 将以中文互联网为主的公开热榜整理为来源、采集、处理、存储、聚合服务与产品展示六个模块，并明确可观察能力与未公开实现的边界。
+> 以 Open2Hub 的 REBANG 热榜为研究对象，将公开信息聚合能力整理为来源、采集、处理、存储、聚合服务与产品展示六个模块。
 
-**状态：** 已发布 · [源项目](https://gitee.com/zhaochenchen/REBANG) · [完整研究笔记](projects/110-rebang-capability-map/README.md)
+**状态：** 已发布 · [源项目](https://top.open2hub.com/) · [完整研究笔记](projects/110-open2hub/README.md)
 
 <!-- PROJECT_INDEX_END -->
 

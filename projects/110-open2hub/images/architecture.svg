@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1440" height="560" viewBox="0 0 1440 560" role="img" aria-labelledby="title desc">
-  <title id="title">热点信息聚合系统模块化架构</title>
+  <title id="title">Open2Hub 热点信息聚合系统模块化架构</title>
   <desc id="desc">信息来源依次经过采集接入、数据处理、数据存储、聚合服务和产品展示。来源管理、异常监控、失败重试与合规治理为横向保障。</desc>
 
   <defs>
@@ -25,7 +25,7 @@
   </defs>
 
   <rect width="1440" height="560" rx="28" fill="url(#background)"/>
-  <text x="720" y="52" text-anchor="middle" class="title">热点信息聚合系统</text>
+  <text x="720" y="52" text-anchor="middle" class="title">Open2Hub 热点聚合系统</text>
   <text x="720" y="82" text-anchor="middle" class="subtitle">从公开信息来源到统一产品展示的六模块主链路</text>
 
   <g filter="url(#shadow)">
@@ -116,4 +116,3 @@
     <path d="M 1070 390 V 340"/>
   </g>
 </svg>
-

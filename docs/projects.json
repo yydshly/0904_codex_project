@@ -169,12 +169,12 @@
   },
   {
     "order": 110,
-    "slug": "rebang-capability-map",
-    "name": "REBANG 热榜聚合架构",
-    "repository": "https://gitee.com/zhaochenchen/REBANG",
-    "summary": "将以中文互联网为主的公开热榜整理为来源、采集、处理、存储、聚合服务与产品展示六个模块，并明确可观察能力与未公开实现的边界。",
+    "slug": "open2hub",
+    "name": "Open2Hub 热榜聚合架构",
+    "repository": "https://top.open2hub.com/",
+    "summary": "以 Open2Hub 的 REBANG 热榜为研究对象，将公开信息聚合能力整理为来源、采集、处理、存储、聚合服务与产品展示六个模块。",
     "status": "published",
-    "cover": "projects/110-rebang-capability-map/images/architecture.svg",
+    "cover": "projects/110-open2hub/images/architecture.svg",
     "demo": "",
     "tags": [
       "Web Research",
