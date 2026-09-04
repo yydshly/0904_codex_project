@@ -135,18 +135,38 @@ if (errors.length) {
 const orderedProjects = [...projects].sort((a, b) => a.order - b.order);
 const table = orderedProjects.length
   ? [
-      "| 顺序 | 演示图 | 源项目 | 摘要 | 状态 | 研究笔记 | 在线演示 |",
-      "| ---: | :---: | --- | --- | --- | --- | --- |",
+      "| 顺序 | 源项目 | 摘要 | 状态 | 研究笔记 | 在线演示 |",
+      "| ---: | --- | --- | --- | --- | --- |",
       ...orderedProjects.map((project) => {
         const directoryName = `${String(project.order).padStart(3, "0")}-${project.slug}`;
         const projectLink = `[${escapeCell(project.name)}](${project.repository.trim()})`;
         const researchLink = `[查看笔记](projects/${directoryName}/README.md)`;
         const demoLink = project.demo?.trim() ? `[打开 Demo](${project.demo.trim()})` : "—";
-        const preview = `<a href="projects/${directoryName}/README.md"><img src="${escapeAttribute(project.cover)}" alt="${escapeAttribute(project.name)} 演示图" width="280"></a>`;
-        return `| ${String(project.order).padStart(3, "0")} | ${preview} | ${projectLink} | ${escapeCell(project.summary)} | ${statusLabels[project.status]} | ${researchLink} | ${demoLink} |`;
+        return `| ${String(project.order).padStart(3, "0")} | ${projectLink} | ${escapeCell(project.summary)} | ${statusLabels[project.status]} | ${researchLink} | ${demoLink} |`;
       })
     ].join("\n")
   : "> 暂无已收录项目。添加第一个项目后运行 `npm run catalog:update`，索引会自动生成。";
+
+const previews = orderedProjects
+  .map((project) => {
+    const order = String(project.order).padStart(3, "0");
+    const directoryName = `${order}-${project.slug}`;
+    const researchPath = `projects/${directoryName}/README.md`;
+    const sourceLink = `[源项目](${project.repository.trim()})`;
+    const researchLink = `[完整研究笔记](${researchPath})`;
+    const demoLink = project.demo?.trim() ? ` · [在线演示](${project.demo.trim()})` : "";
+    const image = `<a href="${researchPath}"><img src="${escapeAttribute(project.cover)}" alt="${escapeAttribute(project.name)} 演示图" width="760"></a>`;
+
+    return [
+      `#### ${order} · [${escapeCell(project.name)}](${researchPath})`,
+      image,
+      `> ${escapeCell(project.summary)}`,
+      `**状态：** ${statusLabels[project.status]} · ${sourceLink} · ${researchLink}${demoLink}`
+    ].join("\n\n");
+  })
+  .join("\n\n---\n\n");
+
+const indexContent = orderedProjects.length ? `${table}\n\n### 项目图文速览\n\n${previews}` : table;
 
 const currentReadme = await readFile(readmePath, "utf8");
 const markerPattern = new RegExp(`${startMarker}[\\s\\S]*?${endMarker}`);
@@ -156,7 +176,7 @@ if (!markerPattern.test(currentReadme)) {
   process.exit(1);
 }
 
-const nextReadme = currentReadme.replace(markerPattern, `${startMarker}\n\n${table}\n\n${endMarker}`);
+const nextReadme = currentReadme.replace(markerPattern, `${startMarker}\n\n${indexContent}\n\n${endMarker}`);
 const nextPagesData = `${JSON.stringify(orderedProjects, null, 2)}\n`;
 const currentPagesData = (await exists(pagesDataPath)) ? await readFile(pagesDataPath, "utf8") : "";
 
