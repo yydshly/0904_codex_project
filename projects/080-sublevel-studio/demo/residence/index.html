@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="一间可探索的温暖记忆住宅：书桌、相框、唱片与窗景分别承载作品、关系、声音和未来。" />
+    <title>记忆住宅 · Memory Residence</title>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+    <link rel="stylesheet" href="./styles.css" />
+    <script type="importmap">
+      { "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js" } }
+    </script>
+  </head>
+  <body data-node="home" data-scene-state="loading">
+    <a class="skip-link" href="#memory-nav">跳到记忆导航</a>
+
+    <main class="residence" aria-labelledby="residence-title">
+      <canvas id="residence-canvas" aria-label="一间可环绕观察的温暖三维住宅；也可用页面按钮浏览四个记忆节点"></canvas>
+      <div class="fallback-room" aria-hidden="true">
+        <span class="fallback-window"></span>
+        <span class="fallback-sofa"></span>
+        <span class="fallback-table"></span>
+        <span class="fallback-lamp"></span>
+        <span class="fallback-plant"></span>
+      </div>
+      <div class="grain" aria-hidden="true"></div>
+      <div class="scene-vignette" aria-hidden="true"></div>
+
+      <header class="topbar">
+        <a class="back-link" href="../#extensions" aria-label="返回场景图谱">
+          <span aria-hidden="true">←</span>
+          <span>ACT 03 / 场景图谱</span>
+        </a>
+        <div class="residence-mark" aria-label="Memory Residence 记忆住宅">
+          <span class="mark-door" aria-hidden="true"><i></i></span>
+          <strong>MEMORY<br />RESIDENCE</strong>
+        </div>
+        <p class="quality-tag"><i aria-hidden="true"></i> L1–L2 PROCEDURAL SLICE</p>
+      </header>
+
+      <section class="opening-copy" aria-labelledby="residence-title">
+        <p class="eyebrow"><span>ACT 04</span> / 晚灯还亮着</p>
+        <h1 id="residence-title">一间房，<br /><em>记得一个人。</em></h1>
+        <p class="opening-lead">不是参观样板间，而是沿着物件读一段生活。书桌保存作品，相框保存关系，唱片保存声音，窗外保存下一程。</p>
+        <div class="opening-actions">
+          <button class="warm-button" id="tour-button" type="button"><span aria-hidden="true">▶</span><strong>开始住客导览</strong><small>约 24 秒</small></button>
+          <button class="quiet-button" id="home-button" type="button">回到整间房</button>
+          <a class="journey-link" href="./journey/">从庭院进入完整住宅 ↗</a>
+        </div>
+      </section>
+
+      <aside class="scene-status" aria-live="polite">
+        <span id="scene-state">正在点亮晚灯</span>
+        <small>拖拽观察 · 滚轮缩放 · 点击发光物件</small>
+      </aside>
+
+      <aside class="memory-panel" id="memory-panel" aria-live="polite" aria-labelledby="memory-title">
+        <div class="panel-rule"><span id="memory-index">00</span><i></i><span id="memory-type">HOME / 全景</span></div>
+        <h2 id="memory-title">让物件替人开口</h2>
+        <p id="memory-description">这间住宅只放进四类有叙事职责的物件。先看完整空间，再选择一个记忆节点；镜头、灯光与文字会同步靠近。</p>
+        <blockquote id="memory-quote">“温暖不是滤镜，而是生活痕迹之间的关系。”</blockquote>
+        <dl class="memory-proof">
+          <div><dt>空间职责</dt><dd id="memory-role">建立人物与生活的整体印象</dd></div>
+          <div><dt>生产替换</dt><dd id="memory-asset">接入真实住宅布局与授权家具</dd></div>
+        </dl>
+        <button class="panel-close" id="panel-close" type="button" aria-label="关闭详情并回到整间房">ESC / 收起记忆</button>
+      </aside>
+
+      <nav class="memory-nav" id="memory-nav" aria-label="住宅记忆节点">
+        <button class="memory-button is-active" type="button" data-memory="home" aria-pressed="true">
+          <span>00</span><strong>全景</strong><small>回到家</small>
+        </button>
+        <button class="memory-button" type="button" data-memory="desk" aria-pressed="false">
+          <span>01</span><strong>书桌</strong><small>作品</small>
+        </button>
+        <button class="memory-button" type="button" data-memory="gallery" aria-pressed="false">
+          <span>02</span><strong>相框</strong><small>关系</small>
+        </button>
+        <button class="memory-button" type="button" data-memory="sound" aria-pressed="false">
+          <span>03</span><strong>唱片</strong><small>声音</small>
+        </button>
+        <button class="memory-button" type="button" data-memory="window" aria-pressed="false">
+          <span>04</span><strong>窗景</strong><small>未来</small>
+        </button>
+      </nav>
+
+      <div class="loading-state" id="loading-state" role="status">
+        <i aria-hidden="true"></i>
+        <span>正在铺开房间</span>
+      </div>
+
+      <section class="fallback-message" id="fallback-message" aria-label="三维不可用时的住宅文字导览">
+        <p>三维层当前不可用，但记忆内容仍可浏览。</p>
+        <ol>
+          <li><button type="button" data-fallback-memory="desk">书桌 · 作品</button></li>
+          <li><button type="button" data-fallback-memory="gallery">相框 · 关系</button></li>
+          <li><button type="button" data-fallback-memory="sound">唱片 · 声音</button></li>
+          <li><button type="button" data-fallback-memory="window">窗景 · 未来</button></li>
+        </ol>
+      </section>
+
+      <footer class="scene-footer">
+        <span>WARM OAK / LINEN / CLAY / DUSK</span>
+        <span>PROGRAMMATIC ASSETS · NO PERSONAL MEDIA</span>
+      </footer>
+    </main>
+
+    <noscript><p class="noscript-note">请启用 JavaScript 以进入三维住宅；你仍可返回场景图谱阅读完整分析。</p></noscript>
+    <script>
+      window.setTimeout(() => {
+        if (document.body.dataset.sceneState === "loading") document.body.dataset.sceneState = "fallback";
+      }, 6000);
+    </script>
+    <script type="module" src="./main.js"></script>
+  </body>
+</html>

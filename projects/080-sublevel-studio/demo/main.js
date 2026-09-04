@@ -15,6 +15,7 @@ const panelMechanism = $("#panel-mechanism");
 const panelValue = $("#panel-value");
 const tourButton = $("#tour-button");
 const signalButton = $("#signal-button");
+const labSection = $("#lab");
 const nodeButtons = [...document.querySelectorAll("[data-node]")];
 const query = new URLSearchParams(window.location.search);
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches || query.get("motion") === "reduce";
@@ -266,6 +267,7 @@ const postMaterial = new THREE.ShaderMaterial({
 postScene.add(new THREE.Mesh(new THREE.PlaneGeometry(2, 2), postMaterial));
 
 const clock = new THREE.Clock();
+clock.stop();
 const raycaster = new THREE.Raycaster();
 const pointer = new THREE.Vector2(10, 10);
 const drag = { active: false, moved: false, x: 0, y: 0, yaw: 0, pitch: 0 };
@@ -277,6 +279,7 @@ const state = {
 };
 const tourKeys = ["overview", "spatial", "surface", "physics", "postfx", "overview"];
 const trailHistory = Array.from({ length: trailLength }, () => new THREE.Vector3());
+let rendering = false;
 
 function updatePanel(key) {
   const data = capabilities[key];
@@ -449,6 +452,7 @@ function updateTelemetry(delta) {
 }
 
 function render() {
+  if (!rendering) return;
   const delta = Math.min(clock.getDelta(), 0.05);
   const time = clock.elapsedTime;
   updateTour(delta);
@@ -462,7 +466,19 @@ function render() {
   renderer.setRenderTarget(null);
   renderer.render(postScene, postCamera);
   updateTelemetry(delta);
+  if (rendering) requestAnimationFrame(render);
+}
+
+function startRendering() {
+  if (rendering) return;
+  rendering = true;
+  clock.start();
   requestAnimationFrame(render);
+}
+
+function stopRendering() {
+  rendering = false;
+  clock.stop();
 }
 
 function setPointer(event) {
@@ -518,4 +534,8 @@ window.addEventListener("resize", () => {
 
 const initialKey = Object.hasOwn(capabilities, query.get("node")) ? query.get("node") : "overview";
 selectCapability(initialKey, { keepTour: true });
-render();
+const stageObserver = new IntersectionObserver(([entry]) => {
+  if (entry.isIntersecting) startRendering();
+  else stopRendering();
+}, { threshold: 0.02 });
+stageObserver.observe(labSection);

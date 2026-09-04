@@ -3,30 +3,108 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="独立原创的 Three.js 能力实验台，解释 Sublevel Studio 体现的空间叙事、实时纹理、交互反馈和后期合成模式。" />
+    <meta name="description" content="先运行 Sublevel Studio 上游原作，再拆解沉浸式网站机制，并比较记忆住宅等七种可扩展 3D 场景。" />
     <title>Sublevel Studio · Capability Lab</title>
     <link rel="preconnect" href="https://cdn.jsdelivr.net" />
-    <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="./styles.css?v=7" />
     <script type="importmap">
       { "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js" } }
     </script>
   </head>
   <body>
     <header class="topbar">
-      <a class="brand" href="#top"><span class="brand-mark" aria-hidden="true"></span><span>CAPABILITY / LAB 080</span></a>
-      <span class="topbar-note">INDEPENDENT STUDY · NO UPSTREAM ASSETS</span>
-      <a class="source-link" href="https://github.com/MengTo/sublevel-studio" target="_blank" rel="noreferrer">SOURCE ↗</a>
+      <a class="brand" href="#top"><span class="brand-mark" aria-hidden="true"></span><span>ORIGINAL → LAB 080</span></a>
+      <span class="topbar-note">SUMMARY · ORIGINAL · MECHANISM · WORLDS · RESIDENCE</span>
+      <a class="source-link" href="https://github.com/MengTo/sublevel-studio" target="_blank" rel="noreferrer">REPO ↗</a>
     </header>
 
     <main id="top">
-      <section class="hero" aria-labelledby="hero-title">
+      <section class="research-summary" id="summary" aria-labelledby="summary-title">
+        <div class="summary-copy">
+          <p class="eyebrow">RESEARCH SUMMARY / FIVE RUNNABLE SURFACES</p>
+          <h1 id="summary-title">3D 不是目的，<br /><em>内容才是空间。</em></h1>
+          <p class="summary-lead">Sublevel Studio 证明了网页可以同时是一座空间、一组可玩规则和一份可读作品集。我们保留原作作为证据，再用四个独立样例验证机制、扩展方向与“记忆住宅”产品路线。</p>
+
+          <dl class="summary-verdict">
+            <div><dt>本质</dt><dd>状态驱动的 WebGL + DOM 叙事</dd></div>
+            <div><dt>最适合</dt><dd>作品集、品牌发布、互动展览</dd></div>
+            <div><dt>首选扩展</dt><dd>以真实内容为核心的记忆住宅</dd></div>
+          </dl>
+
+          <div class="summary-actions">
+            <a class="action action-primary" href="#original">先看上游原作</a>
+            <a class="action" href="./residence/journey/">直接进入庭院住宅 ↗</a>
+          </div>
+
+          <p class="summary-boundary"><strong>许可边界</strong> 上游未提供开源许可证；网页内的研究原型均为独立实现，不复制其模型、图片或页面代码。</p>
+        </div>
+
+        <nav class="sample-index" aria-label="Sublevel Studio 研究样例索引">
+          <header><span>RUNNABLE INDEX</span><strong>05 个可验证样例</strong><small>从原作证据到住宅扩展</small></header>
+          <a href="#original"><span>01</span><div><strong>上游原作</strong><small>京都大厅 · 街机 · 篮球 · CRT · 作品集</small></div><em>原作证据</em><b>↓</b></a>
+          <a href="#lab"><span>02</span><div><strong>机制实验台</strong><small>空间状态 · CanvasTexture · 反馈 · Shader</small></div><em>独立证明</em><b>↓</b></a>
+          <a href="#extensions"><span>03</span><div><strong>七种扩展世界</strong><small>比较场景价值、素材难度与实现路线</small></div><em>方向图谱</em><b>↓</b></a>
+          <a href="./residence/"><span>04</span><div><strong>半开记忆住宅</strong><small>一间客厅书房 · 四个记忆节点</small></div><em>空间切片</em><b>↗</b></a>
+          <a class="is-featured" href="./residence/journey/"><span>05</span><div><strong>庭院入户住宅</strong><small>庭院 → 玄关 → 多房间完整导览</small></div><em>推荐体验</em><b>↗</b></a>
+        </nav>
+      </section>
+
+      <section class="original-stage" id="original" aria-labelledby="original-title">
+        <div class="original-copy">
+          <p class="eyebrow">ACT 01 / ORIGINAL EXPERIENCE</p>
+          <h1 id="original-title">先看原作，<br /><em>再拆机制。</em></h1>
+          <p class="original-lead">
+            右侧运行的是 Meng To 的 Sublevel Studio 原始项目，不是复刻。它把京都町屋大厅、街机、篮球、CRT 作品屏和编辑型作品集装进一个单页体验。
+          </p>
+          <ol class="original-capabilities" aria-label="原作能力导览">
+            <li><span>01</span><div><strong>探索 3D 大厅</strong><small>移动指针，观察空间、人物、光影与 VHS 质感。</small></div></li>
+            <li><span>02</span><div><strong>玩街机与投篮</strong><small>点击大厅里的街机、篮球或对应提示，进入可玩模式。</small></div></li>
+            <li><span>03</span><div><strong>打开 CRT 作品屏</strong><small>从空间节点进入作品内容，再继续向下浏览 DOM 作品集。</small></div></li>
+            <li><span>04</span><div><strong>切换菜单与机器视图</strong><small>观察 3D 投影菜单和面向 Agent 的机器可读表达。</small></div></li>
+          </ol>
+          <div class="original-actions">
+            <button class="action action-primary source-toggle" id="local-original" type="button" hidden>本地快照</button>
+            <button class="action source-toggle" id="official-original" type="button">官方在线版</button>
+            <a class="action action-link" id="original-fullscreen" href="https://mengto.github.io/sublevel-studio/" target="_blank" rel="noreferrer">全屏体验 ↗</a>
+            <a class="text-link" href="#lab">看完原作，进入机制实验台 ↓</a>
+          </div>
+        </div>
+
+        <div class="original-view">
+          <div class="frame-toolbar">
+            <span><i aria-hidden="true"></i> LIVE UPSTREAM</span>
+            <span id="original-origin">CHECKING LOCAL SNAPSHOT…</span>
+          </div>
+          <div class="frame-shell">
+            <iframe
+              id="original-frame"
+              title="Sublevel Studio 上游原始体验"
+              src="about:blank"
+              loading="lazy"
+              allow="fullscreen"
+            ></iframe>
+            <div class="frame-loading" id="frame-loading" role="status">
+              <span></span><strong>正在载入原作</strong><small>页面包含实时 Three.js 场景，首次载入需要一点时间。</small>
+            </div>
+          </div>
+          <p class="frame-note"><strong>直接操作右侧页面。</strong> 若嵌入视图尺寸受限，可使用“全屏体验”。本地开发时优先展示已获取的 commit 快照，发布环境回退到官方在线页。</p>
+        </div>
+      </section>
+
+      <section class="chapter-break" aria-labelledby="chapter-title">
+        <p class="eyebrow">ACT 02 / INDEPENDENT PROOF</p>
+        <h2 id="chapter-title">原作看到了。<br />现在看它为什么成立。</h2>
+        <p>下面是独立原创的机制实验台，不使用上游模型、图片或页面代码，用最小实现验证四条可迁移能力链路。</p>
+      </section>
+
+      <section class="hero" id="lab" aria-labelledby="hero-title">
         <canvas id="scene" aria-label="可交互的三维能力实验室；也可使用页面上的文字按钮浏览"></canvas>
         <div class="ambient-grid" aria-hidden="true"></div>
 
         <div class="hero-copy">
-          <p class="eyebrow">THREE.JS EXPERIENCE, DECONSTRUCTED</p>
+          <p class="eyebrow">ACT 02 / THREE.JS DECONSTRUCTED</p>
           <h1 id="hero-title">把网页做成一座<br /><em>会回应的空间。</em></h1>
-          <p class="lead">这不是对原站的复刻，而是一份可运行的机制说明书：用一个场景、四个证据节点，体验它如何把品牌展示、内容浏览与小游戏组织在同一套实时循环中。</p>
+          <p class="lead">这部分不是对原站的复刻，而是一份可运行的机制说明书：用一个场景、四个证据节点，验证它如何把品牌展示、内容浏览与小游戏组织在同一套实时循环中。</p>
           <div class="primary-actions">
             <button class="action action-primary" id="tour-button" type="button">开始 40 秒导览</button>
             <button class="action" id="signal-button" type="button">发射信号球 <kbd>Space</kbd></button>
@@ -85,6 +163,119 @@
         </div>
       </section>
 
+      <section class="extensions" id="extensions" aria-labelledby="extensions-title">
+        <div class="section-heading extensions-heading">
+          <p class="eyebrow">ACT 03 / EXPANSION ATLAS</p>
+          <h2 id="extensions-title">一个 3D 外壳，<br /><em>七种可进入的世界。</em></h2>
+          <p>这些方向共享空间节点、镜头导演、DOM 详情和性能降级；真正拉开质量差距的，是空间隐喻是否贴合内容，以及素材能否承载可信的情绪。</p>
+        </div>
+
+        <div class="scene-explorer">
+          <nav class="scene-list" aria-label="可扩展场景方向">
+            <button class="scene-choice is-active" type="button" data-scene="memory" aria-pressed="true"><span>01</span><strong>记忆住宅</strong><small>情绪价值最高 · 素材难度高</small></button>
+            <button class="scene-choice" type="button" data-scene="museum" aria-pressed="false"><span>02</span><strong>技术研究博物馆</strong><small>知识组织清晰 · 复用度高</small></button>
+            <button class="scene-choice" type="button" data-scene="control" aria-pressed="false"><span>03</span><strong>AI 能力控制中心</strong><small>实时状态强 · 情绪偏理性</small></button>
+            <button class="scene-choice" type="button" data-scene="studio" aria-pressed="false"><span>04</span><strong>数字创意工作室</strong><small>作品适配自然 · 品牌感强</small></button>
+            <button class="scene-choice" type="button" data-scene="factory" aria-pressed="false"><span>05</span><strong>产品制造工厂</strong><small>适合解释流程 · 结构明确</small></button>
+            <button class="scene-choice" type="button" data-scene="city" aria-pressed="false"><span>06</span><strong>微缩产品城市</strong><small>关系表达强 · 制作规模大</small></button>
+            <button class="scene-choice" type="button" data-scene="case" aria-pressed="false"><span>07</span><strong>案例调查室</strong><small>叙事密度高 · 成本可控</small></button>
+          </nav>
+
+          <article class="scene-focus" id="scene-focus" data-scene="memory" aria-live="polite">
+            <div class="scene-focus-copy">
+              <p class="scene-kicker" id="scene-kicker">PRIMARY DIRECTION / 01</p>
+              <h3 id="scene-title">记忆住宅</h3>
+              <p id="scene-summary">把履历变成一套住过的房子：书桌保存作品，相册保存关系，电视保存影像，窗外景色保存人生阶段。空间不是背景，而是记忆的索引。</p>
+              <dl class="scene-facts">
+                <div><dt>最适合</dt><dd id="scene-use">个人作品、人生档案、创作者品牌</dd></div>
+                <div><dt>情绪潜力</dt><dd id="scene-emotion">极高</dd></div>
+                <div><dt>素材难度</dt><dd id="scene-assets">高 · 需要真实照片与英雄道具</dd></div>
+                <div><dt>推荐路线</dt><dd id="scene-route">故事优先 + 模块化住宅 + 5–8 件定制物件</dd></div>
+              </dl>
+            </div>
+
+            <div class="scene-blueprint" role="img" aria-label="所选场景的四区空间结构示意">
+              <span class="blueprint-axis">SPATIAL STORY MAP</span>
+              <div class="room-plan">
+                <div class="room-cell room-a"><span id="scene-zone-1">门厅<br />身份</span></div>
+                <div class="room-cell room-b"><span id="scene-zone-2">客厅<br />关系</span></div>
+                <div class="room-cell room-c"><span id="scene-zone-3">书房<br />作品</span></div>
+                <div class="room-cell room-d"><span id="scene-zone-4">阳台<br />未来</span></div>
+                <i class="memory-orb" aria-hidden="true"></i>
+              </div>
+              <p id="scene-note">物件必须有故事职责：没有内容证据的家具，只会增加加载成本。</p>
+            </div>
+          </article>
+        </div>
+
+        <div class="memory-deep-dive" aria-labelledby="memory-title">
+          <header class="memory-intro">
+            <p class="eyebrow">DEEP DIVE / MEMORY RESIDENCE</p>
+            <h2 id="memory-title">让房间保存人生，<br />而不是堆满模型。</h2>
+            <p>记忆住宅最难的不是 Three.js，而是把个人内容转成可信的空间叙事。先确定哪些记忆值得进入房间，再决定需要制作哪些资产。</p>
+          </header>
+
+          <ol class="memory-route" aria-label="记忆住宅五段空间脚本">
+            <li><span>01</span><div><strong>门厅 · 我是谁</strong><p>用一件标志性物品建立身份，不在入口堆完整简历。</p></div></li>
+            <li><span>02</span><div><strong>客厅 · 我在乎什么</strong><p>照片、声音和生活物件建立情绪可信度与人与人的关系。</p></div></li>
+            <li><span>03</span><div><strong>书房 · 我做成过什么</strong><p>电脑、草图墙和样机承载真实项目证据，并打开 DOM 案例页。</p></div></li>
+            <li><span>04</span><div><strong>记忆走廊 · 我如何变化</strong><p>用年份、门与光线组织阶段，不用悬浮卡片代替故事。</p></div></li>
+            <li><span>05</span><div><strong>阳台 · 我想去哪里</strong><p>以安静的远景和一个明确行动结束体验，形成最终记忆点。</p></div></li>
+          </ol>
+
+          <div class="analysis-grid">
+            <section class="asset-ladder" aria-labelledby="asset-title">
+              <p class="analysis-label">ASSET QUALITY GATE</p>
+              <h3 id="asset-title">素材决定上限，代码保证下限</h3>
+              <div class="ladder-steps">
+                <article><span>L1</span><strong>叙事灰盒</strong><p>基础几何、镜头和灯光，只验证房间关系与节奏。仅用于内部原型。</p></article>
+                <article><span>L2</span><strong>模块化住宅</strong><p>购买或自制可授权的墙体、门窗与基础家具，统一比例、UV 和材质。</p></article>
+                <article><span>L3</span><strong>英雄物件</strong><p>定制 5–8 件近景物品，加入真实照片、作品视频、声音与磨损细节。</p></article>
+                <article><span>L4</span><strong>真实空间捕捉</strong><p>只在确有原型住宅时采用摄影测量或 3DGS；作为高成本可选层，而非默认路线。</p></article>
+              </div>
+            </section>
+
+            <section class="implementation-stack" aria-labelledby="stack-title">
+              <p class="analysis-label">IMPLEMENTATION STACK</p>
+              <h3 id="stack-title">把资产和故事接入同一运行时</h3>
+              <div class="stack-flow" role="img" aria-label="内容模型依次进入空间图、资产注册表和导演状态，最后同步驱动 WebGL 与 DOM">
+                <div><span>01</span><strong>CONTENT</strong><small>人物 / 项目 / 年份 / 媒体</small></div><i>→</i>
+                <div><span>02</span><strong>ROOM GRAPH</strong><small>房间 / 门 / 记忆节点</small></div><i>→</i>
+                <div><span>03</span><strong>ASSET REGISTRY</strong><small>GLB / KTX2 / 音频 / 版权</small></div><i>→</i>
+                <div><span>04</span><strong>DIRECTOR</strong><small>镜头 / 状态 / 导览 / 恢复</small></div>
+              </div>
+              <div class="stack-output"><span>WEBGL</span><strong>空间、材质、光影、情绪</strong><span>DOM</span><strong>文字、案例、链接、无障碍</strong></div>
+            </section>
+          </div>
+
+          <section class="build-roadmap" aria-labelledby="roadmap-title">
+            <div><p class="analysis-label">DELIVERY ROADMAP</p><h3 id="roadmap-title">先做一间可信的房，<br />再扩成整套住宅</h3></div>
+            <ol>
+              <li><span>01</span><strong>情绪原型</strong><p>只做书房与一件英雄物件，验证光线、镜头、声音和案例打开方式。</p></li>
+              <li><span>02</span><strong>资产纵切</strong><p>把一个近景做到 L3，验证建模、贴图、压缩、加载和移动端预算。</p></li>
+              <li><span>03</span><strong>内容引擎</strong><p>以 JSON/MDX 驱动房间节点、媒体、DOM 详情、深链接和自动导览。</p></li>
+              <li><span>04</span><strong>生产加固</strong><p>加入分区懒加载、LOD、低性能模式、减少动态、隐私和素材授权清单。</p></li>
+            </ol>
+          </section>
+
+          <div class="residence-launches" aria-label="记忆住宅样例">
+            <a class="residence-launch" href="./residence/">
+              <span><small>ACT 04 / SEMI-OPEN SLICE</small><strong>半开客厅书房</strong></span>
+              <span aria-hidden="true">↗</span>
+            </a>
+            <a class="residence-launch is-journey" href="./residence/journey/">
+              <span><small>ACT 05 / COURTYARD JOURNEY</small><strong>从庭院走进家</strong></span>
+              <span aria-hidden="true">↗</span>
+            </a>
+          </div>
+
+          <div class="production-boundary">
+            <strong>当前结论</strong>
+            <p>已完成“一间客厅书房 + 四个记忆节点”的 L1–L2 程序化垂直切片，用来验证空间、镜头、光线与 DOM 内容如何协作。没有个人照片、视频、声音和可授权模型前，它仍是叙事与技术原型，不能宣称完成高品质住宅。</p>
+          </div>
+        </div>
+      </section>
+
       <section class="boundary" aria-labelledby="boundary-title">
         <p class="eyebrow">BOUNDARY</p>
         <h2 id="boundary-title">这是机制证明，不是源码再发行。</h2>
@@ -92,6 +283,8 @@
         <a href="../README.md">阅读完整研究笔记 →</a>
       </section>
     </main>
+    <script src="./original.js"></script>
+    <script src="./scenes.js"></script>
     <script type="module" src="./main.js"></script>
   </body>
 </html>

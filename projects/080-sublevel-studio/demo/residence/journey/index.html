@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="从暮色庭院进入一套多房间记忆住宅：玄关、客厅、书房、记忆廊与后院露台分别承载不同内容。" />
+    <title>记忆住宅 · 庭院入户</title>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+    <link rel="stylesheet" href="./styles.css?v=2" />
+    <script type="importmap">
+      { "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js" } }
+    </script>
+  </head>
+  <body data-zone="courtyard" data-scene-state="loading" data-journey="idle">
+    <a class="skip-link" href="#room-route">跳到房间路线</a>
+
+    <main class="journey" aria-labelledby="zone-title">
+      <canvas id="journey-canvas" aria-label="从庭院进入多房间住宅的三维导览；也可使用页面上的房间按钮浏览"></canvas>
+      <div class="fallback-world" aria-hidden="true">
+        <span class="fallback-moon"></span>
+        <span class="fallback-house"><i></i></span>
+        <span class="fallback-path"></span>
+        <span class="fallback-tree"></span>
+        <span class="fallback-pond"></span>
+      </div>
+      <div class="vignette" aria-hidden="true"></div>
+      <div class="grain" aria-hidden="true"></div>
+
+      <header class="topbar">
+        <a class="back-link" href="../" aria-label="返回半开住宅样例"><span aria-hidden="true">←</span><span>ACT 04 / 半开住宅</span></a>
+        <div class="brand-mark"><span aria-hidden="true"><i></i></span><strong>MEMORY<br />HOUSE ROUTE</strong></div>
+        <div class="route-progress" aria-label="导览进度"><span id="progress-index">01</span><i><b id="progress-bar"></b></i><span>06</span></div>
+      </header>
+
+      <section class="zone-copy" aria-labelledby="zone-title">
+        <p class="zone-kicker" id="zone-kicker">01 / COURTYARD · 庭院</p>
+        <h1 id="zone-title">先看见一盏灯，<br /><em>再决定走进去。</em></h1>
+        <p class="zone-intro" id="zone-intro">石径把视线带向家门。水、树影和窗里的暖光先建立“有人在等你”的感觉，入口因此不只是加载页，而是故事的第一幕。</p>
+        <div class="zone-actions">
+          <button class="enter-button" id="enter-button" type="button"><span aria-hidden="true">→</span><strong id="enter-label">沿石径走进家门</strong><small id="enter-note">约 4 秒</small></button>
+          <button class="tour-button" id="tour-button" type="button"><span aria-hidden="true">▶</span><strong>完整导览</strong><small>约 30 秒</small></button>
+        </div>
+      </section>
+
+      <aside class="zone-panel" id="zone-panel" aria-live="polite" aria-labelledby="panel-title">
+        <div class="panel-head"><span id="panel-room">COURTYARD</span><i></i><span id="panel-layout">前庭 / 入口</span></div>
+        <h2 id="panel-title">庭院不是装饰，是情绪门槛</h2>
+        <p id="panel-description">进入房屋之前，先给访客一个能停留的外部空间。动线只做一件事：从院门、石径到亮着的家门。</p>
+        <dl>
+          <div><dt>空间布局</dt><dd id="panel-space">水庭在左，树与石灯在右，中轴石径保持清楚</dd></div>
+          <div><dt>展示方式</dt><dd id="panel-display">门牌、季节、时间与一句欢迎语</dd></div>
+          <div><dt>内容替换</dt><dd id="panel-content">真实住宅外观、城市与季节记忆</dd></div>
+        </dl>
+        <button id="panel-close" class="panel-close" type="button">ESC / 返回庭院</button>
+      </aside>
+
+      <aside class="floor-map" aria-label="住宅平面与当前位置">
+        <p>HOUSE MAP</p>
+        <div class="map-grid">
+          <button type="button" data-map-zone="terrace" style="--mx: 2; --my: 1">露台</button>
+          <button type="button" data-map-zone="gallery" style="--mx: 2; --my: 2">记忆廊</button>
+          <button type="button" data-map-zone="living" style="--mx: 1; --my: 3">客厅</button>
+          <button type="button" data-map-zone="foyer" style="--mx: 2; --my: 3">玄关</button>
+          <button type="button" data-map-zone="study" style="--mx: 3; --my: 3">书房</button>
+          <button type="button" data-map-zone="courtyard" style="--mx: 2; --my: 4">庭院</button>
+          <i class="map-route" aria-hidden="true"></i>
+        </div>
+        <span id="map-caption">当前位置：庭院 · 下一站：玄关</span>
+      </aside>
+
+      <nav class="room-route" id="room-route" aria-label="住宅房间路线">
+        <button class="room-button is-active" type="button" data-room="courtyard" aria-pressed="true"><span>01</span><strong>庭院</strong><small>期待</small></button>
+        <button class="room-button" type="button" data-room="foyer" aria-pressed="false"><span>02</span><strong>玄关</strong><small>身份</small></button>
+        <button class="room-button" type="button" data-room="living" aria-pressed="false"><span>03</span><strong>客厅</strong><small>关系</small></button>
+        <button class="room-button" type="button" data-room="study" aria-pressed="false"><span>04</span><strong>书房</strong><small>作品</small></button>
+        <button class="room-button" type="button" data-room="gallery" aria-pressed="false"><span>05</span><strong>记忆廊</strong><small>时间</small></button>
+        <button class="room-button" type="button" data-room="terrace" aria-pressed="false"><span>06</span><strong>露台</strong><small>未来</small></button>
+      </nav>
+
+      <div class="scene-status" aria-live="polite"><i></i><span id="scene-status">庭院晚风 · 家门已亮</span></div>
+
+      <section class="fallback-route" id="fallback-route" aria-label="三维不可用时的房间路线">
+        <p>三维层当前不可用，仍可按路线浏览每个空间。</p>
+        <div>
+          <button type="button" data-fallback-room="courtyard">01 庭院</button>
+          <button type="button" data-fallback-room="foyer">02 玄关</button>
+          <button type="button" data-fallback-room="living">03 客厅</button>
+          <button type="button" data-fallback-room="study">04 书房</button>
+          <button type="button" data-fallback-room="gallery">05 记忆廊</button>
+          <button type="button" data-fallback-room="terrace">06 露台</button>
+        </div>
+      </section>
+
+      <div class="loading-state" role="status"><i></i><span>正在打开院门</span></div>
+      <footer><span>ONE PLANE · SIX STABLE ZONES · MOTIVATED LIGHTS</span><span>PROCEDURAL PROTOTYPE · NO PERSONAL MEDIA</span></footer>
+    </main>
+
+    <script>
+      window.setTimeout(() => {
+        if (document.body.dataset.sceneState === "loading") document.body.dataset.sceneState = "fallback";
+      }, 6000);
+    </script>
+    <script type="module" src="./main.js?v=8"></script>
+  </body>
+</html>
