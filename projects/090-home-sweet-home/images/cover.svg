@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
+  <title id="title">Home Sweet Home 四态空间 Morph 能力图</title>
+  <desc id="desc">花园、客厅、餐厅和卧室四个空间围绕中央 Morph 控制核，通过程序化几何、Shader、动态光照和交互完成连续换景。</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#081923"/>
+      <stop offset="0.55" stop-color="#123744"/>
+      <stop offset="1" stop-color="#071117"/>
+    </linearGradient>
+    <radialGradient id="glow">
+      <stop offset="0" stop-color="#f4a261" stop-opacity=".58"/>
+      <stop offset="1" stop-color="#f4a261" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="platform" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f5f0e1"/>
+      <stop offset="1" stop-color="#c7b991"/>
+    </linearGradient>
+    <filter id="soft"><feGaussianBlur stdDeviation="18"/></filter>
+    <filter id="shadow"><feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#000" flood-opacity=".34"/></filter>
+  </defs>
+
+  <rect width="1280" height="720" fill="url(#bg)"/>
+  <circle cx="640" cy="366" r="250" fill="url(#glow)" filter="url(#soft)"/>
+  <g fill="none" stroke="#a8dadc" stroke-opacity=".14">
+    <path d="M0 585H1280"/><path d="M0 626H1280"/><path d="M0 667H1280"/>
+    <path d="M120 0V720"/><path d="M320 0V720"/><path d="M960 0V720"/><path d="M1160 0V720"/>
+  </g>
+
+  <g font-family="Arial, Helvetica, sans-serif">
+    <text x="72" y="82" fill="#e9c46a" font-size="16" font-weight="700" letter-spacing="5">THREE.JS CAPABILITY STUDY · 090</text>
+    <text x="72" y="140" fill="#f5f0e1" font-size="54" font-weight="700">Home Sweet Home</text>
+    <text x="74" y="178" fill="#a8dadc" font-size="21" letter-spacing="2">ONE STAGE · FOUR EVOLVING SPACES</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <ellipse cx="640" cy="495" rx="440" ry="108" fill="#071117" opacity=".7"/>
+    <path d="M224 431C224 374 410 328 640 328s416 46 416 103v74c0 58-186 104-416 104S224 563 224 505z" fill="#102b36" stroke="#e9c46a" stroke-width="5"/>
+    <ellipse cx="640" cy="431" rx="416" ry="103" fill="url(#platform)" stroke="#fff8e8" stroke-width="8"/>
+  </g>
+
+  <g fill="none" stroke="#264653" stroke-width="8" stroke-linecap="round">
+    <path d="M640 428L402 386"/><path d="M640 428L518 500"/><path d="M640 428L762 500"/><path d="M640 428L878 386"/>
+  </g>
+
+  <g font-family="Arial, Helvetica, sans-serif" text-anchor="middle">
+    <g transform="translate(400 350)">
+      <circle r="74" fill="#456d3f" stroke="#a8dadc" stroke-width="4"/>
+      <circle cx="-22" cy="-10" r="25" fill="#83a95d"/><circle cx="18" cy="-26" r="32" fill="#6a994e"/>
+      <path d="M-42 35V5M5 42V-2M36 36V8" stroke="#e8dcc4" stroke-width="7"/>
+      <text y="104" fill="#f5f0e1" font-size="18" font-weight="700" letter-spacing="2">GARDEN</text>
+    </g>
+    <g transform="translate(500 508)">
+      <circle r="70" fill="#d8c7a2" stroke="#f4a261" stroke-width="4"/>
+      <path d="M-42 10h84v31h-84zM-34-19h68q14 0 14 14v18h-96V-5q0-14 14-14z" fill="#f5f0e1" stroke="#264653" stroke-width="5"/>
+      <text y="102" fill="#f5f0e1" font-size="18" font-weight="700" letter-spacing="2">LIVING</text>
+    </g>
+    <g transform="translate(780 508)">
+      <circle r="70" fill="#c89d67" stroke="#e9c46a" stroke-width="4"/>
+      <ellipse cy="-4" rx="46" ry="18" fill="#f5f0e1" stroke="#264653" stroke-width="5"/>
+      <path d="M0 14v39M-34 12l-13 37M34 12l13 37" stroke="#264653" stroke-width="7"/>
+      <text y="102" fill="#f5f0e1" font-size="18" font-weight="700" letter-spacing="2">DINING</text>
+    </g>
+    <g transform="translate(880 350)">
+      <circle r="74" fill="#889cac" stroke="#a8dadc" stroke-width="4"/>
+      <path d="M-48-2h96v48h-96zM-42-28h47q25 0 25 26h-72z" fill="#f5f0e1" stroke="#264653" stroke-width="5"/>
+      <text y="104" fill="#f5f0e1" font-size="18" font-weight="700" letter-spacing="2">BEDROOM</text>
+    </g>
+
+    <g transform="translate(640 418)">
+      <circle r="98" fill="#102b36" stroke="#f4a261" stroke-width="6"/>
+      <circle r="75" fill="none" stroke="#a8dadc" stroke-opacity=".4" stroke-width="2" stroke-dasharray="5 9"/>
+      <path d="M-39-10h68l-16-16M29-10L13 6" fill="none" stroke="#e9c46a" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+      <text y="40" fill="#f5f0e1" font-size="22" font-weight="700" letter-spacing="4">MORPH</text>
+    </g>
+  </g>
+
+  <g transform="translate(1096 92)">
+    <circle r="42" fill="#e9c46a"/>
+    <path d="M15-23A31 31 0 1 0 31 16 25 25 0 0 1 15-23z" fill="#163845"/>
+    <circle cx="-34" cy="-31" r="3" fill="#f5f0e1"/><circle cx="41" cy="-9" r="3" fill="#f5f0e1"/>
+  </g>
+
+  <g font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700" letter-spacing="1.5">
+    <g transform="translate(72 654)"><rect width="188" height="38" rx="19" fill="#264653" stroke="#a8dadc" stroke-opacity=".5"/><text x="94" y="25" text-anchor="middle" fill="#f5f0e1">PROCEDURAL GEO</text></g>
+    <g transform="translate(278 654)"><rect width="146" height="38" rx="19" fill="#264653" stroke="#a8dadc" stroke-opacity=".5"/><text x="73" y="25" text-anchor="middle" fill="#f5f0e1">GLSL FX</text></g>
+    <g transform="translate(442 654)"><rect width="188" height="38" rx="19" fill="#264653" stroke="#a8dadc" stroke-opacity=".5"/><text x="94" y="25" text-anchor="middle" fill="#f5f0e1">DYNAMIC LIGHT</text></g>
+    <g transform="translate(648 654)"><rect width="178" height="38" rx="19" fill="#264653" stroke="#a8dadc" stroke-opacity=".5"/><text x="89" y="25" text-anchor="middle" fill="#f5f0e1">ORBIT + ZOOM</text></g>
+    <g transform="translate(844 654)"><rect width="176" height="38" rx="19" fill="#264653" stroke="#a8dadc" stroke-opacity=".5"/><text x="88" y="25" text-anchor="middle" fill="#f5f0e1">STATIC DEPLOY</text></g>
+  </g>
+</svg>
+

@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title description">
+  <title id="title">Sublevel Studio 能力实验台封面</title>
+  <desc id="description">深色网格空间中，一个黄绿色核心连接四个能力节点，旁边标注空间叙事、实时表面、交互循环与后期合成。</desc>
+  <defs>
+    <radialGradient id="bg" cx="55%" cy="44%" r="70%"><stop offset="0" stop-color="#1c2a28"/><stop offset=".52" stop-color="#0c1113"/><stop offset="1" stop-color="#07090c"/></radialGradient>
+    <linearGradient id="beam"><stop stop-color="#c9ff47" stop-opacity="0"/><stop offset=".5" stop-color="#c9ff47"/><stop offset="1" stop-color="#67d7ff" stop-opacity="0"/></linearGradient>
+    <filter id="glow" x="-100%" y="-100%" width="300%" height="300%"><feGaussianBlur stdDeviation="20" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <pattern id="grid" width="52" height="52" patternUnits="userSpaceOnUse"><path d="M52 0H0V52" fill="none" stroke="#edf1e7" stroke-opacity=".075"/></pattern>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/><rect width="1600" height="900" fill="url(#grid)"/><path d="M160 680H1440" stroke="url(#beam)" stroke-width="2"/>
+  <g fill="none" stroke="#c9ff47" filter="url(#glow)" transform="translate(830 435)">
+    <ellipse rx="132" ry="54" transform="rotate(-16)" stroke-width="3" opacity=".85"/><ellipse rx="132" ry="54" transform="rotate(48)" stroke-width="3" opacity=".7"/><ellipse rx="132" ry="54" transform="rotate(108)" stroke="#67d7ff" stroke-width="3" opacity=".7"/>
+    <path d="M0-66 58-33 58 33 0 66-58 33-58-33Z" fill="#b7e944" fill-opacity=".6" stroke-width="2"/>
+  </g>
+  <g font-family="Arial, Helvetica, sans-serif"><text x="92" y="105" fill="#c9ff47" font-family="monospace" font-size="18" font-weight="700" letter-spacing="4">PROJECT 080 · INDEPENDENT STUDY</text><text x="92" y="185" fill="#edf1e7" font-size="70" font-weight="600" letter-spacing="-4">SUBLEVEL STUDIO</text><text x="92" y="246" fill="#9aa69d" font-size="31">CAPABILITY LAB / 能力实验台</text></g>
+  <g font-family="monospace" font-size="17">
+    <g transform="translate(140 510)"><circle r="42" fill="#111817" stroke="#c9ff47" stroke-width="2"/><text x="-12" y="6" fill="#c9ff47">01</text><text x="68" y="-4" fill="#edf1e7" font-weight="700">SPATIAL STORY</text><text x="68" y="24" fill="#82908a">场景即信息架构</text></g>
+    <g transform="translate(485 674)"><circle r="42" fill="#111817" stroke="#67d7ff" stroke-width="2"/><text x="-12" y="6" fill="#67d7ff">02</text><text x="68" y="-4" fill="#edf1e7" font-weight="700">LIVE SURFACE</text><text x="68" y="24" fill="#82908a">Canvas → Texture</text></g>
+    <g transform="translate(1040 666)"><circle r="42" fill="#111817" stroke="#ffb56b" stroke-width="2"/><text x="-12" y="6" fill="#ffb56b">03</text><text x="68" y="-4" fill="#edf1e7" font-weight="700">INTERACTION LOOP</text><text x="68" y="24" fill="#82908a">输入 → 模拟 → 回应</text></g>
+    <g transform="translate(1288 426)"><circle r="42" fill="#111817" stroke="#e6a6ff" stroke-width="2"/><text x="-12" y="6" fill="#e6a6ff">04</text><text x="-190" y="-4" text-anchor="end" fill="#edf1e7" font-weight="700">POST COMPOSITE</text><text x="-190" y="24" text-anchor="end" fill="#82908a">RenderTarget → Shader</text></g>
+  </g>
+  <g stroke="#edf1e7" stroke-opacity=".18" stroke-dasharray="6 8"><path d="M182 510 704 442"/><path d="M527 674 770 530"/><path d="M1040 666 897 525"/><path d="M1246 426 962 435"/></g>
+  <rect x="92" y="810" width="1416" height="1" fill="#edf1e7" opacity=".18"/><text x="92" y="852" fill="#75817b" font-family="monospace" font-size="15" letter-spacing="2">ORIGINAL PROTOTYPE · NO UPSTREAM MEDIA OR EMBEDDED ASSETS</text>
+</svg>

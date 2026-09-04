@@ -1,0 +1,232 @@
+{
+  "groups": [
+    {
+      "id": "seed9",
+      "x": 0,
+      "y": 0,
+      "axis": "x",
+      "items": [
+        {
+          "id": "seed1",
+          "kind": "topAppBar",
+          "label": "タイトル",
+          "icon": "menu",
+          "variant": "filled",
+          "icon2": "more_vert"
+        }
+      ]
+    },
+    {
+      "id": "seed10",
+      "x": 16,
+      "y": 96,
+      "axis": "x",
+      "items": [
+        {
+          "id": "seed2",
+          "kind": "button",
+          "label": "お気に入り",
+          "icon": "star",
+          "variant": "filled"
+        },
+        {
+          "id": "seed3",
+          "kind": "button",
+          "label": "共有",
+          "icon": "share",
+          "variant": "tonal"
+        }
+      ]
+    },
+    {
+      "id": "seed11",
+      "x": 16,
+      "y": 184,
+      "axis": "y",
+      "items": [
+        {
+          "id": "seed4",
+          "kind": "listItem",
+          "label": "受信トレイ",
+          "icon": "inbox",
+          "variant": "filled",
+          "supporting": "サブテキスト",
+          "icon2": "chevron_right",
+          "size": 380
+        },
+        {
+          "id": "seed5",
+          "kind": "listItem",
+          "label": "スター付き",
+          "icon": "star",
+          "variant": "filled",
+          "supporting": "サブテキスト",
+          "icon2": "chevron_right",
+          "size": 380
+        },
+        {
+          "id": "seed6",
+          "kind": "listItem",
+          "label": "アーカイブ",
+          "icon": "archive",
+          "variant": "filled",
+          "supporting": "サブテキスト",
+          "icon2": "chevron_right",
+          "size": 380
+        }
+      ]
+    },
+    {
+      "id": "seed12",
+      "x": 340,
+      "y": 716,
+      "axis": "x",
+      "items": [
+        {
+          "id": "seed8",
+          "kind": "fab",
+          "label": "",
+          "icon": "edit",
+          "variant": "tonal",
+          "size": 56
+        }
+      ]
+    },
+    {
+      "id": "seed13",
+      "x": 0,
+      "y": 788,
+      "axis": "x",
+      "items": [
+        {
+          "id": "seed7",
+          "kind": "bottomNav",
+          "label": "",
+          "icon": null,
+          "variant": "filled",
+          "tabs": [
+            {
+              "icon": "home",
+              "label": "ホーム"
+            },
+            {
+              "icon": "search",
+              "label": "検索"
+            },
+            {
+              "icon": "favorite",
+              "label": "保存"
+            },
+            {
+              "icon": "settings",
+              "label": "設定"
+            }
+          ],
+          "radiusTop": 0,
+          "radiusBottom": 0,
+          "actions": {
+            "tab:1": {
+              "to": "uo4h4vcw",
+              "transition": "slide"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "lne3xw42",
+      "x": 648,
+      "y": 0,
+      "axis": "x",
+      "items": [
+        {
+          "id": "g69go7xx",
+          "kind": "topAppBar",
+          "label": "Message Detail",
+          "icon": "menu",
+          "variant": "filled",
+          "icon2": "more_vert",
+          "actions": {
+            "icon": {
+              "to": "back",
+              "transition": "slide"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "m7vw7h40",
+      "x": 648,
+      "y": 256,
+      "axis": "x",
+      "items": [
+        {
+          "id": "u7lblqko",
+          "kind": "card",
+          "label": "Team Brief",
+          "icon": "image",
+          "variant": "tonal",
+          "supporting": "Review the selected message, owners, and next actions.",
+          "size": 380
+        }
+      ]
+    },
+    {
+      "id": "13xll70h",
+      "x": 648,
+      "y": 660,
+      "axis": "x",
+      "items": [
+        {
+          "id": "td1px4ni",
+          "kind": "button",
+          "label": "Save",
+          "icon": "add",
+          "variant": "filled",
+          "action": {
+            "to": "seedF1",
+            "transition": "fade"
+          }
+        },
+        {
+          "id": "73yi7yj1",
+          "kind": "button",
+          "label": "Share",
+          "icon": "add",
+          "variant": "filled"
+        }
+      ]
+    }
+  ],
+  "frames": [
+    {
+      "id": "seedF1",
+      "name": "Home",
+      "x": 0,
+      "y": 0
+    },
+    {
+      "id": "uo4h4vcw",
+      "name": "详情",
+      "x": 532,
+      "y": 0,
+      "note": "展示所选消息的完整内容，并允许收藏、分享或返回收件箱。"
+    }
+  ],
+  "paletteKey": "blue",
+  "frame": "phone",
+  "title": "",
+  "brief": "",
+  "platform": "web",
+  "dynamicColor": false,
+  "theme": {
+    "dark": false,
+    "bothModes": false,
+    "contrast": "standard",
+    "shape": "full",
+    "font": "roboto",
+    "emphasized": false,
+    "motion": "expressive"
+  }
+}

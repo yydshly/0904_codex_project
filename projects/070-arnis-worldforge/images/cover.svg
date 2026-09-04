@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Arnis World Forge</title>
+  <desc id="desc">地理数据被编译成方块城市的深色技术插画。</desc>
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#07100e"/>
+      <stop offset="1" stop-color="#17312c"/>
+    </linearGradient>
+    <linearGradient id="land" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#497b42"/>
+      <stop offset="1" stop-color="#1d3a2b"/>
+    </linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="180%" height="200%">
+      <feDropShadow dx="0" dy="20" stdDeviation="16" flood-color="#020706" flood-opacity=".62"/>
+    </filter>
+    <pattern id="grid" width="42" height="42" patternUnits="userSpaceOnUse">
+      <path d="M42 0H0V42" fill="none" stroke="#dbe8dc" stroke-opacity=".06"/>
+    </pattern>
+  </defs>
+  <rect width="1600" height="900" fill="url(#sky)"/>
+  <rect width="1600" height="900" fill="url(#grid)"/>
+  <circle cx="1360" cy="122" r="180" fill="#c5f462" opacity=".06"/>
+  <circle cx="1360" cy="122" r="92" fill="none" stroke="#c5f462" stroke-opacity=".28"/>
+  <circle cx="1360" cy="122" r="5" fill="#c5f462"/>
+
+  <g font-family="Segoe UI, Microsoft YaHei, sans-serif">
+    <text x="94" y="102" fill="#c5f462" font-family="Consolas, monospace" font-size="18" font-weight="700" letter-spacing="4">RESEARCH 070 / OPEN GEO → VOXEL WORLD</text>
+    <text x="94" y="209" fill="#f1f4e8" font-size="94" font-weight="800" letter-spacing="-6">ARNIS</text>
+    <text x="94" y="296" fill="#c5f462" font-size="94" font-weight="800" letter-spacing="-6">WORLD FORGE</text>
+    <text x="99" y="354" fill="#96a69c" font-size="24">把真实世界，编译成可玩的地图。</text>
+  </g>
+
+  <g transform="translate(588 132)" filter="url(#shadow)">
+    <path d="M25 425 429 172 888 306 470 584Z" fill="url(#land)"/>
+    <path d="M25 425 470 584 470 634 25 476Z" fill="#12271d"/>
+    <path d="M470 584 888 306 888 357 470 634Z" fill="#1a3326"/>
+    <path d="M25 425 213 307 327 341 144 466Z" fill="#2d7c85" opacity=".9"/>
+    <path d="M125 459 413 277 755 378 471 568" fill="none" stroke="#111b16" stroke-width="32"/>
+    <path d="M125 459 413 277 755 378 471 568" fill="none" stroke="#989d92" stroke-width="20"/>
+    <path d="M125 459 413 277 755 378 471 568" fill="none" stroke="#f1cb69" stroke-width="3" stroke-dasharray="22 18"/>
+    <path d="M291 523 523 371 697 421" fill="none" stroke="#111b16" stroke-width="28"/>
+    <path d="M291 523 523 371 697 421" fill="none" stroke="#9aa096" stroke-width="17"/>
+    <g transform="translate(421 285)">
+      <path d="M0 49 72 5 158 31 84 78Z" fill="#dc8b55"/>
+      <path d="M0 49 84 78 84 192 0 162Z" fill="#715b4b"/>
+      <path d="M84 78 158 31 158 145 84 192Z" fill="#9e826a"/>
+      <g fill="none" stroke="#f2d886" stroke-width="9"><path d="M22 82v23m27-13v23m-27 26v23m27-13v23"/><path d="M108 83v23m28-40v23m-28 51v23m28-40v23"/></g>
+    </g>
+    <g transform="translate(648 383)">
+      <path d="M0 27 48 0 111 19 61 49Z" fill="#bd6f4b"/>
+      <path d="M0 27 61 49 61 111 0 89Z" fill="#6f5b4c"/>
+      <path d="M61 49 111 19 111 81 61 111Z" fill="#927866"/>
+    </g>
+    <g transform="translate(319 418)">
+      <path d="M0 23 42 0 96 17 53 42Z" fill="#bd754d"/>
+      <path d="M0 23 53 42 53 92 0 73Z" fill="#695849"/>
+      <path d="M53 42 96 17 96 67 53 92Z" fill="#947865"/>
+    </g>
+    <g fill="#4d913f" stroke="#286231" stroke-width="9">
+      <circle cx="309" cy="336" r="28"/><circle cx="365" cy="328" r="23"/><circle cx="734" cy="360" r="27"/><circle cx="560" cy="491" r="31"/>
+    </g>
+    <path d="M611 323 642 304 678 315 646 335 646 414 611 402Z" fill="#938471"/>
+    <path d="M601 311 641 287 688 302 644 328Z" fill="#df7656"/>
+    <path d="M641 244 650 296 633 294Z" fill="#ffb650"/>
+  </g>
+
+  <g transform="translate(96 696)" font-family="Consolas, monospace">
+    <rect width="402" height="89" rx="4" fill="#0b1713" stroke="#dbe8dc" stroke-opacity=".18"/>
+    <circle cx="29" cy="30" r="6" fill="#c5f462"/>
+    <text x="47" y="35" fill="#c7d2ca" font-size="15">SOURCE SNAPSHOT / 3384d3e0</text>
+    <text x="24" y="66" fill="#6f8378" font-size="13">OSM · DEM · ESA · CANOPY · 3D → WORLD</text>
+  </g>
+  <g transform="translate(1184 742)" font-family="Consolas, monospace" text-anchor="end">
+    <text x="300" y="0" fill="#c5f462" font-size="15" font-weight="700">JAVA / BEDROCK / LUANTI</text>
+    <text x="300" y="31" fill="#6f8378" font-size="13">INTERACTIVE CAPABILITY STUDY</text>
+  </g>
+</svg>
+

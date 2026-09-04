@@ -37,7 +37,7 @@
     "slug": "sopilot-growth-logic",
     "name": "SoPilot 增长逻辑解剖台",
     "repository": "https://sopilot.net/zh",
-    "summary": "用七步白话流程和系统架构拆解 SoPilot 如何连接定位、热点、持续内容、互动分发与浏览器自动化。",
+    "summary": "用交互飞轮与系统分层图拆解 SoPilot 如何连接热点、持续内容、钩子、互动分发和浏览器自动化。",
     "status": "published",
     "cover": "projects/030-sopilot-growth-logic/images/03-capability-flow.png",
     "demo": "projects/030-sopilot-growth-logic/demo/",
@@ -80,6 +80,107 @@
       "ASR",
       "Multimodal",
       "Local-first"
+    ]
+  },
+  {
+    "order": 60,
+    "slug": "newsnow-capability-console",
+    "name": "NewsNow 能力控制台",
+    "repository": "https://github.com/ourongxing/newsnow",
+    "summary": "把多源热榜拆解为来源适配、缓存门控、字段标准化和 Web/API/MCP 交付，明确它作为外部信号输入层的价值与边界。",
+    "status": "published",
+    "cover": "projects/060-newsnow-capability-console/images/cover.svg",
+    "demo": "projects/060-newsnow-capability-console/demo/",
+    "tags": [
+      "TypeScript",
+      "News Aggregation",
+      "Data Pipeline",
+      "MCP",
+      "AI Agent"
+    ]
+  },
+  {
+    "order": 70,
+    "slug": "arnis-worldforge",
+    "name": "Arnis World Forge",
+    "repository": "https://github.com/louis-e/arnis",
+    "summary": "把开放地理数据到 Minecraft / Luanti 世界的编译流水线，拆解为地形、城市语义、生态地表、世界细节和多格式写出，并提供可复制的 CLI 配置实验室。",
+    "status": "published",
+    "cover": "projects/070-arnis-worldforge/images/cover.svg",
+    "demo": "projects/070-arnis-worldforge/demo/",
+    "tags": [
+      "Rust",
+      "OpenStreetMap",
+      "Minecraft",
+      "Geospatial",
+      "Voxel World"
+    ]
+  },
+  {
+    "order": 80,
+    "slug": "sublevel-studio",
+    "name": "Sublevel Studio 能力实验台",
+    "repository": "https://github.com/MengTo/sublevel-studio",
+    "summary": "把一个高密度 Three.js 作品集拆解为空间叙事、实时纹理、可玩反馈与 Shader 后期，并用独立原型验证可迁移机制。",
+    "status": "published",
+    "cover": "projects/080-sublevel-studio/images/cover.svg",
+    "demo": "projects/080-sublevel-studio/demo/",
+    "tags": [
+      "Three.js",
+      "WebGL",
+      "GLSL",
+      "Creative Coding",
+      "Portfolio"
+    ]
+  },
+  {
+    "order": 90,
+    "slug": "home-sweet-home",
+    "name": "Home Sweet Home 四态空间 Morph",
+    "repository": "https://github.com/iamtechartist/home-sweet-home",
+    "summary": "用同一座 Three.js 微缩舞台展示花园、客厅、餐厅和卧室的连续换景，以及程序化几何、Shader 动效和昼夜光照能力。",
+    "status": "published",
+    "cover": "projects/090-home-sweet-home/images/cover.svg",
+    "demo": "projects/090-home-sweet-home/demo/",
+    "tags": [
+      "Three.js",
+      "WebGL",
+      "GLSL",
+      "Procedural Geometry",
+      "Interactive 3D"
+    ]
+  },
+  {
+    "order": 100,
+    "slug": "m3e-canvas",
+    "name": "M3E Canvas",
+    "repository": "https://github.com/lnkiai/m3e-canvas",
+    "summary": "把 Material 3 Expressive 多屏草图、主题与交互编译成面向 Coding Agent 的结构化实现提示词，并提供可点击预览与可导入演示工程。",
+    "status": "published",
+    "cover": "projects/100-m3e-canvas/images/cover.svg",
+    "demo": "https://lnkiai.github.io/m3e-canvas/",
+    "tags": [
+      "Next.js",
+      "Material 3 Expressive",
+      "Design-to-Code",
+      "Prompt Compiler",
+      "Local-first"
+    ]
+  },
+  {
+    "order": 110,
+    "slug": "rebang-capability-map",
+    "name": "REBANG 热榜聚合架构",
+    "repository": "https://gitee.com/zhaochenchen/REBANG",
+    "summary": "将以中文互联网为主的公开热榜整理为来源、采集、处理、存储、聚合服务与产品展示六个模块，并明确可观察能力与未公开实现的边界。",
+    "status": "published",
+    "cover": "projects/110-rebang-capability-map/images/architecture.svg",
+    "demo": "",
+    "tags": [
+      "Web Research",
+      "News Aggregation",
+      "Data Pipeline",
+      "Product Architecture"
     ]
   }
 ]

@@ -1,0 +1,412 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Arnis World Forge：交互展示 Arnis 如何把开放地理数据编译成 Minecraft 与 Luanti 方块世界。"
+    />
+    <title>Arnis World Forge · 现实世界编译台</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">跳到主要内容</a>
+
+    <header class="topbar">
+      <a class="brand" href="#forge" aria-label="返回 Arnis World Forge 顶部">
+        <span class="brand-cube" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span><strong>ARNIS / WORLD FORGE</strong><small>RESEARCH 070</small></span>
+      </a>
+      <nav aria-label="页面导航">
+        <a href="#capabilities">能力</a>
+        <a href="#pipeline">原理</a>
+        <a href="#lab">命令实验室</a>
+        <a href="#decision">我们的判断</a>
+      </nav>
+      <div class="top-actions">
+        <button class="theme-toggle" type="button" aria-label="切换明暗主题" aria-pressed="false">
+          <span aria-hidden="true">◐</span><b>主题</b>
+        </button>
+        <a class="source-link" href="https://github.com/louis-e/arnis" target="_blank" rel="noreferrer">SOURCE ↗</a>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="forge" id="forge" aria-labelledby="page-title">
+        <div class="forge-copy">
+          <p class="eyebrow"><span>OPEN GEO</span><i>→</i><span>VOXEL WORLD</span></p>
+          <h1 id="page-title">把真实世界，<br />编译成<span>可玩的地图。</span></h1>
+          <p class="lede">
+            Arnis 融合道路、建筑、高程、土地覆盖、气候、树冠与 3D 模型，直接写出 Minecraft Java、Bedrock 和 Luanti 世界。
+          </p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#lab">配置一次生成</a>
+            <a class="button button-secondary" href="#pipeline">拆解生成原理</a>
+          </div>
+          <dl class="source-metrics" aria-label="从当前源码提取的关键指标">
+            <div><dt data-snapshot="version">3.1.0</dt><dd>源码版本</dd></div>
+            <div><dt data-snapshot="processorModules">—</dt><dd>元素处理模块</dd></div>
+            <div><dt>3</dt><dd>世界输出格式</dd></div>
+            <div><dt>0.05–4×</dt><dd>地理比例范围</dd></div>
+          </dl>
+        </div>
+
+        <div class="world-console" aria-label="Arnis 能力交互示意">
+          <div class="console-head">
+            <span><i></i> WORLD PREVIEW / SYNTHETIC</span>
+            <small>能力示意 · 不发起真实生成</small>
+          </div>
+
+          <div class="preset-tabs" role="tablist" aria-label="示例场景">
+            <button class="is-active" type="button" role="tab" aria-selected="true" data-preset="city">密集城市</button>
+            <button type="button" role="tab" aria-selected="false" data-preset="coast">海岸港口</button>
+            <button type="button" role="tab" aria-selected="false" data-preset="alpine">高山聚落</button>
+          </div>
+
+          <div class="world-viewport" data-scene="city">
+            <svg viewBox="0 0 780 480" role="img" aria-labelledby="world-title world-desc">
+              <title id="world-title">由地形、道路、建筑、水体和植被组成的方块世界示意</title>
+              <desc id="world-desc">切换场景和数据层可以观察各类地理数据如何叠加成世界。</desc>
+              <defs>
+                <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="var(--sky-top)" />
+                  <stop offset="1" stop-color="var(--sky-bottom)" />
+                </linearGradient>
+                <linearGradient id="land" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="var(--land-a)" />
+                  <stop offset="1" stop-color="var(--land-b)" />
+                </linearGradient>
+                <filter id="shadow" x="-20%" y="-20%" width="140%" height="160%">
+                  <feDropShadow dx="0" dy="11" stdDeviation="8" flood-color="#020708" flood-opacity=".48" />
+                </filter>
+              </defs>
+
+              <rect width="780" height="480" fill="url(#sky)" />
+              <g class="stars" opacity=".34" fill="var(--star)">
+                <circle cx="86" cy="76" r="1.6" /><circle cx="188" cy="42" r="1" />
+                <circle cx="665" cy="88" r="1.4" /><circle cx="734" cy="44" r="1" />
+                <circle cx="508" cy="61" r="1.2" /><circle cx="324" cy="91" r="1" />
+              </g>
+
+              <g class="layer layer-terrain" data-world-layer="terrain">
+                <path class="terrain-back" d="M48 294 270 151 722 271 497 424Z" fill="url(#land)" />
+                <path class="terrain-side" d="M48 294 497 424 497 456 48 325Z" />
+                <path class="terrain-side terrain-side-right" d="M497 424 722 271 722 302 497 456Z" />
+                <g class="contours" fill="none">
+                  <path d="M82 292 278 170 690 278" />
+                  <path d="M122 313 296 205 646 304" />
+                  <path d="M173 331 325 239 597 318" />
+                  <path d="M245 354 356 286 532 338" />
+                </g>
+                <g class="alpine-ridges">
+                  <path d="M94 289 226 196 353 258 460 160 692 278 497 414Z" />
+                  <path d="M224 198 264 219 224 230 193 217Z" />
+                  <path d="M461 160 511 204 466 205 428 190Z" />
+                </g>
+              </g>
+
+              <g class="layer layer-water" data-world-layer="landcover">
+                <path d="M48 294 162 221 263 250 172 323Z" />
+                <path class="water-line" d="M72 292 165 234 239 252" />
+                <path class="coast-water" d="M48 294 497 424 497 456 48 325Z" />
+              </g>
+
+              <g class="layer layer-roads" data-world-layer="osm">
+                <path class="road-edge" d="M118 311 294 199 629 297 464 403" />
+                <path class="road-main" d="M118 311 294 199 629 297 464 403" />
+                <path class="road-mark" d="M118 311 294 199 629 297 464 403" />
+                <path class="road-edge road-cross" d="M227 359 418 238 571 281" />
+                <path class="road-main road-cross" d="M227 359 418 238 571 281" />
+                <path class="rail" d="M176 333 367 211 652 292" />
+              </g>
+
+              <g class="layer layer-buildings" data-world-layer="overture" filter="url(#shadow)">
+                <g class="building building-a" transform="translate(325 225)">
+                  <path class="roof" d="M0 26 40 2 88 17 47 42Z" />
+                  <path class="wall-left" d="M0 26 47 42 47 105 0 88Z" />
+                  <path class="wall-right" d="M47 42 88 17 88 80 47 105Z" />
+                  <g class="windows"><path d="M12 43v13m14-8v13m-14 12v13m14-8v13" /><path d="M60 42v13m15-22v13m-15 26v13m15-22v13" /></g>
+                </g>
+                <g class="building building-b" transform="translate(474 264)">
+                  <path class="roof" d="M0 18 30 0 71 12 39 31Z" />
+                  <path class="wall-left" d="M0 18 39 31 39 76 0 62Z" />
+                  <path class="wall-right" d="M39 31 71 12 71 57 39 76Z" />
+                </g>
+                <g class="building building-c" transform="translate(241 292)">
+                  <path class="roof" d="M0 15 27 0 63 11 35 28Z" />
+                  <path class="wall-left" d="M0 15 35 28 35 58 0 45Z" />
+                  <path class="wall-right" d="M35 28 63 11 63 41 35 58Z" />
+                </g>
+                <g class="building building-d" transform="translate(548 291)">
+                  <path class="roof" d="M0 14 26 0 60 10 33 25Z" />
+                  <path class="wall-left" d="M0 14 33 25 33 54 0 43Z" />
+                  <path class="wall-right" d="M33 25 60 10 60 39 33 54Z" />
+                </g>
+              </g>
+
+              <g class="layer layer-landmark" data-world-layer="models">
+                <path class="tower" d="M442 225 459 214 478 220 461 231 461 275 442 269Z" />
+                <path class="tower-cap" d="M437 219 458 206 483 214 460 228Z" />
+                <path class="tower-spire" d="M458 182 463 212 454 211Z" />
+              </g>
+
+              <g class="layer layer-trees" data-world-layer="canopy">
+                <g transform="translate(202 244)"><path d="M7 11v22" /><circle cx="7" cy="8" r="14" /></g>
+                <g transform="translate(269 232)"><path d="M7 11v22" /><circle cx="7" cy="8" r="12" /></g>
+                <g transform="translate(596 271)"><path d="M7 11v22" /><circle cx="7" cy="8" r="13" /></g>
+                <g transform="translate(392 330)"><path d="M7 11v22" /><circle cx="7" cy="8" r="15" /></g>
+                <g transform="translate(148 294)"><path d="M7 11v22" /><circle cx="7" cy="8" r="11" /></g>
+              </g>
+
+              <g class="layer layer-signs" data-world-layer="signage">
+                <path d="M414 319v28" /><rect x="399" y="309" width="32" height="17" rx="2" />
+                <text x="415" y="320" text-anchor="middle">A12</text>
+              </g>
+            </svg>
+
+            <div class="scene-readout">
+              <div><span>SCENE</span><strong id="scene-name">密集城市</strong></div>
+              <div><span>PROFILE</span><strong id="scene-profile">建筑 + 交通 + 标牌</strong></div>
+            </div>
+          </div>
+
+          <div class="layer-switcher" aria-label="数据与增强层开关">
+            <button type="button" class="is-active" aria-pressed="true" data-layer="terrain"><i></i>高程</button>
+            <button type="button" class="is-active" aria-pressed="true" data-layer="landcover"><i></i>地表</button>
+            <button type="button" class="is-active" aria-pressed="true" data-layer="osm"><i></i>OSM</button>
+            <button type="button" class="is-active" aria-pressed="true" data-layer="overture"><i></i>建筑</button>
+            <button type="button" class="is-active" aria-pressed="true" data-layer="canopy"><i></i>树冠</button>
+            <button type="button" class="is-active" aria-pressed="true" data-layer="models"><i></i>3D</button>
+            <button type="button" class="is-active" aria-pressed="true" data-layer="signage"><i></i>标牌</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="truth-bar" aria-label="项目定位摘要">
+        <span><b>01</b>批处理生成器</span>
+        <span><b>02</b>规则式地理编译</span>
+        <span><b>03</b>真实数据优先</span>
+        <span><b>04</b>程序推断兜底</span>
+        <span><b>05</b>不是数字孪生</span>
+      </section>
+
+      <section class="section capability-section" id="capabilities" aria-labelledby="capabilities-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">01 / CAPABILITY SURFACE</p>
+            <h2 id="capabilities-title">不只是导入建筑。<br />它在生成一个世界。</h2>
+          </div>
+          <p>选择能力域，查看输入、生成结果、关键机制与当前边界。每个结论都链接到对应源码。</p>
+        </div>
+
+        <div class="capability-workbench">
+          <div class="capability-tabs" role="tablist" aria-label="能力域">
+            <button class="is-active" type="button" role="tab" aria-selected="true" data-capability="terrain"><span>01</span><b>真实地形</b><small>DEM + WATER</small></button>
+            <button type="button" role="tab" aria-selected="false" data-capability="city"><span>02</span><b>城市语义</b><small>OSM + OVERTURE</small></button>
+            <button type="button" role="tab" aria-selected="false" data-capability="environment"><span>03</span><b>生态地表</b><small>CLIMATE + CANOPY</small></button>
+            <button type="button" role="tab" aria-selected="false" data-capability="detail"><span>04</span><b>世界细节</b><small>MODELS + SIGNS</small></button>
+            <button type="button" role="tab" aria-selected="false" data-capability="delivery"><span>05</span><b>格式与规模</b><small>CHUNKS + STREAMING</small></button>
+          </div>
+          <article class="capability-detail" id="capability-detail" aria-live="polite"></article>
+        </div>
+
+        <div class="feature-grid">
+          <article><span>VECTOR</span><h3>道路与交通</h3><p>车道宽度、路面、人行道、路灯、交通信号、铁路、地铁、机场与停车场。</p></article>
+          <article><span>VOLUME</span><h3>建筑与室内</h3><p>楼层、材质、立面、窗户、屋顶、建筑分部，以及可选的模板化室内与战利品。</p></article>
+          <article><span>STRUCTURE</span><h3>桥梁与隧道</h3><p>结构识别、引桥、桥面、支撑、道路与铁路隧道，以及跨处理器的空间避让。</p></article>
+          <article><span>HYDRO</span><h3>水体与海岸</h3><p>湖泊、河流、海湾、码头、水深雕刻、平静水面与遥感海岸线修复。</p></article>
+          <article><span>PROPS</span><h3>设施与地标</h3><p>车辆、船、飞机、起重机、风机、喷泉、体育设施、广告、应急与电力设施。</p></article>
+          <article class="feature-boundary"><span>BOUNDARY</span><h3>可玩，不等于测绘</h3><p>没有真实标签时会使用确定性规则推断，因此适合可视化与内容生产，不适合工程测量。</p></article>
+        </div>
+      </section>
+
+      <section class="section pipeline-section" id="pipeline" aria-labelledby="pipeline-title">
+        <div class="section-heading light-heading">
+          <div>
+            <p class="eyebrow">02 / COMPILER PIPELINE</p>
+            <h2 id="pipeline-title">真正的核心，<br />是冲突消解与语义规则。</h2>
+          </div>
+          <p>点击任一阶段，观察数据从地理来源到世界文件发生了什么。</p>
+        </div>
+
+        <div class="pipeline-board">
+          <div class="pipeline-track" role="tablist" aria-label="Arnis 数据处理阶段">
+            <button class="is-active" type="button" role="tab" aria-selected="true" data-stage="ingest"><span>01</span><b>数据摄取</b><small>FETCH</small></button>
+            <i aria-hidden="true">→</i>
+            <button type="button" role="tab" aria-selected="false" data-stage="normalize"><span>02</span><b>统一与修复</b><small>NORMALIZE</small></button>
+            <i aria-hidden="true">→</i>
+            <button type="button" role="tab" aria-selected="false" data-stage="render"><span>03</span><b>语义渲染</b><small>RENDER</small></button>
+            <i aria-hidden="true">→</i>
+            <button type="button" role="tab" aria-selected="false" data-stage="voxel"><span>04</span><b>方块落位</b><small>VOXELIZE</small></button>
+            <i aria-hidden="true">→</i>
+            <button type="button" role="tab" aria-selected="false" data-stage="write"><span>05</span><b>世界写出</b><small>WRITE</small></button>
+          </div>
+
+          <article class="pipeline-detail" id="pipeline-detail" aria-live="polite"></article>
+
+          <div class="data-stack" aria-label="主要数据来源">
+            <div><span>OSM</span><b>道路、建筑、水系、POI</b><small>Overpass 或本地文件</small></div>
+            <div><span>OVERTURE</span><b>补充建筑与高度</b><small>GeoParquet 分区</small></div>
+            <div><span>DEM</span><b>真实高程</b><small>Mapterhorn / USGS / AWS</small></div>
+            <div><span>ESA</span><b>土地覆盖</b><small>WorldCover 2021 · 10m</small></div>
+            <div><span>CANOPY</span><b>树木位置与高度</b><small>Meta / WRI</small></div>
+            <div><span>3D</span><b>地标模型替换</b><small>3DMR / Wikidata</small></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section lab-section" id="lab" aria-labelledby="lab-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">03 / COMMAND LAB</p>
+            <h2 id="lab-title">配置一个真实的<br />Arnis CLI 任务。</h2>
+          </div>
+          <p>页面只生成命令，不请求地图服务。复制后可在已获取的上游源码目录中运行。</p>
+        </div>
+
+        <div class="command-lab">
+          <form class="config-panel" id="command-form">
+            <fieldset>
+              <legend>区域预设</legend>
+              <div class="segmented" data-control="location">
+                <label><input type="radio" name="location" value="arnis" checked /><span>Arnis 小城</span></label>
+                <label><input type="radio" name="location" value="harbor" /><span>港口城区</span></label>
+                <label><input type="radio" name="location" value="alps" /><span>阿尔卑斯</span></label>
+              </div>
+            </fieldset>
+            <fieldset>
+              <legend>生成模式</legend>
+              <div class="segmented" data-control="mode">
+                <label><input type="radio" name="mode" value="geo-terrain" checked /><span>地形 + 对象</span></label>
+                <label><input type="radio" name="mode" value="geo-only" /><span>平地对象</span></label>
+                <label><input type="radio" name="mode" value="terrain-only" /><span>仅地形</span></label>
+              </div>
+            </fieldset>
+            <fieldset>
+              <legend>世界格式</legend>
+              <div class="segmented" data-control="format">
+                <label><input type="radio" name="format" value="java" checked /><span>Java</span></label>
+                <label><input type="radio" name="format" value="bedrock" /><span>Bedrock</span></label>
+                <label><input type="radio" name="format" value="luanti" /><span>Luanti</span></label>
+              </div>
+            </fieldset>
+            <label class="range-control" for="scale-range">
+              <span><b>比例</b><output id="scale-value" for="scale-range">1.00×</output></span>
+              <input id="scale-range" name="scale" type="range" min="0.3" max="2" value="1" step="0.1" />
+              <small>1.00 = 约 1 米 / 方块；小于 0.30 时对象将被跳过</small>
+            </label>
+            <div class="option-grid">
+              <label><input type="checkbox" name="interior" /><span><b>生成室内</b><small>模板化楼层布局</small></span></label>
+              <label><input type="checkbox" name="overture" checked /><span><b>Overture 补全</b><small>缺失建筑与高度</small></span></label>
+              <label><input type="checkbox" name="models" checked /><span><b>3D 与道具</b><small>模型体素化与 schematics</small></span></label>
+              <label><input type="checkbox" name="preview" checked /><span><b>PNG 预览</b><small>输出俯视地图</small></span></label>
+            </div>
+          </form>
+
+          <div class="command-output">
+            <div class="command-head"><span>GENERATED COMMAND</span><b id="command-status">READY</b></div>
+            <pre><code id="generated-command"></code></pre>
+            <button class="copy-button" id="copy-command" type="button"><span>复制命令</span><kbd>Ctrl C</kbd></button>
+            <div class="command-notes">
+              <p><span>预计表达</span><b id="expression-note">完整城市对象 + 真实地形</b></p>
+              <p><span>输出目标</span><b id="output-note">Minecraft Java Anvil 世界</b></p>
+              <p><span>外部请求</span><b id="network-note">OSM · Overture · DEM · ESA · Canopy</b></p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="boundary-section" aria-labelledby="boundary-title">
+        <div>
+          <p class="eyebrow">04 / FIT &amp; BOUNDARY</p>
+          <h2 id="boundary-title">它交付世界骨架，<br />不交付权威现实。</h2>
+        </div>
+        <div class="boundary-grid">
+          <article><span>GOOD FIT</span><h3>游戏与教育地图</h3><p>家乡复刻、城市服、地理教学、防灾场景和虚拟活动底图。</p></article>
+          <article><span>GOOD FIT</span><h3>快速空间原型</h3><p>在人工精修前自动搭好道路、建筑、地形与生态环境。</p></article>
+          <article class="warning"><span>NOT FOR</span><h3>工程测绘</h3><p>方块离散化、开放数据缺失和程序推断都不满足工程精度。</p></article>
+          <article class="warning"><span>NOT FOR</span><h3>实时数字孪生</h3><p>当前是批处理世界生成器，没有持续更新、传感器或仿真运行时。</p></article>
+        </div>
+      </section>
+
+      <section class="section architecture-section" aria-labelledby="architecture-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">05 / EXTENSION MAP</p>
+            <h2 id="architecture-title">模块化很强，<br />但还不是插件平台。</h2>
+          </div>
+          <p>高程源是真正的 trait 扩展点；元素处理和世界输出仍有中心分派与 Minecraft 语义耦合。</p>
+        </div>
+
+        <div class="extension-map">
+          <article class="extension-card easy">
+            <div><span>EASY</span><b>01</b></div><h3>新增区域 DEM</h3><p>实现 ElevationProvider，声明覆盖范围、原生分辨率和获取方式。</p><small>最清晰的现成扩展点</small>
+          </article>
+          <article class="extension-card medium">
+            <div><span>MEDIUM</span><b>02</b></div><h3>区域风格与新标签</h3><p>增加处理器、材质、屋顶、植被与规则，同时接入中心分派。</p><small>模块独立，注册仍需改源码</small>
+          </article>
+          <article class="extension-card medium">
+            <div><span>MEDIUM+</span><b>03</b></div><h3>视觉纠错工作台</h3><p>让用户修正轮廓、高度、道路和材质，形成自动生成后的人工闭环。</p><small>产品价值通常高于继续堆规则</small>
+          </article>
+          <article class="extension-card hard">
+            <div><span>HARD</span><b>04</b></div><h3>通用 3D 后端</h3><p>先抽出 GeoIR 与 SceneIR，再把 Minecraft Block 写入改造成可替换 World Sink。</p><small>需要解除领域模型耦合</small>
+          </article>
+          <article class="extension-card hard">
+            <div><span>HARD</span><b>05</b></div><h3>增量与分布式生成</h3><p>建立地理对象到 Region 的索引，并把全局后处理拆成显式任务图。</p><small>适合规模化服务阶段</small>
+          </article>
+        </div>
+      </section>
+
+      <section class="decision-section" id="decision" aria-labelledby="decision-title">
+        <div class="decision-copy">
+          <p class="eyebrow">06 / WHY IT MATTERS</p>
+          <h2 id="decision-title">如果目标是方块世界，<br />从它开始；<br />如果目标是数字空间，<br />从它拆开。</h2>
+          <p>最值得复用的不是 Anvil 写入，而是多源地理数据经过统一、冲突修复、语义渲染再落到目标世界的编译器思路。</p>
+        </div>
+        <ol class="decision-path">
+          <li><span>01</span><div><b>Minecraft / Luanti 项目</b><p>直接 fork，优先定制数据源、区域风格、规则和人工编辑能力。</p></div><strong>ADOPT</strong></li>
+          <li><span>02</span><div><b>通用 3D / UGC 平台</b><p>复用算法与规则经验，抽取自己的 GeoIR、SceneIR 和多后端接口。</p></div><strong>EXTRACT</strong></li>
+          <li><span>03</span><div><b>测绘 / 实时孪生</b><p>仅作为低成本可视化基线；另建精度、时态、仿真与数据治理体系。</p></div><strong>REFERENCE</strong></li>
+        </ol>
+        <div class="thesis">
+          <span>OUR TAKE</span>
+          <strong>Arnis 已经证明“开放地理数据 → 可玩世界”成立。<br />下一层价值来自本地数据、纠错闭环、增量更新与业务场景。</strong>
+        </div>
+      </section>
+
+      <section class="section source-section" aria-labelledby="source-title">
+        <div class="source-snapshot">
+          <p class="eyebrow">07 / SOURCE SNAPSHOT</p>
+          <h2 id="source-title">展示来自真实源码，<br />不是功能想象。</h2>
+          <dl>
+            <div><dt>VERSION</dt><dd data-snapshot="version">—</dd></div>
+            <div><dt>COMMIT</dt><dd data-snapshot="shortCommit">—</dd></div>
+            <div><dt>BRANCH</dt><dd data-snapshot="branch">—</dd></div>
+            <div><dt>RUST FILES</dt><dd data-snapshot="rustFiles">—</dd></div>
+            <div><dt>CLI FLAGS</dt><dd data-snapshot="cliFlags">—</dd></div>
+            <div><dt>SYNCED</dt><dd data-snapshot="commitDate">—</dd></div>
+          </dl>
+        </div>
+        <div class="source-files">
+          <a href="https://github.com/louis-e/arnis/blob/main/src/main.rs" target="_blank" rel="noreferrer"><span>01</span><div><b>总生成流程</b><small>src/main.rs</small></div><i>↗</i></a>
+          <a href="https://github.com/louis-e/arnis/blob/main/src/osm_parser.rs" target="_blank" rel="noreferrer"><span>02</span><div><b>OSM 中间表示</b><small>src/osm_parser.rs</small></div><i>↗</i></a>
+          <a href="https://github.com/louis-e/arnis/blob/main/src/data_processing.rs" target="_blank" rel="noreferrer"><span>03</span><div><b>处理器分派与并行</b><small>src/data_processing.rs</small></div><i>↗</i></a>
+          <a href="https://github.com/louis-e/arnis/tree/main/src/element_processing" target="_blank" rel="noreferrer"><span>04</span><div><b>元素处理器</b><small>src/element_processing/</small></div><i>↗</i></a>
+          <a href="https://github.com/louis-e/arnis/tree/main/src/elevation" target="_blank" rel="noreferrer"><span>05</span><div><b>高程 Provider</b><small>src/elevation/</small></div><i>↗</i></a>
+          <a href="https://github.com/louis-e/arnis/tree/main/src/world_editor" target="_blank" rel="noreferrer"><span>06</span><div><b>世界格式写入</b><small>src/world_editor/</small></div><i>↗</i></a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div><span class="brand-cube small" aria-hidden="true"><i></i><i></i><i></i></span><b>ARNIS / WORLD FORGE</b></div>
+      <p>Apache-2.0 主代码；第三方地理数据和资产保留各自许可与署名。</p>
+      <a href="https://github.com/louis-e/arnis/blob/main/NOTICE" target="_blank" rel="noreferrer">LICENSE &amp; CREDITS ↗</a>
+    </footer>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script src="source-snapshot.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

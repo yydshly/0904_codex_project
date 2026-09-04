@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
+  <title id="title">M3E Canvas 能力演示</title>
+  <desc id="desc">两个 Material 3 Expressive 手机屏幕通过导航箭头连接，并被转换为包含主题、布局、行为和目标平台的结构化提示词。</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f8f9ff"/><stop offset="1" stop-color="#e7ecff"/></linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3972e6"/><stop offset="1" stop-color="#0b57d0"/></linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="16" stdDeviation="20" flood-color="#142957" flood-opacity="0.16"/></filter>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#0b57d0"/></marker>
+  </defs>
+  <rect width="1280" height="720" fill="url(#bg)"/>
+  <circle cx="1120" cy="85" r="180" fill="#d3e3fd" opacity="0.72"/>
+  <circle cx="86" cy="675" r="220" fill="#ffd8ee" opacity="0.38"/>
+  <text x="64" y="72" font-family="Inter,Segoe UI,Microsoft YaHei,sans-serif" font-size="20" font-weight="700" fill="#0b57d0">M3E CANVAS · VERIFIED CAPABILITY DEMO</text>
+  <text x="64" y="118" font-family="Inter,Segoe UI,Microsoft YaHei,sans-serif" font-size="38" font-weight="800" fill="#18233a">从交互草图到 AI 编程规格</text>
+  <text x="64" y="151" font-family="Inter,Segoe UI,Microsoft YaHei,sans-serif" font-size="18" fill="#586174">结构化组件、主题与导航，由规则引擎编译成可执行提示词</text>
+
+  <g filter="url(#shadow)">
+    <rect x="64" y="196" width="250" height="410" rx="42" fill="#16181d"/><rect x="73" y="205" width="232" height="392" rx="34" fill="#faf9fd"/>
+    <rect x="73" y="205" width="232" height="54" rx="34" fill="#f3f3fa"/><rect x="73" y="237" width="232" height="22" fill="#f3f3fa"/>
+    <text x="95" y="239" font-family="Inter,Segoe UI,sans-serif" font-size="14" font-weight="700" fill="#1b1b1f">Home</text><circle cx="282" cy="232" r="4" fill="#74777f"/>
+    <rect x="90" y="280" width="94" height="36" rx="18" fill="#0b57d0"/><rect x="187" y="280" width="82" height="36" rx="18" fill="#dce2f9"/>
+    <text x="112" y="303" font-family="Inter,Segoe UI,sans-serif" font-size="12" fill="#fff">Favorite</text><text x="207" y="303" font-family="Inter,Segoe UI,sans-serif" font-size="12" fill="#131c2b">Share</text>
+    <g fill="#f3f3fa"><rect x="90" y="338" width="178" height="56" rx="22"/><rect x="90" y="398" width="178" height="56" rx="8"/><rect x="90" y="458" width="178" height="56" rx="22"/></g>
+    <g font-family="Inter,Segoe UI,sans-serif" font-size="12" fill="#313239"><text x="114" y="371">Inbox</text><text x="114" y="431">Starred</text><text x="114" y="491">Archive</text></g>
+    <rect x="73" y="542" width="232" height="55" fill="#eeedf3"/><g fill="#44474e"><circle cx="111" cy="568" r="7"/><circle cx="163" cy="568" r="7"/><circle cx="215" cy="568" r="7"/><circle cx="267" cy="568" r="7"/></g>
+  </g>
+
+  <path d="M327 402C358 402 370 402 397 402" fill="none" stroke="#0b57d0" stroke-width="5" stroke-linecap="round" marker-end="url(#arrow)"/>
+  <rect x="337" y="367" width="54" height="24" rx="12" fill="#d3e3fd"/><text x="349" y="384" font-family="Inter,Segoe UI,sans-serif" font-size="11" font-weight="700" fill="#041e49">tap</text>
+
+  <g filter="url(#shadow)">
+    <rect x="412" y="196" width="250" height="410" rx="42" fill="#16181d"/><rect x="421" y="205" width="232" height="392" rx="34" fill="#faf9fd"/>
+    <rect x="421" y="205" width="232" height="54" rx="34" fill="#f3f3fa"/><rect x="421" y="237" width="232" height="22" fill="#f3f3fa"/>
+    <text x="447" y="239" font-family="Inter,Segoe UI,sans-serif" font-size="14" font-weight="700" fill="#1b1b1f">Message Detail</text>
+    <rect x="444" y="292" width="186" height="142" rx="28" fill="#e3e2e6"/><rect x="444" y="292" width="186" height="76" rx="28" fill="#d3e3fd"/><rect x="444" y="348" width="186" height="20" fill="#d3e3fd"/>
+    <text x="462" y="394" font-family="Inter,Segoe UI,sans-serif" font-size="13" font-weight="700" fill="#1b1b1f">Team Brief</text><text x="462" y="416" font-family="Inter,Segoe UI,sans-serif" font-size="10" fill="#44474e">Owners · message · next actions</text>
+    <rect x="470" y="476" width="72" height="38" rx="19" fill="#0b57d0"/><rect x="545" y="476" width="72" height="38" rx="19" fill="#0b57d0"/>
+    <text x="490" y="501" font-family="Inter,Segoe UI,sans-serif" font-size="12" font-weight="700" fill="#fff">Save</text><text x="563" y="501" font-family="Inter,Segoe UI,sans-serif" font-size="12" font-weight="700" fill="#fff">Share</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="727" y="196" width="489" height="410" rx="36" fill="#fff"/><rect x="727" y="196" width="489" height="68" rx="36" fill="url(#accent)"/><rect x="727" y="232" width="489" height="32" fill="url(#accent)"/>
+    <text x="762" y="238" font-family="Inter,Segoe UI,Microsoft YaHei,sans-serif" font-size="19" font-weight="800" fill="#fff">✨ 结构化实现提示词</text>
+    <g font-family="Inter,Segoe UI,Microsoft YaHei,sans-serif">
+      <text x="762" y="310" font-size="13" font-weight="800" fill="#0b57d0">THEME</text><text x="850" y="310" font-size="14" fill="#303034">Blue · Full shape · Expressive spring</text><line x1="762" y1="330" x2="1180" y2="330" stroke="#e3e2e6"/>
+      <text x="762" y="369" font-size="13" font-weight="800" fill="#0b57d0">LAYOUT</text><text x="850" y="369" font-size="14" fill="#303034">2 screens · rows · layers · connected group</text><line x1="762" y1="389" x2="1180" y2="389" stroke="#e3e2e6"/>
+      <text x="762" y="428" font-size="13" font-weight="800" fill="#0b57d0">BEHAVIOR</text><text x="850" y="428" font-size="14" fill="#303034">Home → Detail · back stack · fade / slide</text><line x1="762" y1="448" x2="1180" y2="448" stroke="#e3e2e6"/>
+      <text x="762" y="487" font-size="13" font-weight="800" fill="#0b57d0">TARGET</text><rect x="850" y="465" width="94" height="34" rx="17" fill="#0b57d0"/><rect x="952" y="465" width="74" height="34" rx="17" fill="#eef2ff"/>
+      <text x="873" y="487" font-size="13" font-weight="700" fill="#fff">Android</text><text x="974" y="487" font-size="13" font-weight="700" fill="#0b57d0">Web</text>
+      <rect x="762" y="528" width="418" height="42" rx="21" fill="#d3e3fd"/><text x="891" y="554" font-size="14" font-weight="800" fill="#041e49">COPY TO CODING AGENT</text>
+    </g>
+  </g>
+  <rect x="270" y="642" width="740" height="42" rx="21" fill="#18233a"/><text x="351" y="669" font-family="Inter,Segoe UI,Microsoft YaHei,sans-serif" font-size="15" font-weight="700" fill="#fff">Visual intent → Design IR → Deterministic compiler → Coding Agent</text>
+</svg>

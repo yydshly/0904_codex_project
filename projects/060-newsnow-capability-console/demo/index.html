@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="NewsNow 能力控制台：交互展示多源热榜聚合、缓存回源、标准化 API、MCP 接入与可扩展方向。"
+    />
+    <title>NewsNow 能力控制台 · Signal Intake Layer</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">跳到主要内容</a>
+    <div class="page-shell">
+      <header class="topbar">
+        <a class="brand" href="#console" aria-label="返回能力控制台">
+          <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+          <span><strong>NEWSNOW / LENS</strong><small>RESEARCH 060</small></span>
+        </a>
+        <nav aria-label="页面导航">
+          <a href="#console">控制台</a>
+          <a href="#architecture">原理</a>
+          <a href="#scenarios">场景</a>
+          <a href="#extensions">扩展</a>
+        </nav>
+        <a class="repo-link" href="https://github.com/ourongxing/newsnow" target="_blank" rel="noreferrer">SOURCE ↗</a>
+      </header>
+
+      <main id="main">
+        <section class="console-section" id="console" aria-labelledby="page-title">
+          <div class="console-intro">
+            <p class="eyebrow">OPEN-SOURCE SIGNAL INTAKE</p>
+            <h1 id="page-title">把分散的热点，<br />变成统一的<span>信号流</span></h1>
+            <p class="lede">NewsNow 不生产新闻。它把几十个平台的热榜与快讯，经过来源适配、缓存与字段标准化，送到网页、JSON API 和 AI Agent。</p>
+
+            <dl class="metrics" aria-label="NewsNow 关键规模与机制">
+              <div><dt>47</dt><dd>网页实例可见源<small>Cloudflare 构建</small></dd></div>
+              <div><dt>2–60m</dt><dd>按源刷新门控<small>配置驱动</small></dd></div>
+              <div><dt>30m</dt><dd>全局缓存 TTL<small>失败可回退旧缓存</small></dd></div>
+              <div><dt>30</dt><dd>每源最多条目<small>标题级信号</small></dd></div>
+            </dl>
+          </div>
+
+          <div class="signal-console" aria-label="NewsNow 能力交互示意">
+            <div class="console-bar">
+              <span><i aria-hidden="true"></i> SIGNAL CONSOLE</span>
+              <span class="snapshot-label">示意快照 · 非实时请求</span>
+            </div>
+            <div class="mode-tabs" role="tablist" aria-label="能力视图">
+              <button class="is-active" type="button" role="tab" aria-selected="true" data-mode="hottest">最热</button>
+              <button type="button" role="tab" aria-selected="false" data-mode="realtime">实时</button>
+              <button type="button" role="tab" aria-selected="false" data-mode="focus">关注</button>
+              <button type="button" role="tab" aria-selected="false" data-mode="mcp">MCP</button>
+            </div>
+
+            <div class="signal-layout">
+              <div class="source-rail" aria-label="示例数据源">
+                <button class="is-active" type="button" data-source="weibo"><span class="source-icon source-red">微</span><b>微博</b><small>实时热搜</small></button>
+                <button type="button" data-source="github"><span class="source-icon source-ink">GH</span><b>GitHub</b><small>Trending</small></button>
+                <button type="button" data-source="cls"><span class="source-icon source-blue">财</span><b>财联社</b><small>热门</small></button>
+                <button type="button" data-source="hackernews"><span class="source-icon source-orange">Y</span><b>Hacker News</b><small>Top</small></button>
+              </div>
+
+              <article class="feed-panel" id="feed-panel" aria-live="polite"></article>
+            </div>
+
+            <div class="console-foot">
+              <span><i></i>标准化输出：id · title · url · pubDate · extra</span>
+              <code>GET /api/s?id=weibo</code>
+            </div>
+          </div>
+        </section>
+
+        <section class="content-section architecture-section" id="architecture" aria-labelledby="architecture-title">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">02 / UNDER THE HOOD</p>
+              <h2 id="architecture-title">请求触发，<br />不是持续爬全网。</h2>
+            </div>
+            <p>页面或 API 请求到来后，系统先检查缓存与该来源的刷新间隔；只有满足回源条件，才调用对应采集器访问上游。</p>
+          </div>
+
+          <div class="architecture-board">
+            <div class="layer-list" role="tablist" aria-label="NewsNow 数据链路">
+              <button class="is-active" type="button" role="tab" aria-selected="true" data-layer="request"><span>01</span><b>请求入口</b><small>UI / API / MCP</small></button>
+              <button type="button" role="tab" aria-selected="false" data-layer="cache"><span>02</span><b>缓存门控</b><small>INTERVAL + TTL</small></button>
+              <button type="button" role="tab" aria-selected="false" data-layer="adapter"><span>03</span><b>来源适配器</b><small>API / HTML / RSS</small></button>
+              <button type="button" role="tab" aria-selected="false" data-layer="normalize"><span>04</span><b>字段标准化</b><small>NEWS ITEM</small></button>
+              <button type="button" role="tab" aria-selected="false" data-layer="delivery"><span>05</span><b>交付消费</b><small>HUMAN + MACHINE</small></button>
+            </div>
+
+            <article class="layer-detail" id="layer-detail" aria-live="polite"></article>
+
+            <aside class="cache-model" aria-label="缓存决策模型">
+              <div class="panel-label">PULL-THROUGH CACHE</div>
+              <div class="cache-ring" aria-hidden="true"><span>请求</span><i></i><b>缓存</b><i></i><span>上游</span></div>
+              <ul>
+                <li><span>来源间隔内</span><b>直接复用</b></li>
+                <li><span>30 分钟 TTL 内</span><b>默认缓存</b></li>
+                <li><span>满足回源条件</span><b>调用 getter</b></li>
+                <li><span>回源失败且有缓存</span><b>降级返回</b></li>
+              </ul>
+              <p>“动态刷新”在源码中是按来源预设不同间隔，并非机器学习调度。</p>
+            </aside>
+          </div>
+
+          <div class="truth-strip" aria-label="实现事实摘要">
+            <span><i>01</i>按需加载可见卡片</span>
+            <span><i>02</i>每个来源独立 getter</span>
+            <span><i>03</i>SQLite / Cloudflare D1</span>
+            <span><i>04</i>无旧缓存时错误可上抛</span>
+          </div>
+        </section>
+
+        <section class="content-section capability-section" id="capabilities" aria-labelledby="capability-title">
+          <div class="section-heading compact">
+            <div>
+              <p class="eyebrow">03 / CAPABILITY SURFACE</p>
+              <h2 id="capability-title">已经具备什么，<br />还缺少什么？</h2>
+            </div>
+            <div class="legend"><span><i class="done"></i>仓库已实现</span><span><i class="gap"></i>需要扩展</span></div>
+          </div>
+
+          <div class="capability-grid">
+            <article class="capability-card featured">
+              <div class="card-top"><span>C01</span><b>CORE</b></div>
+              <h3>多源热点聚合</h3>
+              <p>将国内、国际、科技、财经和体育来源统一到一个可扫读的面板。</p>
+              <ul><li>47 个网页实例可见源</li><li>热榜与时间线两种渲染</li><li>原始链接保留来源路径</li></ul>
+            </article>
+            <article class="capability-card">
+              <div class="card-top"><span>C02</span><b>READY</b></div>
+              <h3>关注与排序</h3>
+              <p>收藏数据源形成个人入口，关注页支持拖拽重排。</p>
+              <small>localStorage + GitHub 同步</small>
+            </article>
+            <article class="capability-card">
+              <div class="card-top"><span>C03</span><b>READY</b></div>
+              <h3>标准化 JSON API</h3>
+              <p>所有来源收敛为相同字段，适合二次开发与内部系统接入。</p>
+              <small>/api/s?id=&lt;source&gt;</small>
+            </article>
+            <article class="capability-card">
+              <div class="card-top"><span>C04</span><b>READY</b></div>
+              <h3>AI / MCP 入口</h3>
+              <p>官方 MCP Server 将 API 包装为一个工具，返回指定来源前 N 条标题与链接。</p>
+              <small>get_hottest_latest_news</small>
+            </article>
+            <article class="capability-card">
+              <div class="card-top"><span>C05</span><b>READY</b></div>
+              <h3>自部署与 PWA</h3>
+              <p>支持 Docker、Cloudflare Pages + D1，并具备移动端响应式与 PWA 配置。</p>
+              <small>MIT · TypeScript · React</small>
+            </article>
+            <article class="capability-card gap-card">
+              <div class="card-top"><span>GAP</span><b>NOT INCLUDED</b></div>
+              <h3>它不是情报分析系统</h3>
+              <p>原仓库没有长期历史、正文搜索、跨源去重、事实核查或自动总结。</p>
+              <small>这些正是二次开发空间</small>
+            </article>
+          </div>
+        </section>
+
+        <section class="boundary-section" aria-labelledby="boundary-title">
+          <div>
+            <p class="eyebrow">04 / PRODUCT BOUNDARY</p>
+            <h2 id="boundary-title">它交付线索，<br />不交付结论。</h2>
+          </div>
+          <div class="boundary-matrix">
+            <article><span>GOOD AT</span><h3>快速发现</h3><p>哪些话题正在上榜，哪些行业信号值得进一步查看。</p></article>
+            <article><span>GOOD AT</span><h3>统一入口</h3><p>用一个界面和一种数据格式代替跨平台重复浏览。</p></article>
+            <article class="warning"><span>NOT FOR</span><h3>事实核查</h3><p>热度来自上游平台，NewsNow 不验证标题是否准确。</p></article>
+            <article class="warning"><span>NOT FOR</span><h3>历史研究</h3><p>缓存表覆盖保存最新快照，无法直接构建长期事件序列。</p></article>
+          </div>
+        </section>
+
+        <section class="content-section scenario-section" id="scenarios" aria-labelledby="scenario-title">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">05 / USE CASE SWITCHBOARD</p>
+              <h2 id="scenario-title">放进不同团队，<br />它会变成什么？</h2>
+            </div>
+            <p>选择角色，查看 NewsNow 作为“信号入口”能够提供的输入、动作与边界。</p>
+          </div>
+
+          <div class="scenario-workbench">
+            <div class="scenario-tabs" role="tablist" aria-label="角色使用场景">
+              <button class="is-active" type="button" role="tab" aria-selected="true" data-scenario="management"><span>01</span>管理层</button>
+              <button type="button" role="tab" aria-selected="false" data-scenario="product"><span>02</span>产品与研发</button>
+              <button type="button" role="tab" aria-selected="false" data-scenario="brand"><span>03</span>品牌与公关</button>
+              <button type="button" role="tab" aria-selected="false" data-scenario="content"><span>04</span>内容团队</button>
+              <button type="button" role="tab" aria-selected="false" data-scenario="agent"><span>05</span>AI Agent</button>
+            </div>
+            <article class="scenario-detail" id="scenario-detail" aria-live="polite"></article>
+          </div>
+        </section>
+
+        <section class="content-section extension-section" id="extensions" aria-labelledby="extension-title">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">06 / EXTENSION ROADMAP</p>
+              <h2 id="extension-title">从热点面板，<br />走向业务情报。</h2>
+            </div>
+            <p>扩展重点不在增加更多卡片，而在可靠采集、历史沉淀、语义加工和业务触发。</p>
+          </div>
+
+          <div class="roadmap">
+            <article>
+              <div class="roadmap-head"><span>HORIZON 01</span><b>先让输入可靠</b></div>
+              <h3>采集与数据质量</h3>
+              <ul><li>来源健康度与结构变更检测</li><li>失败隔离、重试和备用接口</li><li>统一 ID、时间与来源契约</li></ul>
+              <small>FOUNDATION</small>
+            </article>
+            <article>
+              <div class="roadmap-head"><span>HORIZON 02</span><b>再让信号可理解</b></div>
+              <h3>历史与语义层</h3>
+              <ul><li>保存快照与排名时间序列</li><li>跨来源去重、事件聚类</li><li>实体、主题与可信度标签</li></ul>
+              <small>INTELLIGENCE</small>
+            </article>
+            <article>
+              <div class="roadmap-head"><span>HORIZON 03</span><b>最后进入工作流</b></div>
+              <h3>分析与行动层</h3>
+              <ul><li>多源摘要与观点差异</li><li>关键词、阈值和异常提醒</li><li>飞书、Webhook、日报与 Agent</li></ul>
+              <small>ACTION</small>
+            </article>
+          </div>
+        </section>
+
+        <section class="meaning-section" aria-labelledby="meaning-title">
+          <div class="meaning-copy">
+            <p class="eyebrow">07 / WHY IT MATTERS TO US</p>
+            <h2 id="meaning-title">可复用的是采集层，<br />真正的壁垒在下游。</h2>
+            <p>NewsNow 已经解决了最琐碎的一步：把异构热榜转成机器可读信号。我们无需从零维护几十种输入，但也不应把公共演示站当作生产数据服务。</p>
+          </div>
+          <ol class="decision-path">
+            <li><span>01</span><div><b>自部署</b><p>掌控可用性、缓存、限流与来源合规。</p></div></li>
+            <li><span>02</span><div><b>缩小来源</b><p>先选择 8–15 个与业务强相关的高信号源。</p></div></li>
+            <li><span>03</span><div><b>补齐智能层</b><p>历史、去重、聚类、摘要、可信度与业务标签。</p></div></li>
+            <li><span>04</span><div><b>进入工作流</b><p>把洞察送到团队正在使用的系统，而不只是再做一个网页。</p></div></li>
+          </ol>
+          <div class="thesis">
+            <span>POSITION</span>
+            <strong>把 NewsNow 当作 Signal Intake Layer，<br />不要把它误认为 News Intelligence Platform。</strong>
+            <p>优势来自快速接入；长期价值来自我们的数据质量、行业词表、业务反馈和行动闭环。</p>
+          </div>
+        </section>
+
+        <section class="sources-section" aria-labelledby="sources-title">
+          <div>
+            <p class="eyebrow">08 / SOURCE OF TRUTH</p>
+            <h2 id="sources-title">所有判断，<br />回到源码。</h2>
+          </div>
+          <div class="source-links">
+            <a href="https://github.com/ourongxing/newsnow/blob/main/shared/pre-sources.ts" target="_blank" rel="noreferrer"><span>01</span><strong>数据源注册与刷新间隔</strong><small>shared/pre-sources.ts ↗</small></a>
+            <a href="https://github.com/ourongxing/newsnow/tree/main/server/sources" target="_blank" rel="noreferrer"><span>02</span><strong>平台采集适配器</strong><small>server/sources ↗</small></a>
+            <a href="https://github.com/ourongxing/newsnow/blob/main/server/api/s/index.ts" target="_blank" rel="noreferrer"><span>03</span><strong>API、缓存与回源决策</strong><small>server/api/s/index.ts ↗</small></a>
+            <a href="https://github.com/ourongxing/newsnow/blob/main/shared/types.ts" target="_blank" rel="noreferrer"><span>04</span><strong>统一 NewsItem 数据结构</strong><small>shared/types.ts ↗</small></a>
+            <a href="https://github.com/ourongxing/newsnow-mcp-server/blob/main/src/index.ts" target="_blank" rel="noreferrer"><span>05</span><strong>官方 MCP 工具封装</strong><small>newsnow-mcp-server ↗</small></a>
+          </div>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <span>NEWSNOW CAPABILITY CONSOLE</span>
+        <p>基于 v0.0.41 / main 分支研究快照 · 2026.09</p>
+        <a href="https://newsnow.busiyi.world/" target="_blank" rel="noreferrer">打开原站 ↗</a>
+      </footer>
+    </div>
+    <script src="app.js"></script>
+  </body>
+</html>

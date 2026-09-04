@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="独立原创的 Three.js 能力实验台，解释 Sublevel Studio 体现的空间叙事、实时纹理、交互反馈和后期合成模式。" />
+    <title>Sublevel Studio · Capability Lab</title>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+    <link rel="stylesheet" href="./styles.css" />
+    <script type="importmap">
+      { "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js" } }
+    </script>
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="#top"><span class="brand-mark" aria-hidden="true"></span><span>CAPABILITY / LAB 080</span></a>
+      <span class="topbar-note">INDEPENDENT STUDY · NO UPSTREAM ASSETS</span>
+      <a class="source-link" href="https://github.com/MengTo/sublevel-studio" target="_blank" rel="noreferrer">SOURCE ↗</a>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-labelledby="hero-title">
+        <canvas id="scene" aria-label="可交互的三维能力实验室；也可使用页面上的文字按钮浏览"></canvas>
+        <div class="ambient-grid" aria-hidden="true"></div>
+
+        <div class="hero-copy">
+          <p class="eyebrow">THREE.JS EXPERIENCE, DECONSTRUCTED</p>
+          <h1 id="hero-title">把网页做成一座<br /><em>会回应的空间。</em></h1>
+          <p class="lead">这不是对原站的复刻，而是一份可运行的机制说明书：用一个场景、四个证据节点，体验它如何把品牌展示、内容浏览与小游戏组织在同一套实时循环中。</p>
+          <div class="primary-actions">
+            <button class="action action-primary" id="tour-button" type="button">开始 40 秒导览</button>
+            <button class="action" id="signal-button" type="button">发射信号球 <kbd>Space</kbd></button>
+          </div>
+        </div>
+
+        <aside class="telemetry" aria-label="渲染状态">
+          <div><span>MODE</span><strong id="mode-value">OVERVIEW</strong></div>
+          <div><span>DRAW CALLS</span><strong id="calls-value">—</strong></div>
+          <div><span>TRIANGLES</span><strong id="triangles-value">—</strong></div>
+          <div><span>SIGNAL</span><strong id="score-value">0 / 0</strong></div>
+        </aside>
+
+        <aside class="detail-panel" id="detail-panel" aria-live="polite">
+          <p class="panel-index" id="panel-index">00 / SYSTEM MAP</p>
+          <h2 id="panel-title">能力不是特效清单，<br />而是一条体验链路。</h2>
+          <p id="panel-description">点击三维节点或下方按钮。镜头、内容层和渲染参数会由同一个状态切换同步驱动。</p>
+          <dl class="proof-list">
+            <div><dt>输入</dt><dd id="panel-input">点击、键盘、时间</dd></div>
+            <div><dt>机制</dt><dd id="panel-mechanism">状态 → 场景 → GPU → DOM</dd></div>
+            <div><dt>价值</dt><dd id="panel-value">让内容具备空间记忆与参与感</dd></div>
+          </dl>
+        </aside>
+
+        <nav class="node-nav" aria-label="能力节点">
+          <button class="node-button is-active" type="button" data-node="overview"><span>00</span><strong>系统总览</strong><small>同一状态，多个输出</small></button>
+          <button class="node-button" type="button" data-node="spatial"><span>01</span><strong>空间叙事</strong><small>场景即信息架构</small></button>
+          <button class="node-button" type="button" data-node="surface"><span>02</span><strong>实时界面</strong><small>Canvas → Texture</small></button>
+          <button class="node-button" type="button" data-node="physics"><span>03</span><strong>交互反馈</strong><small>输入 → 模拟 → 回应</small></button>
+          <button class="node-button" type="button" data-node="postfx"><span>04</span><strong>视觉合成</strong><small>场景 → RT → Shader</small></button>
+        </nav>
+
+        <div class="canvas-hint" aria-hidden="true">CLICK NODES · DRAG TO LOOK</div>
+        <div class="webgl-fallback" id="webgl-fallback" role="status"><strong>三维层加载中</strong><span>即使 WebGL 或外部模块不可用，下方仍保留完整的文字能力地图。</span></div>
+      </section>
+
+      <section class="evidence" aria-labelledby="evidence-title">
+        <div class="section-heading">
+          <p class="eyebrow">WHAT THE DEMO PROVES</p>
+          <h2 id="evidence-title">从输入到像素的四层证据</h2>
+          <p>原项目的价值不在某个孤立效果，而在于把网页内容、实时渲染和可玩机制编排成连续体验。</p>
+        </div>
+
+        <div class="architecture" role="img" aria-label="输入经过导演状态，驱动场景模拟与画布纹理，最后由 WebGL 和后期 Shader 输出像素，同时同步 DOM 内容">
+          <div><span>01</span><strong>INPUT</strong><small>pointer / keys / time</small></div><i aria-hidden="true">→</i>
+          <div><span>02</span><strong>DIRECTOR</strong><small>one state machine</small></div><i aria-hidden="true">→</i>
+          <div><span>03</span><strong>WORLD</strong><small>scene / texture / physics</small></div><i aria-hidden="true">→</i>
+          <div><span>04</span><strong>COMPOSITE</strong><small>render target / shader / DOM</small></div>
+        </div>
+
+        <div class="evidence-grid">
+          <article><span class="article-number">01</span><h3>空间是导航，不只是背景</h3><p>四个站点各自承载一类证据；选择站点时，镜头、灯光、DOM 文案与活动对象一起切换。</p></article>
+          <article><span class="article-number">02</span><h3>2D 内容能进入 3D 世界</h3><p>右后方屏幕每帧由 2D Canvas 更新，再作为纹理映射到几何体，说明仪表盘、游戏或视频如何成为场景表面。</p></article>
+          <article><span class="article-number">03</span><h3>交互要有可感知后果</h3><p>信号球采用轻量弹道、命中检测与粒子轨迹。物理不必复杂，但必须形成清楚的输入—反馈闭环。</p></article>
+          <article><span class="article-number">04</span><h3>最终画面可以再次被处理</h3><p>场景先写入离屏纹理，再经全屏 Shader 加入色差、扫描线、噪声与暗角，形成统一的影像语气。</p></article>
+        </div>
+      </section>
+
+      <section class="boundary" aria-labelledby="boundary-title">
+        <p class="eyebrow">BOUNDARY</p>
+        <h2 id="boundary-title">这是机制证明，不是源码再发行。</h2>
+        <p>上游仓库没有提供开源许可证。本子项目只在本地忽略目录中获取源码用于研究，提交的是独立实现、分析文字与原创视觉；不包含其内嵌模型、图片或站点代码。</p>
+        <a href="../README.md">阅读完整研究笔记 →</a>
+      </section>
+    </main>
+    <script type="module" src="./main.js"></script>
+  </body>
+</html>
