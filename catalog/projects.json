@@ -9,5 +9,16 @@
     "cover": "projects/010-cliproxyapi/images/proxy-platform-overview.png",
     "demo": "projects/010-cliproxyapi/demo/",
     "tags": ["Go", "LLM Gateway", "OAuth", "Protocol Translation"]
+  },
+  {
+    "order": 50,
+    "slug": "course2md",
+    "name": "course2md 视频图文时间轴",
+    "repository": "https://github.com/mizorewww/course2md",
+    "summary": "本地优先的视频图文时间轴工具：并行提取稳定关键帧与字幕或 ASR 文本，按时间戳合并为可追溯的 Markdown、HTML 和结构化 JSON。",
+    "status": "published",
+    "cover": "projects/050-course2md/images/course2md-modular-overview.png",
+    "demo": "",
+    "tags": ["Rust", "Video Processing", "ASR", "Multimodal", "Local-first"]
   }
 ]
