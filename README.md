@@ -12,10 +12,10 @@
 
 <!-- PROJECT_INDEX_START -->
 
-| 顺序 | 源项目 | 摘要 | 状态 | 研究笔记 | 在线演示 |
-| ---: | --- | --- | --- | --- | --- |
-| 010 | [CLIProxyAPI](https://github.com/router-for-me/CLIProxyAPI) | 统一协议网关 + 凭证运行时：通过协议与 Provider 适配器，将调用方使用的统一 API 路由到后台真实的 API Key 或 OAuth/Auth 凭证，并完成上游模型交互。 | 已发布 | [查看笔记](projects/010-cliproxyapi/README.md) | [打开 Demo](projects/010-cliproxyapi/demo/) |
-| 050 | [course2md 视频图文时间轴](https://github.com/mizorewww/course2md) | 本地优先的视频图文时间轴工具：并行提取稳定关键帧与字幕或 ASR 文本，按时间戳合并为可追溯的 Markdown、HTML 和结构化 JSON。 | 已发布 | [查看笔记](projects/050-course2md/README.md) | — |
+| 顺序 | 演示图 | 源项目 | 摘要 | 状态 | 研究笔记 | 在线演示 |
+| ---: | :---: | --- | --- | --- | --- | --- |
+| 010 | <a href="projects/010-cliproxyapi/README.md"><img src="projects/010-cliproxyapi/images/proxy-platform-overview.png" alt="CLIProxyAPI 演示图" width="280"></a> | [CLIProxyAPI](https://github.com/router-for-me/CLIProxyAPI) | 统一协议网关 + 凭证运行时：通过协议与 Provider 适配器，将调用方使用的统一 API 路由到后台真实的 API Key 或 OAuth/Auth 凭证，并完成上游模型交互。 | 已发布 | [查看笔记](projects/010-cliproxyapi/README.md) | [打开 Demo](projects/010-cliproxyapi/demo/) |
+| 050 | <a href="projects/050-course2md/README.md"><img src="projects/050-course2md/images/course2md-modular-overview.png" alt="course2md 视频图文时间轴 演示图" width="280"></a> | [course2md 视频图文时间轴](https://github.com/mizorewww/course2md) | 本地优先的视频图文时间轴工具：并行提取稳定关键帧与字幕或 ASR 文本，按时间戳合并为可追溯的 Markdown、HTML 和结构化 JSON。 | 已发布 | [查看笔记](projects/050-course2md/README.md) | — |
 
 <!-- PROJECT_INDEX_END -->
 

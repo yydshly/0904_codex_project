@@ -36,6 +36,13 @@ const exists = async (absolutePath) => {
 };
 
 const escapeCell = (value) => String(value).replaceAll("|", "\\|").replaceAll("\n", " ").trim();
+const escapeAttribute = (value) =>
+  String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .trim();
 
 const rawCatalog = await readFile(catalogPath, "utf8");
 let projects;
@@ -128,14 +135,15 @@ if (errors.length) {
 const orderedProjects = [...projects].sort((a, b) => a.order - b.order);
 const table = orderedProjects.length
   ? [
-      "| 顺序 | 源项目 | 摘要 | 状态 | 研究笔记 | 在线演示 |",
-      "| ---: | --- | --- | --- | --- | --- |",
+      "| 顺序 | 演示图 | 源项目 | 摘要 | 状态 | 研究笔记 | 在线演示 |",
+      "| ---: | :---: | --- | --- | --- | --- | --- |",
       ...orderedProjects.map((project) => {
         const directoryName = `${String(project.order).padStart(3, "0")}-${project.slug}`;
         const projectLink = `[${escapeCell(project.name)}](${project.repository.trim()})`;
         const researchLink = `[查看笔记](projects/${directoryName}/README.md)`;
         const demoLink = project.demo?.trim() ? `[打开 Demo](${project.demo.trim()})` : "—";
-        return `| ${String(project.order).padStart(3, "0")} | ${projectLink} | ${escapeCell(project.summary)} | ${statusLabels[project.status]} | ${researchLink} | ${demoLink} |`;
+        const preview = `<a href="projects/${directoryName}/README.md"><img src="${escapeAttribute(project.cover)}" alt="${escapeAttribute(project.name)} 演示图" width="280"></a>`;
+        return `| ${String(project.order).padStart(3, "0")} | ${preview} | ${projectLink} | ${escapeCell(project.summary)} | ${statusLabels[project.status]} | ${researchLink} | ${demoLink} |`;
       })
     ].join("\n")
   : "> 暂无已收录项目。添加第一个项目后运行 `npm run catalog:update`，索引会自动生成。";
