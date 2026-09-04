@@ -36,9 +36,9 @@
 
 - 原仓库：<https://github.com/iamtechartist/home-sweet-home>
 - 上游版本：`9b69f10bf12bf93022ddd96ba806a7aaf3185f7c`
-- 本地演示：[打开原版 Demo](demo/)
-- 原理导览：[打开“如何实现与如何扩展”](demo/guide.html)
-- 衍生能力：[打开“智能仓储履约编排”](demo/warehouse.html)
+- 在线原版演示：[打开 Garden / Living / Dining / Bedroom Demo](https://yydshly.github.io/0904_codex_project/projects/090-home-sweet-home/demo/)
+- 在线原理导览：[打开“如何实现与如何扩展”](https://yydshly.github.io/0904_codex_project/projects/090-home-sweet-home/demo/guide.html)
+- 在线衍生能力：[打开“智能仓储履约编排”](https://yydshly.github.io/0904_codex_project/projects/090-home-sweet-home/demo/warehouse.html)
 - 上游演示：<https://iamtechartist.github.io/home-sweet-home/>
 - 研究状态：已完成首轮能力验证
 - 主要技术：Three.js 0.185、WebGL、GLSL、原生 HTML/CSS/JavaScript
@@ -55,7 +55,7 @@
 
 ## 然后理解它如何实现
 
-[交互式原理与扩展导览](demo/guide.html)把原版演示固定在观察窗中，同时把源码拆成一条可操作的数据流：
+[交互式原理与扩展导览](https://yydshly.github.io/0904_codex_project/projects/090-home-sweet-home/demo/guide.html)把原版演示固定在观察窗中，同时把源码拆成一条可操作的数据流：
 
 - **六层架构检查器**：渲染底座 → 程序资产 → Actor 状态 → 转场导演 → 全局氛围 → 逐帧提交。
 - **Actor 四态检查器**：查看同一语义角色在 Garden、Living、Dining、Bedroom 中如何切换 form 与 transform。
@@ -67,7 +67,7 @@
 
 ## 衍生能力：智能仓储履约编排
 
-[智能仓储能力演示](demo/warehouse.html)把原库的状态编排模式应用到业务场景：入库、上架、拣选和出库共用同一座仓储沙盘。每次状态变化会同步更新镜头焦点、活动区域、货物流线、设备 Actor、模拟 KPI 与操作说明。
+[智能仓储能力演示](https://yydshly.github.io/0904_codex_project/projects/090-home-sweet-home/demo/warehouse.html)把原库的状态编排模式应用到业务场景：入库、上架、拣选和出库共用同一座仓储沙盘。每次状态变化会同步更新镜头焦点、活动区域、货物流线、设备 Actor、模拟 KPI 与操作说明。
 
 这证明可复用的核心不是“房间效果”，而是**一个状态驱动多个视觉与信息表面**。当前页面是零后端模拟原型，不代表已连接 WMS、传感器或真实调度算法。
 

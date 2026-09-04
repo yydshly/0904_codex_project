@@ -141,7 +141,7 @@
     "summary": "拆解同一座 Three.js 微缩舞台的四态空间换景，提炼“一个状态驱动多个视觉表面”的编排模式，并将它迁移为智能仓储履约演示。",
     "status": "published",
     "cover": "projects/090-home-sweet-home/images/demos/garden-demo.gif",
-    "demo": "projects/090-home-sweet-home/demo/",
+    "demo": "projects/090-home-sweet-home/demo/warehouse.html",
     "tags": [
       "Three.js",
       "WebGL",
