@@ -21,6 +21,7 @@
       </a>
       <nav aria-label="页面导航">
         <a href="#world-3d">3D 实景</a>
+        <a href="#library-guide">原理·场景</a>
         <a href="#from-zero">从零制作</a>
         <a href="#proof">实测</a>
         <a href="#samples">样例</a>
@@ -119,10 +120,85 @@
         <noscript><p class="world3d-noscript">启用 JavaScript 后可操作真实三维世界；当前显示 Arnis 原生二维预览作为回退。</p></noscript>
       </section>
 
+      <section class="section library-guide-section" id="library-guide" aria-labelledby="library-guide-title">
+        <div class="section-heading guide-heading">
+          <div>
+            <p class="eyebrow">02 / PRINCIPLE &amp; USE CASES</p>
+            <h2 id="library-guide-title">一张图看懂，<br />Arnis 到底做什么。</h2>
+          </div>
+          <p>它不是地图查看器，也不是游戏编辑器。它把分散的开放地理数据，按可解释的规则编译成可以继续进入、修改和复用的方块世界。</p>
+        </div>
+
+        <div class="principle-rail" aria-label="Arnis 从地理数据到方块世界的三阶段原理">
+          <article class="principle-step principle-input">
+            <div class="principle-index"><span>01</span><b>INPUT / 真实地点</b></div>
+            <h3>收集开放地理数据</h3>
+            <p>输入经纬度范围；读取 OSM 建筑、道路、水系，叠加 DEM 高程、土地覆盖、树冠和可选地标模型。</p>
+            <strong>得到：不同来源、不同尺度的空间要素</strong>
+          </article>
+          <article class="principle-step principle-engine">
+            <div class="principle-index"><span>02</span><b>ENGINE / 语义编译</b></div>
+            <h3>理解对象并解决冲突</h3>
+            <p>把标签解释成道路、建筑、桥梁和植被规则；补全缺失高度与材质，并处理道路贴地、水体雕刻和对象避让。</p>
+            <strong>核心：地理语义 → 方块放置规则</strong>
+          </article>
+          <article class="principle-step principle-output">
+            <div class="principle-index"><span>03</span><b>OUTPUT / 世界资产</b></div>
+            <h3>写出可操作的世界</h3>
+            <p>按 Chunk 写入 Minecraft Java、Bedrock 或 Luanti 世界；结果可以进入游戏、人工精修、添加玩法或交给其他转换器。</p>
+            <strong>得到：世界存档，而不是一张图片</strong>
+          </article>
+        </div>
+
+        <div class="web-adapter-note">
+          <span>本网页额外做了什么</span>
+          <p><b>Java <code>.mca</code> 世界</b><i>→</i><b>解析 Block State</b><i>→</i><b>合并可见网格</b><i>→</i><b>Three.js 3D</b></p>
+          <small>这是本研究项目增加的 Web 适配层，不是 Arnis 当前原生输出；上面的 Minecraft 世界才是原库直接交付。</small>
+        </div>
+
+        <div class="use-case-heading">
+          <div><span>AFTER GENERATION</span><h3>地图生成以后，可以这样落地</h3></div>
+          <p>每个场景都从同一个“世界骨架”出发，价值来自后续内容和交互，而不是下载动作本身。</p>
+        </div>
+
+        <div class="use-case-grid">
+          <article>
+            <div class="case-meta"><span>01 / GAME</span><b>直接使用</b></div>
+            <h3>游戏地图与服务器底图</h3>
+            <p><b>怎么操作：</b>把世界放进 Minecraft，修正建筑、布置出生点，再添加任务、道具、NPC 或多人插件。</p>
+            <small>交付结果 · 可玩的城市服、剧情地图或活动世界</small>
+          </article>
+          <article>
+            <div class="case-meta"><span>02 / WEB 3D</span><b>需要转换</b></div>
+            <h3>网页导览与互动场景素材</h3>
+            <p><b>怎么操作：</b>像本页一样解析世界区块，转换成浏览器网格，再加入行走、点击建筑、路线和在线编辑。</p>
+            <small>交付结果 · 不安装 Minecraft 也能访问的 Web 3D</small>
+          </article>
+          <article>
+            <div class="case-meta"><span>03 / LEARNING</span><b>叠加内容</b></div>
+            <h3>校园、历史与地理教学</h3>
+            <p><b>怎么操作：</b>先生成校园或历史区域，再由教师加入讲解点、路线、问答和安全演练流程。</p>
+            <small>交付结果 · 有教学内容的沉浸式空间课程</small>
+          </article>
+          <article>
+            <div class="case-meta"><span>04 / PROTOTYPE</span><b>人工精修</b></div>
+            <h3>真实地点的快速空间原型</h3>
+            <p><b>怎么操作：</b>用自动底图测试尺度、路线和玩法布局，再由设计师替换材质、调整结构和补充细节。</p>
+            <small>交付结果 · 游戏和虚拟活动的低成本场景初稿</small>
+          </article>
+        </div>
+
+        <div class="guide-boundary">
+          <p><span>适合</span>内容生产、互动体验和低成本空间原型</p>
+          <p><span>不适合</span>工程测绘、施工决策和实时数字孪生</p>
+          <div><a href="#pipeline">查看完整技术流水线 ↓</a><a href="#lab">生成一条真实命令 ↓</a></div>
+        </div>
+      </section>
+
       <section class="section from-zero-section" id="from-zero" aria-labelledby="from-zero-title">
         <div class="section-heading from-zero-heading">
           <div>
-            <p class="eyebrow">02 / BUILD IT FROM ZERO</p>
+            <p class="eyebrow">03 / BUILD IT FROM ZERO</p>
             <h2 id="from-zero-title">从经纬度开始，<br />到浏览器里漫游。</h2>
           </div>
           <p>这里有两条相接但不混淆的流水线：Arnis 负责把地理数据编译成游戏世界；本项目增加一个只读适配器，把世界存档转换成浏览器可高效绘制的网格。</p>

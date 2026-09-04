@@ -7,7 +7,7 @@ import { chromium } from "playwright-core";
 
 const scriptDirectory = path.dirname(fileURLToPath(import.meta.url));
 const projectDirectory = path.resolve(scriptDirectory, "..");
-const evidenceDirectory = path.join(projectDirectory, ".runtime", "browser-evidence-r6");
+const evidenceDirectory = path.join(projectDirectory, ".runtime", "browser-evidence-r7");
 const packageManifest = JSON.parse(await readFile(path.join(
   projectDirectory,
   "demo", "assets", "downloads", "world-package-manifest.json",
@@ -72,6 +72,53 @@ try {
   assert.equal(observations.desktop.href, packageManifest.archive.url);
   assert.ok(observations.desktop.readyMs < 15_000, `3D first ready exceeded 15s: ${observations.desktop.readyMs}ms`);
 
+  observations.guide = await page.evaluate(() => {
+    const section = document.querySelector("#library-guide");
+    const principleColumns = getComputedStyle(document.querySelector(".principle-rail")).gridTemplateColumns.split(" ").length;
+    const useCaseColumns = getComputedStyle(document.querySelector(".use-case-grid")).gridTemplateColumns.split(" ").length;
+    return {
+      principleSteps: document.querySelectorAll(".principle-step").length,
+      useCases: document.querySelectorAll(".use-case-grid article").length,
+      principleColumns,
+      useCaseColumns,
+      hasNativeBoundary: section?.textContent.includes("不是 Arnis 当前原生输出"),
+      hasNotForBoundary: section?.textContent.includes("工程测绘"),
+      pipelineHref: document.querySelector('.guide-boundary a[href="#pipeline"]')?.getAttribute("href"),
+      labHref: document.querySelector('.guide-boundary a[href="#lab"]')?.getAttribute("href"),
+    };
+  });
+  assert.equal(observations.guide.principleSteps, 3);
+  assert.equal(observations.guide.useCases, 4);
+  assert.equal(observations.guide.principleColumns, 3);
+  assert.equal(observations.guide.useCaseColumns, 4);
+  assert.equal(observations.guide.hasNativeBoundary, true);
+  assert.equal(observations.guide.hasNotForBoundary, true);
+  assert.equal(observations.guide.pipelineHref, "#pipeline");
+  assert.equal(observations.guide.labHref, "#lab");
+
+  await page.locator('nav a[href="#library-guide"]').click();
+  await page.evaluate(() => {
+    document.documentElement.style.scrollBehavior = "auto";
+    document.querySelector("#library-guide").scrollIntoView();
+  });
+  observations.guide.anchorTop = await page.locator("#library-guide").evaluate((element) => element.getBoundingClientRect().top);
+  assert.equal(new URL(page.url()).hash, "#library-guide");
+  assert.ok(observations.guide.anchorTop >= 70 && observations.guide.anchorTop <= 110, `Guide anchor was positioned at ${observations.guide.anchorTop}px`);
+  await page.screenshot({ path: path.join(evidenceDirectory, "desktop-principle-1280.png") });
+  const pipelineLink = page.locator('.guide-boundary a[href="#pipeline"]');
+  await pipelineLink.focus();
+  await page.keyboard.press("Tab");
+  const labLink = page.locator('.guide-boundary a[href="#lab"]');
+  observations.guide.keyboardFocus = await labLink.evaluate((element) => ({
+    focused: document.activeElement === element,
+    outlineStyle: getComputedStyle(element).outlineStyle,
+    outlineWidth: getComputedStyle(element).outlineWidth,
+  }));
+  assert.equal(observations.guide.keyboardFocus.focused, true);
+  assert.notEqual(observations.guide.keyboardFocus.outlineStyle, "none");
+  await page.locator(".use-case-heading").evaluate((element) => element.scrollIntoView());
+  await page.screenshot({ path: path.join(evidenceDirectory, "desktop-scenarios-1280.png") });
+
   const canvas = page.locator("#world3d-canvas");
   const beforeTop = await canvas.screenshot();
   await page.getByRole("button", { name: "俯视" }).click();
@@ -101,10 +148,14 @@ try {
   observations.desktop.downloadedSha256 = createHash("sha256").update(downloadedBuffer).digest("hex");
   assert.equal(observations.desktop.downloadedBytes, packageManifest.archive.byteLength);
   assert.equal(observations.desktop.downloadedSha256, packageManifest.archive.sha256);
-  await page.screenshot({ path: path.join(evidenceDirectory, "desktop-delivery-1280.png") });
 
   await page.locator(".theme-toggle").click();
   assert.equal(await page.locator("html").getAttribute("data-theme"), "light");
+  assert.equal(await page.locator("#library-guide").isVisible(), true);
+  observations.guide.lightTheme = await page.locator("#library-guide").evaluate((element) => ({
+    color: getComputedStyle(element).color,
+    surface: getComputedStyle(element.querySelector(".principle-step")).backgroundColor,
+  }));
   await page.locator(".theme-toggle").click();
   assert.equal(await page.locator("html").getAttribute("data-theme"), "dark");
 
@@ -119,13 +170,21 @@ try {
       linkVisible: Boolean(linkRect && linkRect.top >= 0 && linkRect.bottom <= innerHeight),
       steps: document.querySelectorAll(".build-route li").length,
       split: document.querySelectorAll(".implementation-split > div").length,
+      principleColumns: getComputedStyle(document.querySelector(".principle-rail")).gridTemplateColumns.split(" ").length,
+      useCaseColumns: getComputedStyle(document.querySelector(".use-case-grid")).gridTemplateColumns.split(" ").length,
     };
   });
   assert.equal(observations.tablet.overflow, 0);
   assert.equal(observations.tablet.linkVisible, true);
   assert.equal(observations.tablet.steps, 5);
   assert.equal(observations.tablet.split, 2);
-  await page.screenshot({ path: path.join(evidenceDirectory, "tablet-delivery-820.png") });
+  assert.equal(observations.tablet.principleColumns, 3);
+  assert.equal(observations.tablet.useCaseColumns, 2);
+  await page.evaluate(() => {
+    document.documentElement.style.scrollBehavior = "auto";
+    document.querySelector("#library-guide").scrollIntoView();
+  });
+  await page.screenshot({ path: path.join(evidenceDirectory, "tablet-principle-820.png") });
 
   await page.setViewportSize({ width: 390, height: 844 });
   await page.emulateMedia({ reducedMotion: "reduce" });
@@ -142,6 +201,9 @@ try {
       automaticMotion: document.querySelector("#world3d-motion")?.getAttribute("aria-pressed"),
       linkVisible: Boolean(linkRect && linkRect.left >= 0 && linkRect.right <= innerWidth && linkRect.top >= 0 && linkRect.bottom <= innerHeight),
       packageFiles: document.querySelector("#world-package-files")?.textContent,
+      principleColumns: getComputedStyle(document.querySelector(".principle-rail")).gridTemplateColumns.split(" ").length,
+      useCaseColumns: getComputedStyle(document.querySelector(".use-case-grid")).gridTemplateColumns.split(" ").length,
+      guideTextVisible: document.querySelector("#library-guide")?.getClientRects().length > 0,
     };
   });
   assert.equal(observations.mobile.overflow, 0);
@@ -151,9 +213,18 @@ try {
   assert.equal(observations.mobile.automaticMotion, "false");
   assert.equal(observations.mobile.linkVisible, true);
   assert.equal(observations.mobile.packageFiles, "221");
+  assert.equal(observations.mobile.principleColumns, 1);
+  assert.equal(observations.mobile.useCaseColumns, 1);
+  assert.equal(observations.mobile.guideTextVisible, true);
   await page.locator(".delivery-install summary").click();
   assert.equal(await page.locator(".delivery-install").getAttribute("open"), "");
-  await page.screenshot({ path: path.join(evidenceDirectory, "mobile-delivery-390.png") });
+  await page.evaluate(() => {
+    document.documentElement.style.scrollBehavior = "auto";
+    document.querySelector("#library-guide").scrollIntoView();
+  });
+  await page.screenshot({ path: path.join(evidenceDirectory, "mobile-principle-390.png") });
+  await page.locator(".use-case-heading").evaluate((element) => element.scrollIntoView());
+  await page.screenshot({ path: path.join(evidenceDirectory, "mobile-scenarios-390.png") });
 
   await page.goto(`${baseUrl}/?world-error=1#world-3d`, { waitUntil: "networkidle" });
   await page.waitForFunction(() => document.querySelector("#world3d-stage")?.dataset.worldState === "error");
@@ -164,12 +235,16 @@ try {
     downloadVisible: document.querySelector("#world-package-download")?.getClientRects().length > 0,
     downloadHref: document.querySelector("#world-package-download")?.getAttribute("href"),
     title: document.querySelector("#world3d-status b")?.textContent,
+    guideVisible: document.querySelector("#library-guide")?.getClientRects().length > 0,
+    guideUseCases: document.querySelectorAll(".use-case-grid article").length,
   }));
   assert.equal(observations.fallback.state, "error");
   assert.equal(observations.fallback.fallbackVisible, true);
   assert.equal(observations.fallback.controlsDisabled, true);
   assert.equal(observations.fallback.downloadVisible, true);
   assert.equal(observations.fallback.downloadHref, packageManifest.archive.url);
+  assert.equal(observations.fallback.guideVisible, true);
+  assert.equal(observations.fallback.guideUseCases, 4);
   await page.screenshot({ path: path.join(evidenceDirectory, "mobile-fallback-download-390.png") });
 
   const unexpectedErrors = runtimeErrors.filter((message) => !message.includes("已启用三维能力回退测试"));

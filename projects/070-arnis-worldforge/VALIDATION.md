@@ -42,7 +42,7 @@
 - [x] 斜视、俯视、地标三种相机按钮均改变实际 WebGL 画布
 - [x] Canvas 键盘方向键改变相机；Home 可复位；自动旋转可停止
 - [x] Three.js 与 OrbitControls 经 esbuild 打包为本地经典浏览器脚本，不依赖 CDN
-- [x] 资源预算：4.2 MiB 世界网格 + 541 KiB 查看器 bundle；Revision 6 最终 1280px 自动验收首次 ready 2,063ms，门槛 15 秒
+- [x] 资源预算：4.2 MiB 世界网格 + 541 KiB 查看器 bundle；Revision 7 最终 1280px 自动验收首次 ready 1,374ms，门槛 15 秒
 - [x] `npm run verify:browser`：1280×720、820×900、390×844 全部通过，横向溢出均为 0
 - [x] 明暗主题通过；390px reduced-motion 下自动旋转默认关闭
 - [x] `?world-error=1` 能力回退：显示同世界原生 PNG，禁用无效 3D 控件，DOM 解释仍可读
@@ -75,6 +75,18 @@ Revision 5 的三地标文旅任务曾完成以下验证，但已在 Revision 6 
 - [x] 390px 横向溢出为 0；reduced-motion 下自动旋转关闭；下载与安装说明不依赖 WebGL
 - [x] `?world-error=1` 下 3D 控件禁用并显示同世界 PNG，但真实 ZIP 下载仍可用
 - [x] 正常浏览器路径 console/page errors 为 0；证据保存在 `.runtime/browser-evidence-r6/`
+
+## Principle and use cases · Revision 7
+
+- [x] 真实 3D 首屏之后新增一屏静态摘要：开放地理数据 → 语义编译/冲突消解 → Java、Bedrock 或 Luanti 世界资产
+- [x] 单独声明本项目的 Web 适配链：Java `.mca` → Block State → 可见网格合并 → Three.js；不冒充 Arnis 原生输出
+- [x] 四个具体场景均回答“怎么操作”和“交付结果”：游戏地图、Web 3D、教学展览、快速空间原型
+- [x] 适用/不适用边界明确：内容生产与互动原型可用；工程测绘、施工决策和实时数字孪生不可替代
+- [x] 页面导航新增“原理·场景”；锚点在桌面落位 88px；详细技术流水线与命令实验室链接均可键盘聚焦，焦点轮廓为 3px
+- [x] 1280px：原理 3 列、场景 4 列；820px：原理 3 列、场景 2 列；390px：原理与场景均为单列；三端横向溢出均为 0
+- [x] 明暗主题、390px reduced-motion 与 `?world-error=1` 通过；说明层是静态 DOM，不依赖 WebGL
+- [x] 浏览器实际下载世界 ZIP 并复算相同 SHA-256；正常路径 console/page errors 为 0
+- [x] 浏览器证据：`.runtime/browser-evidence-r7/verification.json` 与桌面原理/场景、平板原理、手机原理/场景、手机回退截图
 
 ## Actual run
 
