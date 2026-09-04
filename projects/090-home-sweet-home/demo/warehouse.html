@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="用智能仓储履约流转演示 Home Sweet Home 的 Actor 状态编排能力。">
+  <title>FLOWDECK WH-07 · 智能仓储履约编排</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&amp;family=Instrument+Sans:wght@400;500;600&amp;family=Noto+Sans+SC:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="warehouse.css">
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.185.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.185.0/examples/jsm/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#stage-controls">跳到阶段控制</a>
+
+  <header class="topbar">
+    <a class="brand" href="warehouse.html" aria-label="FLOWDECK 仓储履约编排首页">
+      <span class="brand-symbol" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span><strong>FLOWDECK</strong><small>FULFILMENT ORCHESTRATOR</small></span>
+    </a>
+    <div class="simulation-status" aria-label="运行状态">
+      <span class="status-dot" aria-hidden="true"></span>
+      <span>SIMULATION</span>
+      <b>WH—07</b>
+    </div>
+    <nav aria-label="相关页面">
+      <a href="guide.html">实现原理</a>
+      <a href="index.html">原版演示 ↗</a>
+    </nav>
+  </header>
+
+  <main class="stage" aria-label="智能仓储履约演示">
+    <canvas id="warehouse-canvas" aria-label="可环绕观察的智能仓储三维沙盘"></canvas>
+    <div class="scene-shade" aria-hidden="true"></div>
+    <div class="grid-coordinate coordinate-x" aria-hidden="true">X / 00—18</div>
+    <div class="grid-coordinate coordinate-z" aria-hidden="true">Z / 00—11</div>
+
+    <section class="story-card" aria-labelledby="stage-title" aria-live="polite">
+      <p class="stage-eyebrow"><span id="stage-number">STATE 01</span><b id="stage-code">INBOUND</b></p>
+      <h1 id="stage-title">入库接收</h1>
+      <p id="stage-description">到货车辆进入月台，包裹经过扫描与称重后进入统一履约流。</p>
+      <div class="proof-chips" aria-label="当前阶段的能力证明">
+        <div><small>当前任务</small><strong id="stage-task">校验到货与订单身份</strong></div>
+        <div><small>能力证明</small><strong id="stage-proof">状态同时驱动场景、路径与 KPI</strong></div>
+      </div>
+    </section>
+
+    <section class="metric-strip" aria-label="实时模拟指标" aria-live="polite">
+      <article>
+        <span class="metric-icon" aria-hidden="true">↳</span>
+        <div><small id="metric-a-label">到货箱数</small><strong id="metric-a">128</strong></div>
+        <em id="metric-a-unit">箱</em>
+      </article>
+      <article>
+        <span class="metric-icon" aria-hidden="true">◫</span>
+        <div><small id="metric-b-label">扫描准确率</small><strong id="metric-b">99.8</strong></div>
+        <em id="metric-b-unit">%</em>
+      </article>
+      <article>
+        <span class="metric-icon" aria-hidden="true">◷</span>
+        <div><small id="metric-c-label">平均等待</small><strong id="metric-c">04:12</strong></div>
+        <em id="metric-c-unit">min</em>
+      </article>
+    </section>
+
+    <aside class="orchestration-panel" aria-labelledby="orchestration-title">
+      <div class="panel-head">
+        <span>STATE ORCHESTRATION</span>
+        <i aria-hidden="true"></i>
+      </div>
+      <h2 id="orchestration-title">一次状态变更，更新五个表面</h2>
+      <ul>
+        <li><span>01</span><b>镜头焦点</b><em id="surface-camera">入库月台</em></li>
+        <li><span>02</span><b>货物流向</b><em id="surface-route">车辆 → 扫描台</em></li>
+        <li><span>03</span><b>设备状态</b><em id="surface-device">扫码门运行</em></li>
+        <li><span>04</span><b>业务指标</b><em id="surface-kpi">到货与准确率</em></li>
+        <li><span>05</span><b>操作说明</b><em id="surface-copy">校验订单身份</em></li>
+      </ul>
+    </aside>
+
+    <div class="scene-legend" aria-label="场景图例">
+      <span><i class="legend-active"></i>活动区域</span>
+      <span><i class="legend-flow"></i>实时货流</span>
+      <span><i class="legend-device"></i>设备 Actor</span>
+    </div>
+
+    <section class="control-deck" id="stage-controls" aria-label="履约阶段控制">
+      <div class="stage-tabs" role="tablist" aria-label="选择履约阶段">
+        <button class="active" role="tab" aria-selected="true" data-stage="0"><span>01</span><b>入库</b></button>
+        <button role="tab" aria-selected="false" data-stage="1"><span>02</span><b>上架</b></button>
+        <button role="tab" aria-selected="false" data-stage="2"><span>03</span><b>拣选</b></button>
+        <button role="tab" aria-selected="false" data-stage="3"><span>04</span><b>出库</b></button>
+      </div>
+      <div class="deck-actions">
+        <button id="play-tour" class="play-button" aria-pressed="false" aria-label="开始自动演示"><span class="play-icon" aria-hidden="true">▶</span><b>自动演示</b></button>
+        <button id="reset-view" class="icon-button" aria-label="重置三维镜头" title="重置镜头">⌖</button>
+      </div>
+      <div class="tour-progress" aria-hidden="true"><i id="tour-progress"></i></div>
+    </section>
+
+    <p class="interaction-hint"><span>拖动环绕 · 滚轮缩放 · 数字键 1–4 切换 · 空格播放</span><b id="render-stats">DRAW — · TRI — · TEX — · FPS —</b></p>
+
+    <div id="webgl-fallback" role="status">
+      <strong>3D 沙盘暂不可用</strong>
+      <span>你仍可通过阶段按钮查看业务状态、指标和操作说明。</span>
+    </div>
+  </main>
+
+  <script>
+    window.setTimeout(function () {
+      if (!document.documentElement.dataset.webglReady) document.body.classList.add("webgl-failed");
+    }, 6000);
+  </script>
+  <script type="module" src="warehouse.js"></script>
+</body>
+</html>

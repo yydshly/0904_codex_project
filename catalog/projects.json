@@ -92,9 +92,9 @@
     "slug": "home-sweet-home",
     "name": "Home Sweet Home 四态空间 Morph",
     "repository": "https://github.com/iamtechartist/home-sweet-home",
-    "summary": "用同一座 Three.js 微缩舞台展示花园、客厅、餐厅和卧室的连续换景，以及程序化几何、Shader 动效和昼夜光照能力。",
+    "summary": "拆解同一座 Three.js 微缩舞台的四态空间换景，提炼“一个状态驱动多个视觉表面”的编排模式，并将它迁移为智能仓储履约演示。",
     "status": "published",
-    "cover": "projects/090-home-sweet-home/images/cover.svg",
+    "cover": "projects/090-home-sweet-home/images/demos/garden-demo.gif",
     "demo": "projects/090-home-sweet-home/demo/",
     "tags": ["Three.js", "WebGL", "GLSL", "Procedural Geometry", "Interactive 3D"]
   },

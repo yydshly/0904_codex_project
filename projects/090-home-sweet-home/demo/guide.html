@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="交互拆解 Home Sweet Home 的 Three.js Actor 换形、Morph 时间线、Shader 与扩展路线。">
+  <title>Home Sweet Home · 原理与扩展</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&amp;family=Instrument+Sans:wght@400;500;600&amp;family=Noto+Sans+SC:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="guide.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">跳到原理导览</a>
+  <header class="topbar">
+    <a class="brand" href="guide.html" aria-label="Home Sweet Home 原理导览首页">
+      <span class="brand-mark" aria-hidden="true">H</span>
+      <span><strong>HOME / LAB</strong><small>IMPLEMENTATION GUIDE · 090</small></span>
+    </a>
+    <nav aria-label="页面导航">
+      <a href="#architecture">实现架构</a>
+      <a href="#timeline">Morph 时间线</a>
+      <a href="#extension">如何扩展</a>
+      <a href="warehouse.html">仓储能力</a>
+    </nav>
+    <a class="back-demo" href="index.html">返回 3D 演示 <span aria-hidden="true">↗</span></a>
+  </header>
+
+  <main id="main">
+    <section class="hero" aria-labelledby="page-title">
+      <div class="hero-copy">
+        <p class="eyebrow"><span>IMPLEMENTATION / 01</span> 从效果进入系统</p>
+        <h1 id="page-title">它不是把沙发<br>“捏”成一张床。</h1>
+        <p class="lede">真正发生的是：同一个语义角色预先准备四种外形，转场导演在正确时刻缩小旧形态、移动 Actor、弹出新形态，同时让材质和光照连续插值。</p>
+        <div class="truth-row" aria-label="核心结论">
+          <span>对象级换形</span><span>状态驱动</span><span>Shader 插值</span><span>单帧循环</span>
+        </div>
+      </div>
+      <div class="hero-proof" aria-label="结论与证据">
+        <div class="proof-index">01</div>
+        <p class="proof-label">THE ONE-LINE TRUTH</p>
+        <p class="proof-title">舞台调度，不是网格拓扑变形。</p>
+        <p>源码没有 MorphTarget、骨骼或 GLTF；核心是 <code>defineActor()</code>、<code>startMorph()</code>、<code>stepMorph()</code> 与 <code>tick()</code>。</p>
+        <div class="proof-actions">
+          <a href="https://github.com/iamtechartist/home-sweet-home/blob/9b69f10bf12bf93022ddd96ba806a7aaf3185f7c/index.html#L1193-L1538" target="_blank" rel="noreferrer">查看固定版本证据 ↗</a>
+          <a class="capability-link" href="warehouse.html">查看仓储能力演示 →</a>
+        </div>
+      </div>
+    </section>
+
+    <div class="workspace">
+      <aside class="live-stage" aria-label="原版场景观察窗">
+        <div class="stage-head">
+          <div><span class="live-dot" aria-hidden="true"></span> LIVE SOURCE</div>
+          <a href="index.html">全屏体验 ↗</a>
+        </div>
+        <div class="frame-wrap">
+          <iframe id="scene-frame" title="Home Sweet Home 原版 Three.js 演示" src="upstream-index.html?scene=0" loading="eager"></iframe>
+          <div class="frame-fallback">WebGL 观察窗未加载。<a href="index.html">打开原演示</a></div>
+        </div>
+        <div class="scene-switcher" role="group" aria-label="切换观察场景">
+          <button class="active" data-scene="0" aria-pressed="true"><b>01</b> Garden</button>
+          <button data-scene="1" aria-pressed="false"><b>02</b> Living</button>
+          <button data-scene="2" aria-pressed="false"><b>03</b> Dining</button>
+          <button data-scene="3" aria-pressed="false"><b>04</b> Bedroom</button>
+        </div>
+        <p class="stage-note">左侧是未修改的上游 HTML。切换场景观察“结果”；右侧用数据结构和时间线解释“原因”。</p>
+      </aside>
+
+      <article class="story">
+        <section id="architecture" class="chapter" aria-labelledby="architecture-title">
+          <p class="chapter-no">02 / SYSTEM MAP</p>
+          <h2 id="architecture-title">六层代码，串成一次换景</h2>
+          <p class="section-intro">点击下面任意层，查看它接收什么、做什么、向下一层交付什么。真正可复用的是这条数据流。</p>
+
+          <div class="architecture-rail" role="tablist" aria-label="实现架构六层">
+            <button class="active" role="tab" aria-selected="true" data-arch="bootstrap"><span>01</span>渲染底座</button>
+            <button role="tab" aria-selected="false" data-arch="geometry"><span>02</span>程序资产</button>
+            <button role="tab" aria-selected="false" data-arch="actor"><span>03</span>Actor 状态</button>
+            <button role="tab" aria-selected="false" data-arch="director"><span>04</span>转场导演</button>
+            <button role="tab" aria-selected="false" data-arch="style"><span>05</span>全局氛围</button>
+            <button role="tab" aria-selected="false" data-arch="loop"><span>06</span>逐帧提交</button>
+          </div>
+
+          <div class="inspector" id="architecture-panel" role="tabpanel" aria-live="polite">
+            <div class="inspector-meta">
+              <span id="arch-index">01 / RENDER BOOTSTRAP</span>
+              <span id="arch-runtime">CPU → GPU</span>
+            </div>
+            <h3 id="arch-title">先搭好相机、渲染器与控制器</h3>
+            <p id="arch-description">Three.js 把 Scene、Camera、Light、Mesh 组织起来，WebGLRenderer 再把绘制命令提交给 GPU。</p>
+            <div class="io-grid">
+              <div><small>INPUT</small><strong id="arch-input">Canvas + viewport</strong></div>
+              <div><small>OUTPUT</small><strong id="arch-output">可渲染的 3D 舞台</strong></div>
+            </div>
+            <pre><code id="arch-code">const renderer = new THREE.WebGLRenderer({ canvas, antialias:true });
+const camera = new THREE.PerspectiveCamera(40, aspect, 0.1, 220);
+const controls = new OrbitControls(camera, canvas);</code></pre>
+          </div>
+
+          <div class="actor-model" aria-labelledby="actor-title">
+            <div class="actor-copy">
+              <p class="mini-label">THE REUSABLE IDEA</p>
+              <h3 id="actor-title">Actor 是跨场景的“语义槽位”</h3>
+              <p>它不代表一个固定网格，而代表一个角色。例如 <em>sofa</em> 在四个空间里分别由花园椅、沙发、餐凳和床出演。</p>
+              <div class="actor-scenes" role="tablist" aria-label="Sofa Actor 的四个场景状态">
+                <button class="active" data-actor-scene="0" role="tab" aria-selected="true">Garden</button>
+                <button data-actor-scene="1" role="tab" aria-selected="false">Living</button>
+                <button data-actor-scene="2" role="tab" aria-selected="false">Dining</button>
+                <button data-actor-scene="3" role="tab" aria-selected="false">Bedroom</button>
+              </div>
+            </div>
+            <div class="actor-card" aria-live="polite">
+              <span class="actor-key">A.sofa / forms[<b id="actor-index">0</b>]</span>
+              <div class="actor-icon" id="actor-icon" aria-hidden="true">BENCH</div>
+              <h4 id="actor-form">gardenBenchForm()</h4>
+              <dl>
+                <div><dt>position</dt><dd id="actor-position">[-1.40, 0.30, -1.95]</dd></div>
+                <div><dt>rotationY</dt><dd id="actor-rotation">0.15 rad</dd></div>
+                <div><dt>scale</dt><dd id="actor-scale">1.00</dd></div>
+              </dl>
+            </div>
+          </div>
+        </section>
+
+        <section id="timeline" class="chapter" aria-labelledby="timeline-title">
+          <p class="chapter-no">03 / MORPH DIRECTOR</p>
+          <h2 id="timeline-title">拖动时间线，看清“变形”发生了什么</h2>
+          <p class="section-intro">下面模拟一个 Actor 从旧形态切换到新形态。真实代码对每个 Actor 使用不同延迟，因此整个房间会错峰生长。</p>
+
+          <div class="timeline-card">
+            <div class="timeline-head">
+              <div><span id="timeline-phase">等待 / STAGGER</span><small id="timeline-explain">每个 Actor 先等待自己的 stag 延迟</small></div>
+              <output id="timeline-output" for="timeline-range">0%</output>
+            </div>
+            <div class="timeline-world" aria-hidden="true">
+              <div class="world-floor"></div>
+              <div class="form form-old" id="form-old"><span>OLD</span><b>SOFA</b></div>
+              <div class="form form-new" id="form-new"><span>NEW</span><b>BED</b></div>
+              <div class="lift-guide"></div>
+            </div>
+            <label for="timeline-range">转场进度</label>
+            <input id="timeline-range" type="range" min="0" max="100" value="0" step="1">
+            <div class="timeline-marks" aria-hidden="true"><span>delay</span><span>旧形态收缩</span><span>switch</span><span>新形态弹出</span><span>settle</span></div>
+            <div class="metric-grid">
+              <div><span>MOVE</span><b id="metric-move">0.00</b></div>
+              <div><span>LIFT</span><b id="metric-lift">0.00</b></div>
+              <div><span>OLD SCALE</span><b id="metric-old">1.00</b></div>
+              <div><span>NEW SCALE</span><b id="metric-new">0.00</b></div>
+            </div>
+          </div>
+
+          <div class="cpu-gpu">
+            <div>
+              <span class="system-chip cpu">CPU / JavaScript</span>
+              <h3>决定“现在是什么状态”</h3>
+              <p><code>requestAnimationFrame</code> 更新时间、Actor 变换、场景权重和光照目标。</p>
+            </div>
+            <div class="transfer" aria-hidden="true"><span>uniforms</span>→</div>
+            <div>
+              <span class="system-chip gpu">GPU / GLSL</span>
+              <h3>并行计算“每个顶点与像素”</h3>
+              <p>天空、草地、地毯、植物摆动、灯串和萤火虫由 Shader 根据 <code>uTime</code>、<code>uMode</code> 等参数绘制。</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="chapter" aria-labelledby="source-title">
+          <p class="chapter-no">04 / SOURCE TOUR</p>
+          <h2 id="source-title">读源码时，只抓这四个入口</h2>
+          <div class="source-grid">
+            <article><span>1193</span><h3>defineActor()</h3><p>把 forms、states 和 timing 绑定成一个跨场景角色。</p></article>
+            <article><span>1470</span><h3>startMorph()</h3><p>为所有 Actor 计算 from/to、行程、升力、延迟和持续时间。</p></article>
+            <article><span>1500</span><h3>stepMorph()</h3><p>执行位移、最短旋转、缩放和旧/新形态切换。</p></article>
+            <article><span>1593</span><h3>tick()</h3><p>统一更新转场、Shader、昼夜光照、控制器并渲染。</p></article>
+          </div>
+          <pre class="source-flow"><code>SCENE INDEX
+  └─ ACTORS.forEach(actor)
+       ├─ states[from] → states[to]       // CPU：空间状态
+       ├─ forms[from]  → forms[to]        // CPU：语义换形
+       ├─ position / rotation / scale     // CPU：时间插值
+       └─ weights + uniforms              // CPU → GPU
+             └─ shader → light → pixels   // GPU：最终画面</code></pre>
+        </section>
+
+        <section id="extension" class="chapter" aria-labelledby="extension-title">
+          <p class="chapter-no">05 / EXTENSION ROUTER</p>
+          <h2 id="extension-title">先选目标，再决定扩展技术</h2>
+          <p class="section-intro">不要同时加入编辑器、真实模型、物理和后端。选择一个目标，下面会给出最短可验证路线。</p>
+
+          <div class="route-tabs" role="tablist" aria-label="选择扩展目标">
+            <button class="active" data-route="story" role="tab" aria-selected="true">品牌叙事</button>
+            <button data-route="configurator" role="tab" aria-selected="false">空间配置器</button>
+            <button data-route="assets" role="tab" aria-selected="false">真实资产</button>
+            <button data-route="engine" role="tab" aria-selected="false">可复用引擎</button>
+            <button data-route="vertex" role="tab" aria-selected="false">真正网格 Morph</button>
+          </div>
+
+          <div class="route-panel" id="route-panel" role="tabpanel" aria-live="polite">
+            <div class="route-summary">
+              <span id="route-level">最短路线 / 1–2 个模块</span>
+              <h3 id="route-title">把四个空间变成一段可理解的品牌故事</h3>
+              <p id="route-description">保留当前程序化场景，增加镜头导演、字幕节点和自动播放；适合官网 Hero、活动页和作品集。</p>
+            </div>
+            <ol id="route-steps">
+              <li><b>抽出 scene config</b><span>场景名称、文案、镜头、配色不再散落在源码中。</span></li>
+              <li><b>加入 director timeline</b><span>同一时间轴控制 Morph、镜头、字幕和停留。</span></li>
+              <li><b>定义完成证据</b><span>自动播放一轮后回到可自由探索状态。</span></li>
+            </ol>
+            <div class="route-delivery"><small>FIRST ACCEPTANCE TEST</small><strong id="route-test">90 秒内自动讲完四个空间，用户可随时接管镜头。</strong></div>
+          </div>
+
+          <div class="target-architecture">
+            <div class="tree-head"><span>推荐的第一轮重构</span><b>不要先换框架，先分责任</b></div>
+            <div class="tree">
+              <div class="tree-root">src /</div>
+              <div><b>core/</b><span>renderer · clock · morph-director</span></div>
+              <div><b>actors/</b><span>forms · states · actor registry</span></div>
+              <div><b>scenes/</b><span>garden · living · dining · bedroom</span></div>
+              <div><b>shaders/</b><span>sky · floor · rug · particles</span></div>
+              <div><b>ui/</b><span>navigation · captions · accessibility</span></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="chapter risk-chapter" aria-labelledby="risk-title">
+          <p class="chapter-no">06 / SCALE LIMITS</p>
+          <h2 id="risk-title">扩展前必须知道的四个瓶颈</h2>
+          <div class="risk-list">
+            <div><span>01</span><p><b>所有形态同时驻留</b>当前用 scale=0 隐藏，不是卸载；场景越多，内存和遍历成本越高。</p></div>
+            <div><span>02</span><p><b>重复对象没有实例化</b>花草由大量独立 Mesh 组成；规模扩大时应改为 InstancedMesh。</p></div>
+            <div><span>03</span><p><b>没有资源生命周期</b>当前无需切换真实资产，所以没有 loader、缓存、取消和 dispose。</p></div>
+            <div><span>04</span><p><b>还是作品，不是工程底座</b>单 HTML、CDN 依赖、无测试与降级；产品化需要构建、锁版本和 fallback。</p></div>
+          </div>
+        </section>
+
+        <footer>
+          <div><span>READY TO EXPLORE</span><h2>现在再看一次 Morph，应该能看见它背后的状态机。</h2></div>
+          <a class="footer-cta" href="index.html">回到 3D 演示 <span aria-hidden="true">→</span></a>
+        </footer>
+      </article>
+    </div>
+  </main>
+  <script src="guide.js"></script>
+</body>
+</html>

@@ -22,7 +22,7 @@
 | 060 | [NewsNow 能力控制台](https://github.com/ourongxing/newsnow) | 把多源热榜拆解为来源适配、缓存门控、字段标准化和 Web/API/MCP 交付，明确它作为外部信号输入层的价值与边界。 | 已发布 | [查看笔记](projects/060-newsnow-capability-console/README.md) | [打开 Demo](https://yydshly.github.io/0904_codex_project/projects/060-newsnow-capability-console/demo/) |
 | 070 | [Arnis World Forge](https://github.com/louis-e/arnis) | 把开放地理数据到 Minecraft / Luanti 世界的编译流水线，拆解为地形、城市语义、生态地表、世界细节和多格式写出，并提供可复制的 CLI 配置实验室。 | 已发布 | [查看笔记](projects/070-arnis-worldforge/README.md) | [打开 Demo](https://yydshly.github.io/0904_codex_project/projects/070-arnis-worldforge/demo/) |
 | 080 | [Sublevel Studio 能力实验台](https://github.com/MengTo/sublevel-studio) | 把一个高密度 Three.js 作品集拆解为空间叙事、实时纹理、可玩反馈与 Shader 后期，并用独立原型验证可迁移机制。 | 已发布 | [查看笔记](projects/080-sublevel-studio/README.md) | [打开 Demo](https://yydshly.github.io/0904_codex_project/projects/080-sublevel-studio/demo/) |
-| 090 | [Home Sweet Home 四态空间 Morph](https://github.com/iamtechartist/home-sweet-home) | 用同一座 Three.js 微缩舞台展示花园、客厅、餐厅和卧室的连续换景，以及程序化几何、Shader 动效和昼夜光照能力。 | 已发布 | [查看笔记](projects/090-home-sweet-home/README.md) | [打开 Demo](https://yydshly.github.io/0904_codex_project/projects/090-home-sweet-home/demo/) |
+| 090 | [Home Sweet Home 四态空间 Morph](https://github.com/iamtechartist/home-sweet-home) | 拆解同一座 Three.js 微缩舞台的四态空间换景，提炼“一个状态驱动多个视觉表面”的编排模式，并将它迁移为智能仓储履约演示。 | 已发布 | [查看笔记](projects/090-home-sweet-home/README.md) | [打开 Demo](https://yydshly.github.io/0904_codex_project/projects/090-home-sweet-home/demo/) |
 | 100 | [M3E Canvas](https://github.com/lnkiai/m3e-canvas) | 把 Material 3 Expressive 多屏草图、主题与交互编译成面向 Coding Agent 的结构化实现提示词，并提供可点击预览与可导入演示工程。 | 已发布 | [查看笔记](projects/100-m3e-canvas/README.md) | [打开 Demo](https://lnkiai.github.io/m3e-canvas/) |
 | 110 | [Open2Hub 热榜聚合架构](https://top.open2hub.com/) | 以 Open2Hub 的 REBANG 热榜为研究对象，将公开信息聚合能力整理为来源、采集、处理、存储、聚合服务与产品展示六个模块。 | 已发布 | [查看笔记](projects/110-open2hub/README.md) | — |
 | 120 | [InvoiceFlowAI 邮件发票处理架构](https://github.com/EthanYoQ/Invoice-Downloader) | 将邮箱驱动的发票整理拆解为 IMAP 接入、MIME 候选发现、链接恢复、分层识别、业务验收、串行归档与人工复核，为类似文档自动化系统提供可复用参考架构。 | 已发布 | [查看笔记](projects/120-invoiceflowai/README.md) | — |
@@ -112,9 +112,9 @@
 
 #### 090 · [Home Sweet Home 四态空间 Morph](projects/090-home-sweet-home/README.md)
 
-<a href="projects/090-home-sweet-home/README.md"><img src="projects/090-home-sweet-home/images/cover.svg" alt="Home Sweet Home 四态空间 Morph 演示图" width="760"></a>
+<a href="projects/090-home-sweet-home/README.md"><img src="projects/090-home-sweet-home/images/demos/garden-demo.gif" alt="Home Sweet Home 四态空间 Morph 演示图" width="760"></a>
 
-> 用同一座 Three.js 微缩舞台展示花园、客厅、餐厅和卧室的连续换景，以及程序化几何、Shader 动效和昼夜光照能力。
+> 拆解同一座 Three.js 微缩舞台的四态空间换景，提炼“一个状态驱动多个视觉表面”的编排模式，并将它迁移为智能仓储履约演示。
 
 **状态：** 已发布 · [源项目](https://github.com/iamtechartist/home-sweet-home) · [完整研究笔记](projects/090-home-sweet-home/README.md) · [在线演示](https://yydshly.github.io/0904_codex_project/projects/090-home-sweet-home/demo/)
 
