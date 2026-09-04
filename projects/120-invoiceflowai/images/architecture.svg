@@ -1,0 +1,132 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="630" viewBox="0 0 1440 630" role="img" aria-labelledby="title desc">
+  <title id="title">InvoiceFlowAI 邮件发票处理参考架构</title>
+  <desc id="desc">任务从桌面端或 DSH 入口发起，依次经过 IMAP 邮箱接入、MIME 候选发现、链接恢复、分层识别、业务验收和归档报表。底部展示失败保全、稳定身份、原因码、凭据安全和脱敏追踪五项横向能力。</desc>
+
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#07152e"/>
+      <stop offset="0.56" stop-color="#0c2246"/>
+      <stop offset="1" stop-color="#123459"/>
+    </linearGradient>
+    <linearGradient id="rail" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#40c4ff"/>
+      <stop offset="0.55" stop-color="#6e8bff"/>
+      <stop offset="1" stop-color="#a77cff"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="160%">
+      <feDropShadow dx="0" dy="12" stdDeviation="14" flood-color="#020817" flood-opacity="0.42"/>
+    </filter>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0 0 L10 5 L0 10 Z" fill="#7dd3fc"/>
+    </marker>
+    <style>
+      .eyebrow { font: 600 14px "Microsoft YaHei", "PingFang SC", sans-serif; letter-spacing: 2px; fill: #7dd3fc; }
+      .title { font: 700 34px "Microsoft YaHei", "PingFang SC", sans-serif; fill: #f8fbff; }
+      .subtitle { font: 400 16px "Microsoft YaHei", "PingFang SC", sans-serif; fill: #aac2df; }
+      .step { font: 700 13px "Microsoft YaHei", "PingFang SC", sans-serif; letter-spacing: 1.5px; fill: #7dd3fc; }
+      .module { font: 700 20px "Microsoft YaHei", "PingFang SC", sans-serif; fill: #f8fbff; }
+      .detail { font: 400 14px "Microsoft YaHei", "PingFang SC", sans-serif; fill: #bad0e8; }
+      .guardTitle { font: 700 16px "Microsoft YaHei", "PingFang SC", sans-serif; fill: #eaf5ff; }
+      .guard { font: 500 14px "Microsoft YaHei", "PingFang SC", sans-serif; fill: #c4d8ed; }
+      .footer { font: 400 13px "Microsoft YaHei", "PingFang SC", sans-serif; fill: #809bb9; }
+    </style>
+  </defs>
+
+  <rect width="1440" height="630" rx="30" fill="url(#bg)"/>
+  <circle cx="1325" cy="75" r="155" fill="#35b9ff" opacity="0.08"/>
+  <circle cx="115" cy="610" r="210" fill="#986cff" opacity="0.07"/>
+
+  <text x="64" y="55" class="eyebrow">SOURCE-BASED ARCHITECTURE REVIEW</text>
+  <text x="64" y="96" class="title">InvoiceFlowAI · 邮件发票处理参考架构</text>
+  <text x="64" y="127" class="subtitle">标准 IMAP 负责取件，稳定候选贯穿恢复、识别、验收、归档与证据链</text>
+  <rect x="64" y="151" width="1312" height="4" rx="2" fill="url(#rail)"/>
+
+  <g filter="url(#shadow)">
+    <g transform="translate(64 190)">
+      <rect width="194" height="222" rx="18" fill="#102d50" stroke="#24547e"/>
+      <rect width="194" height="5" rx="3" fill="#41c7ff"/>
+      <text x="18" y="36" class="step">01 · CONNECT</text>
+      <text x="18" y="72" class="module">邮箱接入</text>
+      <text x="18" y="108" class="detail"><tspan x="18">QQ / 163 通道</tspan><tspan x="18" dy="25">IMAP4_SSL + 授权码</tspan><tspan x="18" dy="25">UID / 日期两阶段扫描</tspan><tspan x="18" dy="25">只读与拆批重试</tspan></text>
+    </g>
+
+    <g transform="translate(286 190)">
+      <rect width="194" height="222" rx="18" fill="#102d50" stroke="#24547e"/>
+      <rect width="194" height="5" rx="3" fill="#4eb8ff"/>
+      <text x="18" y="36" class="step">02 · DISCOVER</text>
+      <text x="18" y="72" class="module">候选发现</text>
+      <text x="18" y="108" class="detail"><tspan x="18">MIME 正文 / HTML</tspan><tspan x="18" dy="25">附件 / ZIP / URL</tspan><tspan x="18" dy="25">四层邮件漏斗</tspan><tspan x="18" dy="25">DocumentCandidate</tspan></text>
+    </g>
+
+    <g transform="translate(508 190)">
+      <rect width="194" height="222" rx="18" fill="#102d50" stroke="#24547e"/>
+      <rect width="194" height="5" rx="3" fill="#5ca8ff"/>
+      <text x="18" y="36" class="step">03 · RECOVER</text>
+      <text x="18" y="72" class="module">链接恢复</text>
+      <text x="18" y="108" class="detail"><tspan x="18">URL 安全策略</tspan><tspan x="18" dy="25">HTTP 直接下载</tspan><tspan x="18" dy="25">Provider 适配器</tspan><tspan x="18" dy="25">Playwright 兜底</tspan></text>
+    </g>
+
+    <g transform="translate(730 190)">
+      <rect width="194" height="222" rx="18" fill="#102d50" stroke="#24547e"/>
+      <rect width="194" height="5" rx="3" fill="#6d96ff"/>
+      <text x="18" y="36" class="step">04 · EXTRACT</text>
+      <text x="18" y="72" class="module">分层识别</text>
+      <text x="18" y="108" class="detail"><tspan x="18">本地确定性解析</tspan><tspan x="18" dy="25">OCR → 文本模型</tspan><tspan x="18" dy="25">视觉模型降级</tspan><tspan x="18" dy="25">额度 / 鉴权熔断</tspan></text>
+    </g>
+
+    <g transform="translate(952 190)">
+      <rect width="194" height="222" rx="18" fill="#102d50" stroke="#24547e"/>
+      <rect width="194" height="5" rx="3" fill="#8588ff"/>
+      <text x="18" y="36" class="step">05 · ACCEPT</text>
+      <text x="18" y="72" class="module">业务验收</text>
+      <text x="18" y="108" class="detail"><tspan x="18">字段规范化</tspan><tspan x="18" dy="25">公司归属判断</tspan><tspan x="18" dy="25">文档类型注册</tspan><tspan x="18" dy="25">低置信度转人工</tspan></text>
+    </g>
+
+    <g transform="translate(1174 190)">
+      <rect width="202" height="222" rx="18" fill="#102d50" stroke="#24547e"/>
+      <rect width="202" height="5" rx="3" fill="#9e7fff"/>
+      <text x="18" y="36" class="step">06 · COMMIT</text>
+      <text x="18" y="72" class="module">归档与输出</text>
+      <text x="18" y="108" class="detail"><tspan x="18">串行副作用 / 去重</tspan><tspan x="18" dy="25">发票与凭证配对</tspan><tspan x="18" dy="25">分类目录 / Excel</tspan><tspan x="18" dy="25">复核队列 / 证据</tspan></text>
+    </g>
+  </g>
+
+  <g fill="none" stroke="#7dd3fc" stroke-width="2" marker-end="url(#arrow)">
+    <path d="M264 301 H278"/>
+    <path d="M486 301 H500"/>
+    <path d="M708 301 H722"/>
+    <path d="M930 301 H944"/>
+    <path d="M1152 301 H1166"/>
+  </g>
+
+  <g transform="translate(64 454)">
+    <rect width="1312" height="112" rx="18" fill="#0b2545" stroke="#254c73"/>
+    <text x="24" y="34" class="guardTitle">横向保障</text>
+
+    <g transform="translate(178 0)">
+      <circle cx="0" cy="30" r="5" fill="#41c7ff"/>
+      <text x="14" y="35" class="guard">失败原件保全</text>
+    </g>
+    <g transform="translate(390 0)">
+      <circle cx="0" cy="30" r="5" fill="#58b1ff"/>
+      <text x="14" y="35" class="guard">稳定文档身份</text>
+    </g>
+    <g transform="translate(594 0)">
+      <circle cx="0" cy="30" r="5" fill="#7197ff"/>
+      <text x="14" y="35" class="guard">终态与原因码</text>
+    </g>
+    <g transform="translate(790 0)">
+      <circle cx="0" cy="30" r="5" fill="#8a86ff"/>
+      <text x="14" y="35" class="guard">凭据安全存储</text>
+    </g>
+    <g transform="translate(1002 0)">
+      <circle cx="0" cy="30" r="5" fill="#a77cff"/>
+      <text x="14" y="35" class="guard">脱敏追踪与证据</text>
+    </g>
+
+    <text x="656" y="78" text-anchor="middle" class="subtitle">关键工程价值：可降级 · 可重试 · 可审计 · 不丢原件 · 不让模型结果直接驱动文件副作用</text>
+  </g>
+
+  <text x="1376" y="603" text-anchor="end" class="footer">源码研究版本 1b884e9 · 2026-09-05</text>
+</svg>
+
