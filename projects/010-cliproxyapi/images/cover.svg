@@ -1,0 +1,156 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
+  <title id="title">CLIProxyAPI 整体架构</title>
+  <desc id="desc">客户端协议经过兼容 API、双向协议转换、模型路由、多凭据调度和提供商执行器访问多个模型上游，控制面提供配置、凭据、管理与插件能力。</desc>
+  <defs>
+    <style>
+      text { font-family: Inter, "Segoe UI", "Microsoft YaHei", sans-serif; fill: #0f172a; }
+      .title { font-size: 34px; font-weight: 600; }
+      .subtitle { font-size: 17px; fill: #475569; }
+      .section { font-size: 17px; font-weight: 600; letter-spacing: .04em; fill: #475569; }
+      .node-title { font-size: 20px; font-weight: 600; }
+      .node-body { font-size: 14px; fill: #475569; }
+      .small { font-size: 13px; fill: #475569; }
+      .step { font-size: 13px; font-weight: 600; fill: #2563eb; }
+      .frame { fill: none; stroke: #cbd5e1; stroke-width: 2; }
+      .node { fill: #ffffff; stroke: #cbd5e1; stroke-width: 1.5; }
+      .api { fill: #eef2ff; stroke: #2563eb; stroke-width: 1.5; }
+      .translate { fill: #ecfeff; stroke: #059669; stroke-width: 1.5; }
+      .route { fill: #fff7ed; stroke: #ea580c; stroke-width: 1.5; }
+      .execute { fill: #f0fdf4; stroke: #059669; stroke-width: 1.5; }
+      .control { fill: #ffffff; stroke: #7c3aed; stroke-width: 1.5; }
+      .request { fill: none; stroke: #2563eb; stroke-width: 3; marker-end: url(#arrow-blue); }
+      .response { fill: none; stroke: #059669; stroke-width: 3; stroke-dasharray: 9 7; marker-end: url(#arrow-green); }
+      .feedback { fill: none; stroke: #dc2626; stroke-width: 2; stroke-dasharray: 5 6; marker-end: url(#arrow-red); }
+      .control-line { fill: none; stroke: #7c3aed; stroke-width: 2; stroke-dasharray: 4 5; marker-end: url(#arrow-purple); }
+      .bus { fill: none; stroke: #cbd5e1; stroke-width: 2; }
+    </style>
+    <marker id="arrow-blue" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L9,3 z" fill="#2563eb"/></marker>
+    <marker id="arrow-green" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L9,3 z" fill="#059669"/></marker>
+    <marker id="arrow-red" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L9,3 z" fill="#dc2626"/></marker>
+    <marker id="arrow-purple" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L9,3 z" fill="#7c3aed"/></marker>
+  </defs>
+
+  <rect width="1600" height="1000" fill="#f8fafc"/>
+  <text x="48" y="58" class="title">CLIProxyAPI：多协议、多提供商、多凭据的模型网关</text>
+  <text x="48" y="88" class="subtitle">实线表示请求方向，绿色虚线表示响应回程，红色虚线表示限流 / 配额 / 错误反馈</text>
+
+  <text x="48" y="132" class="section">调用方</text>
+  <rect x="48" y="158" width="252" height="92" rx="12" class="node"/>
+  <text x="70" y="190" class="node-title">OpenAI 客户端</text>
+  <text x="70" y="216" class="node-body">Chat Completions / Responses</text>
+  <text x="70" y="237" class="small">JSON · SSE · WebSocket</text>
+
+  <rect x="48" y="270" width="252" height="92" rx="12" class="node"/>
+  <text x="70" y="302" class="node-title">Claude 客户端</text>
+  <text x="70" y="328" class="node-body">Messages / Count Tokens</text>
+  <text x="70" y="349" class="small">Claude Code / Anthropic SDK</text>
+
+  <rect x="48" y="382" width="252" height="92" rx="12" class="node"/>
+  <text x="70" y="414" class="node-title">Gemini 客户端</text>
+  <text x="70" y="440" class="node-body">v1beta Models / Interactions</text>
+  <text x="70" y="461" class="small">GenerateContent / Stream</text>
+
+  <rect x="48" y="494" width="252" height="92" rx="12" class="node"/>
+  <text x="70" y="526" class="node-title">CLI / Agent 工具</text>
+  <text x="70" y="552" class="node-body">Codex direct / Realtime</text>
+  <text x="70" y="573" class="small">IDE · Sidecar · 自动化任务</text>
+
+  <path d="M300 204 H326 M300 316 H326 M300 428 H326 M300 540 H326 M326 204 V540" class="bus"/>
+
+  <text x="360" y="132" class="section">CLIProxyAPI 数据面</text>
+  <rect x="350" y="112" width="850" height="674" rx="18" class="frame"/>
+
+  <rect x="390" y="156" width="770" height="86" rx="12" class="api"/>
+  <text x="420" y="187" class="step">1 · 接入</text>
+  <text x="500" y="187" class="node-title">Gin API Server + Access Middleware</text>
+  <text x="420" y="216" class="node-body">/v1 · /v1beta · /backend-api/codex · /v1/realtime · Management routes</text>
+  <path d="M326 348 H364 V199 H390" class="request"/>
+
+  <rect x="390" y="272" width="770" height="96" rx="12" class="translate"/>
+  <text x="420" y="304" class="step">2 · 归一</text>
+  <text x="500" y="304" class="node-title">Protocol Handlers + Translator Pipeline</text>
+  <text x="420" y="332" class="node-body">OpenAI ↔ Responses ↔ Claude ↔ Gemini ↔ Codex</text>
+  <text x="420" y="354" class="small">请求 / 响应规范化 · tools / thinking / multimodal · 插件拦截器</text>
+  <path d="M775 242 V272" class="request"/>
+
+  <rect x="390" y="398" width="370" height="128" rx="12" class="route"/>
+  <text x="420" y="430" class="step">3A · 路由</text>
+  <text x="420" y="460" class="node-title">Model Router</text>
+  <text x="420" y="486" class="node-body">别名 · 前缀 · 排除 · 模型池</text>
+  <text x="420" y="508" class="small">决定候选 Provider / 上游模型</text>
+
+  <rect x="790" y="398" width="370" height="128" rx="12" class="route"/>
+  <text x="820" y="430" class="step">3B · 调度</text>
+  <text x="820" y="460" class="node-title">Auth Manager / Scheduler</text>
+  <text x="820" y="486" class="node-body">轮询 · 权重 · Fill-first · 会话粘滞</text>
+  <text x="820" y="508" class="small">可用性 · 冷却 · 重试 · 故障转移</text>
+  <path d="M775 368 V382 H575 V398" class="request"/>
+  <path d="M775 382 H975 V398" class="request"/>
+  <path d="M760 462 H790" class="request"/>
+
+  <rect x="390" y="558" width="770" height="98" rx="12" class="execute"/>
+  <text x="420" y="590" class="step">4 · 执行</text>
+  <text x="500" y="590" class="node-title">Provider Executors</text>
+  <text x="420" y="618" class="node-body">上游 URL · OAuth/API Key · Header 塑形 · Provider 特例 · HTTP/SSE/WS</text>
+  <text x="420" y="640" class="small">Codex · Claude · Gemini · Vertex · AI Studio · xAI · Kimi · OpenAI-compatible · 插件</text>
+  <path d="M975 526 V558" class="request"/>
+
+  <rect x="390" y="690" width="770" height="64" rx="12" class="translate"/>
+  <text x="420" y="718" class="step">6 · 回程</text>
+  <text x="500" y="718" class="node-title">Response / Stream Translator</text>
+  <text x="420" y="742" class="node-body">上游 JSON / SSE / WS → 调用方原协议；用量与生命周期事件交给插件</text>
+
+  <text x="1260" y="132" class="section">模型上游</text>
+  <rect x="1260" y="158" width="292" height="86" rx="12" class="node"/>
+  <text x="1284" y="190" class="node-title">OpenAI / Codex</text>
+  <text x="1284" y="217" class="node-body">API Key 或 ChatGPT OAuth</text>
+
+  <rect x="1260" y="264" width="292" height="86" rx="12" class="node"/>
+  <text x="1284" y="296" class="node-title">Anthropic / Claude</text>
+  <text x="1284" y="323" class="node-body">API Key 或 Claude OAuth</text>
+
+  <rect x="1260" y="370" width="292" height="86" rx="12" class="node"/>
+  <text x="1284" y="402" class="node-title">Google AI</text>
+  <text x="1284" y="429" class="node-body">Gemini · Vertex · AI Studio</text>
+
+  <rect x="1260" y="476" width="292" height="86" rx="12" class="node"/>
+  <text x="1284" y="508" class="node-title">其他 Provider</text>
+  <text x="1284" y="535" class="node-body">xAI / Grok · Kimi · Antigravity</text>
+
+  <rect x="1260" y="582" width="292" height="86" rx="12" class="node"/>
+  <text x="1284" y="614" class="node-title">兼容或插件上游</text>
+  <text x="1284" y="641" class="node-body">OpenAI-compatible · Custom plugin</text>
+
+  <path d="M1160 607 H1222 M1222 201 V625 M1222 201 H1260 M1222 307 H1260 M1222 413 H1260 M1222 519 H1260 M1222 625 H1260" class="request"/>
+  <text x="1168" y="592" class="step">5</text>
+  <path d="M1260 690 H1218 V722 H1160" class="response"/>
+  <path d="M390 722 H340 V612 H326" class="response"/>
+  <text x="48" y="622" class="small">响应：JSON / SSE / WS</text>
+
+  <path d="M1260 350 C1212 350 1210 462 1160 462" class="feedback"/>
+  <text x="1172" y="386" class="small">429 / 配额 / 错误</text>
+
+  <text x="360" y="824" class="section">控制面与扩展面</text>
+  <rect x="350" y="842" width="850" height="122" rx="18" class="frame"/>
+
+  <rect x="374" y="868" width="184" height="70" rx="10" class="control"/>
+  <text x="392" y="897" class="node-title">配置与热更新</text>
+  <text x="392" y="922" class="node-body">YAML · alias · policy</text>
+
+  <rect x="580" y="868" width="184" height="70" rx="10" class="control"/>
+  <text x="598" y="897" class="node-title">凭据与 OAuth</text>
+  <text x="598" y="922" class="node-body">Token store · PKCE</text>
+
+  <rect x="786" y="868" width="184" height="70" rx="10" class="control"/>
+  <text x="804" y="897" class="node-title">Management API</text>
+  <text x="804" y="922" class="node-body">控制台 · Auth · Logs</text>
+
+  <rect x="992" y="868" width="184" height="70" rx="10" class="control"/>
+  <text x="1010" y="897" class="node-title">Plugin SDK</text>
+  <text x="1010" y="922" class="node-body">Router · Executor · Hooks</text>
+
+  <path d="M466 868 V808 H575 V786" class="control-line"/>
+  <path d="M672 868 V808 H975 V786" class="control-line"/>
+  <path d="M878 868 V818 H1080 V786" class="control-line"/>
+  <path d="M1084 868 V808 H1125 V786" class="control-line"/>
+</svg>

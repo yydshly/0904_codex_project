@@ -17,6 +17,20 @@ for (const project of projects) {
   const destination = path.resolve(outputDirectory, project.cover);
   await mkdir(path.dirname(destination), { recursive: true });
   await cp(source, destination);
+
+  if (project.demo?.startsWith("projects/")) {
+    const demoSource = path.resolve(rootDirectory, project.demo);
+    const demoDestination = path.resolve(outputDirectory, project.demo);
+    await mkdir(path.dirname(demoDestination), { recursive: true });
+    await cp(demoSource, demoDestination, {
+      recursive: true,
+      filter: (sourcePath) => {
+        const relativeSegments = path.relative(demoSource, sourcePath).split(path.sep);
+        const excludedDirectory = relativeSegments.some((segment) => [".git", ".openai", "dist"].includes(segment));
+        return !excludedDirectory && !sourcePath.endsWith(".tar.gz") && path.basename(sourcePath) !== ".gitignore";
+      }
+    });
+  }
 }
 
 console.log(`Pages 构建完成，共收录 ${projects.length} 个项目。`);

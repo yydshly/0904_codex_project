@@ -1,0 +1,399 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="用一张宏观架构图和两条代理路径理解 CLIProxyAPI：统一协议网关、API Key 适配、OAuth/Auth 凭证沉淀与运行时调度。"
+    />
+    <title>CLIProxyAPI：统一协议网关 + 凭证运行时</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+        font-family: Inter, "Microsoft YaHei", system-ui, sans-serif;
+        scroll-behavior: smooth;
+        --bg: light-dark(#f5f7fb, #0d1219);
+        --surface: light-dark(#ffffff, #161d27);
+        --surface-soft: light-dark(#edf3fb, #172434);
+        --text: light-dark(#142033, #edf3fb);
+        --muted: light-dark(#5f6f84, #a9b5c7);
+        --border: light-dark(#d7e0eb, #2d3948);
+        --blue: light-dark(#1c62d7, #78a8ff);
+        --green: light-dark(#087d65, #66d2b6);
+        --orange: light-dark(#bd5b0c, #ffad66);
+        --purple: light-dark(#6950ba, #b69cff);
+        --shadow: 0 18px 48px light-dark(rgba(34, 57, 88, 0.08), rgba(0, 0, 0, 0.2));
+      }
+
+      * { box-sizing: border-box; }
+      body { margin: 0; background: var(--bg); color: var(--text); }
+      a { color: inherit; }
+      button { font: inherit; }
+      code { font-family: ui-monospace, SFMono-Regular, Consolas, monospace; overflow-wrap: anywhere; }
+
+      .shell { width: min(1180px, calc(100% - 36px)); margin: 0 auto; }
+      .topbar { display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 22px 0; }
+      .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 700; }
+      .brand-mark { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 8px; background: var(--text); color: var(--bg); }
+      .topnav { display: flex; align-items: center; flex-wrap: wrap; gap: 16px; }
+      .topnav a { color: var(--muted); text-decoration: none; font-size: 14px; }
+      .topnav a:hover { color: var(--text); }
+
+      .hero { padding: 54px 0 34px; }
+      .eyebrow { margin: 0 0 12px; color: var(--blue); font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; }
+      h1 { max-width: 980px; margin: 0; font-size: clamp(38px, 7vw, 72px); line-height: 1.07; letter-spacing: -0.045em; }
+      .lead { max-width: 850px; margin: 22px 0 0; color: var(--muted); font-size: clamp(17px, 2.2vw, 22px); line-height: 1.7; }
+      .lead strong { color: var(--text); font-weight: 650; }
+      .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+      .button { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 10px 16px; border: 1px solid var(--border); border-radius: 9px; background: var(--surface); color: var(--text); text-decoration: none; cursor: pointer; }
+      .button.primary { border-color: transparent; background: var(--text); color: var(--bg); }
+
+      .architecture { margin: 32px 0 76px; overflow: hidden; border: 1px solid var(--border); border-radius: 18px; background: #f7f9fc; box-shadow: var(--shadow); }
+      .architecture img { display: block; width: 100%; height: auto; }
+
+      .section { padding: 70px 0; border-top: 1px solid var(--border); scroll-margin-top: 18px; }
+      .section-heading { display: grid; grid-template-columns: minmax(0, 0.78fr) minmax(0, 1.22fr); gap: 36px; align-items: start; margin-bottom: 34px; }
+      h2 { margin: 0; font-size: clamp(28px, 4.2vw, 46px); line-height: 1.15; letter-spacing: -0.035em; }
+      h3 { margin: 0 0 10px; font-size: 20px; }
+      p, li { line-height: 1.72; }
+      .section-copy { margin: 0; color: var(--muted); font-size: 17px; }
+
+      .mode-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+      .mode-card { padding: 24px; border: 1px solid var(--border); border-radius: 16px; background: var(--surface); }
+      .mode-card.api { border-top: 4px solid var(--blue); }
+      .mode-card.oauth { border-top: 4px solid var(--green); }
+      .mode-card p { color: var(--muted); }
+      .chain { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+      .chain span { padding: 7px 10px; border-radius: 7px; background: var(--surface-soft); font-size: 14px; }
+      .chain b { color: var(--muted); }
+
+      .simulator { margin-top: 22px; padding: 24px; border: 1px solid var(--border); border-radius: 16px; background: var(--surface); }
+      .simulator-head { display: flex; justify-content: space-between; align-items: center; gap: 18px; margin-bottom: 24px; }
+      .tabs { display: flex; flex-wrap: wrap; gap: 8px; }
+      .tab { min-height: 42px; padding: 8px 13px; border: 1px solid var(--border); border-radius: 8px; background: transparent; color: var(--muted); cursor: pointer; }
+      .tab[aria-selected="true"] { border-color: var(--text); background: var(--text); color: var(--bg); }
+      .stage-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+      .stage { min-height: 116px; padding: 14px; border: 1px solid var(--border); border-radius: 11px; background: var(--bg); transition: border-color 160ms ease, background 160ms ease, transform 160ms ease; }
+      .stage strong { display: block; margin-bottom: 7px; }
+      .stage small { color: var(--muted); line-height: 1.55; }
+      .stage.active { border-color: var(--blue); background: var(--surface-soft); transform: translateY(-3px); }
+      .step-control { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-top: 18px; }
+      .step-status { margin: 0; color: var(--muted); }
+      .next-step { min-height: 42px; padding: 8px 14px; border: 0; border-radius: 8px; background: var(--blue); color: #fff; cursor: pointer; }
+
+      .runtime { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+      .runtime-card { position: relative; padding: 20px; border-top: 3px solid var(--border); }
+      .runtime-card:nth-child(1) { border-color: var(--blue); }
+      .runtime-card:nth-child(2) { border-color: var(--green); }
+      .runtime-card:nth-child(3) { border-color: var(--orange); }
+      .runtime-card:nth-child(4) { border-color: var(--purple); }
+      .runtime-card span { display: block; margin-bottom: 8px; color: var(--muted); font-size: 12px; font-weight: 700; letter-spacing: 0.1em; }
+      .runtime-card p { margin-bottom: 0; color: var(--muted); }
+
+      .split { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+      .panel { padding: 24px; border: 1px solid var(--border); border-radius: 16px; background: var(--surface); }
+      .panel ul { margin: 12px 0 0; padding-left: 20px; }
+      .panel li { margin: 8px 0; color: var(--muted); }
+      .callout { margin-top: 20px; padding: 18px 20px; border-left: 4px solid var(--blue); border-radius: 0 10px 10px 0; background: var(--surface-soft); }
+      .callout.warn { border-left-color: var(--orange); }
+
+      .table-wrap { overflow-x: auto; }
+      table { width: 100%; min-width: 720px; border-collapse: collapse; }
+      th, td { padding: 15px 12px; border-bottom: 1px solid var(--border); text-align: left; vertical-align: top; line-height: 1.6; }
+      th { color: var(--muted); font-size: 13px; }
+
+      .footer { display: flex; justify-content: space-between; gap: 22px; padding: 34px 0 48px; border-top: 1px solid var(--border); color: var(--muted); font-size: 14px; }
+      .footer p { margin: 0; }
+
+      @media (max-width: 900px) {
+        .section-heading { grid-template-columns: 1fr; gap: 16px; }
+        .runtime { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .stage-grid { grid-template-columns: 1fr; }
+        .stage { min-height: auto; }
+        .simulator-head { align-items: flex-start; flex-direction: column; }
+      }
+
+      @media (max-width: 680px) {
+        .shell { width: min(100% - 22px, 1180px); }
+        .topbar { align-items: flex-start; }
+        .topnav a:not(:last-child) { display: none; }
+        .hero { padding-top: 36px; }
+        .architecture { margin-bottom: 54px; border-radius: 10px; overflow-x: auto; }
+        .architecture img { min-width: 720px; }
+        .section { padding: 52px 0; }
+        .mode-grid, .runtime, .split { grid-template-columns: 1fr; }
+        .simulator, .mode-card, .panel { padding: 18px; }
+        .step-control { align-items: flex-start; flex-direction: column; }
+        .next-step { width: 100%; }
+        .footer { flex-direction: column; }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        :root { scroll-behavior: auto; }
+        .stage { transition: none; }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="shell topbar">
+      <a class="brand" href="../../../" aria-label="返回研究档案首页">
+        <span class="brand-mark" aria-hidden="true">R</span>
+        <span>CLIProxyAPI 研究</span>
+      </a>
+      <nav class="topnav" aria-label="主要导航">
+        <a href="#modes">两种方式</a>
+        <a href="#runtime">凭证运行时</a>
+        <a href="#risks">风险边界</a>
+        <a href="https://github.com/yydshly/0904_codex_project/tree/main/projects/010-cliproxyapi">查看源码</a>
+      </nav>
+    </header>
+
+    <main class="shell">
+      <section class="hero">
+        <p class="eyebrow">CLIProxyAPI · Architecture Review</p>
+        <h1>统一协议网关<br />+ 凭证运行时</h1>
+        <p class="lead">
+          通过协议与 Provider 适配器，将调用方使用的<strong>统一 API</strong>，转换并路由到后台真实的
+          <strong>API Key 或 OAuth/Auth 凭证</strong>，完成上游模型调用，再把响应转换回调用方协议。
+        </p>
+        <div class="hero-actions">
+          <a class="button primary" href="#modes">理解两种代理方式</a>
+          <a class="button" href="https://github.com/router-for-me/CLIProxyAPI">访问原项目</a>
+        </div>
+      </section>
+
+      <figure class="architecture">
+        <img
+          src="../images/proxy-platform-overview.png"
+          alt="调用方通过 OpenAI 兼容 API 进入内部代理平台；平台依次完成统一协议入口、协议与模型适配、凭证运行时和 Provider Executor，再通过 API Key 或 OAuth/Auth 两种方式访问真实模型上游，并返回统一响应。"
+        />
+      </figure>
+
+      <section class="section" id="modes">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">01 · Two Proxy Modes</p>
+            <h2>同一个入口，<br />两种凭证适配方式</h2>
+          </div>
+          <p class="section-copy">
+            调用方始终请求代理平台。差异发生在平台内部：一种注入配置好的 API Key，另一种先通过浏览器授权沉淀 Auth，再从 Auth 池选择账号。
+          </p>
+        </div>
+
+        <div class="mode-grid">
+          <article class="mode-card api">
+            <p class="eyebrow">方式 A</p>
+            <h3>API Key 代理</h3>
+            <p>适配器把统一请求转换为 Provider 协议，并从安全配置中读取真实 API Key，注入对应 Header 后调用官方 API。</p>
+            <div class="chain" aria-label="API Key 代理链路">
+              <span>统一请求</span><b>→</b><span>协议适配</span><b>→</b><span>注入 Key</span><b>→</b><span>官方 API</span>
+            </div>
+          </article>
+          <article class="mode-card oauth">
+            <p class="eyebrow">方式 B</p>
+            <h3>OAuth/Auth 代理</h3>
+            <p>用户只在接入阶段通过浏览器授权。Callback 换取并保存 Token，运行时再从允许的 Auth 池选择账号并注入 Access Token。</p>
+            <div class="chain" aria-label="OAuth Auth 代理链路">
+              <span>浏览器授权</span><b>→</b><span>沉淀 Auth</span><b>→</b><span>选择账号</span><b>→</b><span>授权上游</span>
+            </div>
+          </article>
+        </div>
+
+        <div class="simulator" aria-labelledby="simulator-title">
+          <div class="simulator-head">
+            <div>
+              <p class="eyebrow">Interactive Path</p>
+              <h3 id="simulator-title">逐步查看请求在哪里发生变化</h3>
+            </div>
+            <div class="tabs" role="tablist" aria-label="代理方式">
+              <button class="tab" id="api-tab" type="button" role="tab" aria-selected="true" aria-controls="path-panel" data-mode="api">API Key 代理</button>
+              <button class="tab" id="oauth-tab" type="button" role="tab" aria-selected="false" aria-controls="path-panel" data-mode="oauth">OAuth/Auth 代理</button>
+            </div>
+          </div>
+          <div id="path-panel" role="tabpanel" aria-labelledby="api-tab">
+            <div class="stage-grid" id="stage-grid"></div>
+            <div class="step-control">
+              <p class="step-status" id="step-status" aria-live="polite"></p>
+              <button class="next-step" type="button" id="next-step">下一步</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="runtime">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">02 · Credential Runtime</p>
+            <h2>平台真正需要<br />运行的四个模块</h2>
+          </div>
+          <p class="section-copy">
+            “登录成功”只意味着得到一份可用凭证。业务请求到来后，平台仍需确定调用者能使用哪些凭证、哪个 Provider 支持该模型，以及本次具体选择哪个 authID。
+          </p>
+        </div>
+        <div class="runtime">
+          <article class="runtime-card"><span>01 · BIND</span><h3>业务绑定</h3><p><code>caller / tenant → allowed credential pool</code>，先建立不可绕过的权限边界。</p></article>
+          <article class="runtime-card"><span>02 · ROUTE</span><h3>模型路由</h3><p><code>model alias → provider candidates</code>，确定协议和上游候选。</p></article>
+          <article class="runtime-card"><span>03 · SELECT</span><h3>凭证选择</h3><p>排除禁用、过期、额度不足或冷却中的凭证，再执行轮询、权重或会话粘滞。</p></article>
+          <article class="runtime-card"><span>04 · EXECUTE</span><h3>Provider 执行</h3><p>注入 Key 或 Token，塑形 Header，转换请求与 JSON、SSE、WebSocket 响应。</p></article>
+        </div>
+        <div class="callout">
+          <strong>核心关系：</strong>业务一对一是 <code>tenant → authID</code>；一对多是 <code>tenant → allowedAuthPool</code>；
+          Session Affinity 只是池内的软粘滞，不负责租户授权。
+        </div>
+      </section>
+
+      <section class="section" id="auth">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">03 · Auth Lifecycle</p>
+            <h2>浏览器只参与<br />凭证接入阶段</h2>
+          </div>
+          <p class="section-copy">
+            浏览器不会把 Cookie 或密码交给代理。认证提供方通过 HTTP 302 把一次性的 <code>code + state</code> 送到 Callback；代码再使用 PKCE verifier 换取 Token。
+          </p>
+        </div>
+        <div class="split">
+          <article class="panel">
+            <h3>接入阶段</h3>
+            <ul>
+              <li>代码生成授权地址、一次性 state 与 PKCE。</li>
+              <li>用户在认证提供方页面登录并同意授权。</li>
+              <li>Callback 校验 state，用 code + verifier 换 Token。</li>
+              <li>Token、账户身份和运行状态组合成 Auth 对象。</li>
+            </ul>
+          </article>
+          <article class="panel">
+            <h3>运行阶段</h3>
+            <ul>
+              <li>我们的代码使用网关 API Key 调用统一入口。</li>
+              <li>网关根据租户、模型和状态选择具体 authID。</li>
+              <li>Executor 将 Access Token 写入上游请求。</li>
+              <li>401 触发刷新或禁用；429 触发冷却、重试或故障转移。</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="risks">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">04 · Boundary & Risk</p>
+            <h2>技术可行，<br />不等于用途被允许</h2>
+          </div>
+          <p class="section-copy">
+            API Key 和 OAuth/Auth 都能成为代理凭证，但它们代表的主体、额度、服务条款和风险完全不同。生产设计必须把凭证安全与合规判断放在调度之前。
+          </p>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>关注点</th><th>API Key 代理</th><th>OAuth/Auth 代理</th><th>实现要求</th></tr></thead>
+            <tbody>
+              <tr><td>凭证代表谁</td><td>开发者项目或计费账户</td><td>完成授权的用户账号</td><td>调用方身份与上游凭证必须分层</td></tr>
+              <tr><td>主要风险</td><td>Key 泄漏、费用失控、越权调用</td><td>Token 泄漏、账号关联、用途限制与封禁</td><td>加密、最小权限、日志脱敏、撤销和审计</td></tr>
+              <tr><td>调度边界</td><td>只在允许的 Key 池内选择</td><td>只在租户授权的 Auth 池内选择</td><td>不能相信客户端任意传入 authID</td></tr>
+              <tr><td>错误反馈</td><td>额度、限流、上游错误</td><td>过期、撤销、限流、账号风控</td><td>模型级冷却、重试上限与故障转移</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="callout warn">
+          <strong>边界：</strong>OAuth 登录成功只能证明认证流程完成，不能证明 Provider 允许共享账号、转售个人订阅或商业化中转。
+        </div>
+      </section>
+
+      <section class="section" id="implementation">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">05 · Implementation Map</p>
+            <h2>后续实现时<br />从这些边界开始</h2>
+          </div>
+          <p class="section-copy">
+            将统一协议、业务授权、凭证生命周期和 Provider 驱动分别实现，能避免把 OAuth 登录、业务一对一和会话粘滞混成同一个状态。
+          </p>
+        </div>
+        <div class="split">
+          <article class="panel">
+            <h3>建议的数据关系</h3>
+            <ul>
+              <li><code>PendingLogin(state, verifierHash, tenant, expiresAt)</code></li>
+              <li><code>Credential(authID, tenant, provider, encryptedTokens, status)</code></li>
+              <li><code>ModelState(authID, model, quota, retryAfter, lastError)</code></li>
+              <li><code>Affinity(tenant, provider, model, session, authID, expiresAt)</code></li>
+            </ul>
+          </article>
+          <article class="panel">
+            <h3>建议的实现顺序</h3>
+            <ul>
+              <li>先完成 OpenAI 兼容入口与单 Provider API Key 适配。</li>
+              <li>再实现 OAuth 接入、Token 加密和刷新生命周期。</li>
+              <li>加入租户允许凭证池，再实现 Selector。</li>
+              <li>最后增加冷却、故障转移、审计和可观测性。</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="shell footer">
+      <p>静态页面只演示系统模型，不连接真实账号或模型上游。</p>
+      <p><a href="https://github.com/yydshly/0904_codex_project/tree/main/projects/011-oauth-pkce-flow-demo">本地 OAuth + PKCE HTTP 实验</a></p>
+    </footer>
+
+    <script>
+      const paths = {
+        api: [
+          ["统一请求", "调用方只理解统一 API、模型名和会话信息。"],
+          ["协议适配", "把统一请求转换为目标 Provider 的格式。"],
+          ["凭证选择", "从业务允许的 Key 池选择可用 API Key。"],
+          ["注入 Key", "Executor 写入 Authorization 或厂商专用 Header。"],
+          ["官方 API", "请求 Provider API，并转换响应返回调用方。"]
+        ],
+        oauth: [
+          ["授权接入", "用户通过浏览器授权，Callback 换取并保存 Token。"],
+          ["统一请求", "业务代码携带网关身份、模型和 session 调用。"],
+          ["Auth 过滤", "按租户、Provider、模型、额度与冷却过滤候选。"],
+          ["选择 authID", "轮询、权重、填满优先或会话粘滞。"],
+          ["授权上游", "Executor 刷新或注入 Access Token，转换响应。"]
+        ]
+      };
+
+      const tabs = [...document.querySelectorAll(".tab")];
+      const grid = document.querySelector("#stage-grid");
+      const status = document.querySelector("#step-status");
+      const next = document.querySelector("#next-step");
+      const panel = document.querySelector("#path-panel");
+      let mode = "api";
+      let step = 0;
+
+      function renderPath() {
+        const stages = paths[mode];
+        grid.replaceChildren(...stages.map(([title, description], index) => {
+          const item = document.createElement("div");
+          item.className = `stage${index === step ? " active" : ""}`;
+          item.innerHTML = `<strong>${index + 1}. ${title}</strong><small>${description}</small>`;
+          return item;
+        }));
+        status.textContent = `${mode === "api" ? "API Key" : "OAuth/Auth"} 路径 · 第 ${step + 1}/${stages.length} 步：${stages[step][1]}`;
+        next.textContent = step === stages.length - 1 ? "重新演示" : "下一步";
+      }
+
+      tabs.forEach((tab) => tab.addEventListener("click", () => {
+        mode = tab.dataset.mode;
+        step = 0;
+        tabs.forEach((item) => {
+          const selected = item === tab;
+          item.setAttribute("aria-selected", String(selected));
+        });
+        panel.setAttribute("aria-labelledby", tab.id);
+        renderPath();
+      }));
+
+      next.addEventListener("click", () => {
+        step = (step + 1) % paths[mode].length;
+        renderPath();
+      });
+
+      renderPath();
+    </script>
+  </body>
+</html>

@@ -8,9 +8,21 @@
 
 <!-- PROJECT_INDEX_START -->
 
-> 暂无已收录项目。添加第一个项目后运行 `npm run catalog:update`，索引会自动生成。
+| 顺序 | 项目 | 摘要 | 状态 | 演示 |
+| ---: | --- | --- | --- | --- |
+| 010 | [CLIProxyAPI](projects/010-cliproxyapi/README.md) | 统一协议网关 + 凭证运行时：通过协议与 Provider 适配器，将调用方使用的统一 API 路由到后台真实的 API Key 或 OAuth/Auth 凭证，并完成上游模型交互。 | 已发布 | [打开 Demo](projects/010-cliproxyapi/demo/) |
 
 <!-- PROJECT_INDEX_END -->
+
+## CLIProxyAPI 快速理解
+
+> **统一协议网关 + 凭证运行时：**通过协议与 Provider 适配器，将调用方使用的统一 API，转换并路由到后台真实的 API Key 或 OAuth/Auth 凭证，完成上游模型调用，再将响应转换回调用方协议。
+
+![CLIProxyAPI 宏观架构：我们的代码通过统一 API 进入代理平台，平台分别使用 API Key 或 OAuth/Auth 适配真实模型上游](projects/010-cliproxyapi/images/proxy-platform-overview.png)
+
+- [完整研究笔记](projects/010-cliproxyapi/README.md)：能力、两种代理方式、Auth 形成、凭证调度、业务一对一/一对多、风险与源码索引。
+- [在线交互知识页](https://yydshly.github.io/0904_codex_project/projects/010-cliproxyapi/demo/)：切换查看 API Key 和 OAuth/Auth 两条代理路径。
+- [本地 OAuth + PKCE 实验](projects/011-oauth-pkce-flow-demo/README.md)：真实模拟浏览器 Redirect、Callback、Token 交换、过期与刷新，不连接真实账号。
 
 ## 仓库结构
 
