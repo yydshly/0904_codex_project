@@ -19,21 +19,21 @@ User-defined phases: 确认宏观图片；确认直观摘要；写入仓库；�
 Required artifacts: 架构图片、项目 README、根 README 索引、静态 Pages 页面、本地实验、浏览器与构建证据
 Autonomy authorization: 用户回复“确定”，授权按已确认图和摘要完成写入、提交、推送与部署
 User-decision boundary: 不接入真实账户；不上传真实 Token；不把其他研究项目纳入本次提交
-Observable completion criteria: 根索引文字准确；图片和两种代理方式首屏可见；桌面/窄屏无横向溢出；静态交互可用；Go 与目录检查通过；Pages 工作流成功且公网地址可访问
+Observable completion criteria: 根索引文字准确；首屏建立统一网关概念且架构图紧邻其后；两种代理方式清晰可见；桌面/窄屏无横向溢出；静态交互可用；Go 与目录检查通过；Pages 工作流成功且公网地址可访问
 ```
 
 ## Coverage manifest
 
 | User phase | Requirement or artifact | Surface / state | Evidence needed | Owning stage | Status | Next action |
 |---|---|---|---|---|---|---|
-| 宏观图片 | 用三栏图解释调用方、内部代理平台与真实上游 | README / Pages | Image and browser screenshot | 2-3 | continue | 将确认图片保存到项目并接入 README 与静态页 |
-| 直观索引 | 使用确认后的“统一协议网关 + 凭证运行时”摘要 | Root README / catalog | File inspection and catalog check | 3 | continue | 更新 catalog 并生成根 README 索引 |
-| 两种代理方式 | 简述 API Key 注入与 OAuth/Auth 沉淀后调度 | Static Pages | Browser DOM and interaction | 3-6 | continue | 构建静态双路径切换与详细参考页 |
+| 宏观图片 | 用三栏图解释调用方、内部代理平台与真实上游 | README / Pages | Image and browser screenshot | 2-3 | pass | `proxy-platform-overview.png` 已进入根 README、项目 README 与 Pages，浏览器确认成功加载 |
+| 直观索引 | 使用确认后的“统一协议网关 + 凭证运行时”摘要 | Root README / catalog | File inspection and catalog check | 3 | pass | 根索引和线上项目卡片显示确认摘要，Demo 链接正确 |
+| 两种代理方式 | 简述 API Key 注入与 OAuth/Auth 沉淀后调度 | Static Pages | Browser DOM and interaction | 3-6 | pass | 公网页面可切换 API Key/OAuth 路径并逐步查看五个节点 |
 | 本地实验 | 保留真实 HTTP Redirect、Callback、Token 与刷新模拟 | Local Go app | Browser journey | 5-6 | pass | 既有 18080/18081 全流程证据继续有效，代码未改变 |
-| 响应式 | Pages 桌面与窄屏可读、无文档级横向溢出 | 1024px / 390px | Browser observation | 7 | continue | 部署前检查本地 Pages 构建，部署后复核公网页面 |
-| 主题 | 浅色/深色由系统 color-scheme 自适应 | Supported theme boundary | CSS/source and browser render | 7 | continue | 静态页实现主题适配并检查可用环境 |
-| 工程质量 | Go、目录、Pages 构建均通过 | Repository | Command output | 9 | continue | 运行 gofmt、go test、go build、catalog check 和 pages build |
-| 发布 | 仅提交本项目范围并部署 GitHub Pages | Git / GitHub Actions | Commit, push, workflow and HTTP | 9 | continue | 精确暂存、推送 main、等待 Pages 成功并验证 URL |
+| 响应式 | Pages 桌面与窄屏可读、无文档级横向溢出 | 1280px / 390px | Browser observation | 7 | pass | Playwright 实测两种宽度的 `scrollWidth` 等于 `innerWidth`，窄屏内容重排 |
+| 主题 | 浅色/深色由系统 color-scheme 自适应 | Supported theme boundary | CSS/source and browser render | 7 | pass | 1280px 浅色与 390px 深色均已实际渲染，层级与状态可读 |
+| 工程质量 | Go、目录、Pages 构建均通过 | Repository | Command output | 9 | pass | gofmt、go test、go build、catalog check、pages build 与 diff check 通过 |
+| 发布 | 仅提交本项目范围并部署 GitHub Pages | Git / GitHub Actions | Commit, push, workflow and HTTP | 9 | pass | commit `61737c1` 已推送；Pages run `33890269807` 成功；公网 URL 与交互已验证 |
 
 ## Baseline evidence
 
@@ -45,16 +45,23 @@ Observable completion criteria: 根索引文字准确；图片和两种代理方
 
 ## Final evidence
 
-- Desktop viewport: `1024 × 768`; sticky topic navigation, experiment cards and authenticated Auth summary visible without document-level horizontal overflow.
-- Narrow viewports: `390 × 844` and the default `319px` browser width; content grids collapse to one column, long source paths wrap, and topic navigation/tables keep overflow inside their own containers; document-level horizontal overflow absent.
+- Published URL: `https://yydshly.github.io/0904_codex_project/projects/010-cliproxyapi/demo/`.
+- Published index: `https://yydshly.github.io/0904_codex_project/` 显示确认后的摘要与在线 Demo 入口。
+- Static Pages desktop: `1280 × 720` light theme; H1 establishes “统一协议网关 + 凭证运行时”, architecture image loads, and document width is `1280/1280` with no horizontal overflow.
+- Static Pages narrow: `390 × 844` dark theme; cards and stages collapse to one column, document width is `390/390`, and long labels remain readable.
+- Static interaction: API Key and OAuth/Auth tabs update the five-stage path; Next advances the live status from step 1 to step 2. The same path works on the public Pages URL.
+- Keyboard: Enter selects the API Key tab and advances Next; focus remains on `next-step` with the browser focus outline visible.
+- Motion: a browser context with `prefers-reduced-motion: reduce` reports `0s` transition duration.
+- Browser console: no errors in the desktop-light or mobile-dark scenarios.
 - Browser journey: authorization service URL contained Client ID, PKCE challenge, Redirect URI, Scope and state; approval returned to `/callback?code=...&state=...`; expired Access Token returned `access_token_expired`; refresh issued a new token; the next Codex call returned the authenticated demo account.
 - Accessibility structure: one H1, ordered H2 topic headings, semantic navigation links, native buttons/forms, native details/summary controls and semantic tables.
-- Supported theme boundary: CSS follows the host light/dark color scheme. Current light rendering was observed. Browser capabilities exposed viewport control but no color-scheme/media emulation, so dark rendering remains a valid non-blocking defer; retest when browser media emulation or a dark host session is available.
 - Canonical runtime remains `go run .` at `http://127.0.0.1:18080/`.
+- Engineering: `npm run catalog:check`, `npm run pages:build`, `gofmt`, `go test ./...`, `go build .` and Git diff checks passed.
+- Deployment: GitHub Actions Pages run `33890269807` completed successfully for commit `61737c1`.
 
 ## Terminal audit
 
 - No coverage row remains `continue`.
-- Required webpage, README and validation record exist.
-- The only defer is dark-theme browser evidence; it does not block the requested content and interaction delivery, and includes an explicit retest trigger above.
+- Architecture image, root/project README, static Pages page, local HTTP experiment and validation record all exist.
+- No item remains deferred or blocked.
 - No blocked item remains in the requested scope.
