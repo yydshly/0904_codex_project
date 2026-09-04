@@ -131,6 +131,32 @@ h1 {
   line-height: 1.8;
 }
 
+.hub-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 18px;
+  margin-top: 30px;
+}
+
+.hub-actions a {
+  color: #e3eaf5;
+  text-underline-offset: 4px;
+}
+
+.hub-actions .hub-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 10px 16px;
+  border-radius: 9px;
+  color: #0e1626;
+  background: #5be2ad;
+  font-weight: 750;
+  text-decoration: none;
+}
+
 .catalog {
   padding: 92px 0 112px;
 }

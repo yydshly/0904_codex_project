@@ -128,13 +128,14 @@ if (errors.length) {
 const orderedProjects = [...projects].sort((a, b) => a.order - b.order);
 const table = orderedProjects.length
   ? [
-      "| 顺序 | 项目 | 摘要 | 状态 | 演示 |",
-      "| ---: | --- | --- | --- | --- |",
+      "| 顺序 | 源项目 | 摘要 | 状态 | 研究笔记 | 在线演示 |",
+      "| ---: | --- | --- | --- | --- | --- |",
       ...orderedProjects.map((project) => {
         const directoryName = `${String(project.order).padStart(3, "0")}-${project.slug}`;
-        const projectLink = `[${escapeCell(project.name)}](projects/${directoryName}/README.md)`;
+        const projectLink = `[${escapeCell(project.name)}](${project.repository.trim()})`;
+        const researchLink = `[查看笔记](projects/${directoryName}/README.md)`;
         const demoLink = project.demo?.trim() ? `[打开 Demo](${project.demo.trim()})` : "—";
-        return `| ${String(project.order).padStart(3, "0")} | ${projectLink} | ${escapeCell(project.summary)} | ${statusLabels[project.status]} | ${demoLink} |`;
+        return `| ${String(project.order).padStart(3, "0")} | ${projectLink} | ${escapeCell(project.summary)} | ${statusLabels[project.status]} | ${researchLink} | ${demoLink} |`;
       })
     ].join("\n")
   : "> 暂无已收录项目。添加第一个项目后运行 `npm run catalog:update`，索引会自动生成。";

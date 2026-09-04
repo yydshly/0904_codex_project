@@ -4,13 +4,17 @@
 
 仓库既是研究档案，也是导航入口：根目录 README 提供摘要和有序索引；每个子项目保留独立研究笔记、图片说明与相关材料；需要交互展示的项目可以链接到各自的在线 Demo。
 
+## 在线总入口
+
+[打开 GitHub 项目研究档案](https://yydshly.github.io/0904_codex_project/)：所有项目统一从这里进入；每个项目分别提供源仓库、研究笔记和在线 Demo。Demo 既可以部署在本站子路径，也可以指向独立部署地址。
+
 ## 项目索引
 
 <!-- PROJECT_INDEX_START -->
 
-| 顺序 | 项目 | 摘要 | 状态 | 演示 |
-| ---: | --- | --- | --- | --- |
-| 010 | [CLIProxyAPI](projects/010-cliproxyapi/README.md) | 统一协议网关 + 凭证运行时：通过协议与 Provider 适配器，将调用方使用的统一 API 路由到后台真实的 API Key 或 OAuth/Auth 凭证，并完成上游模型交互。 | 已发布 | [打开 Demo](projects/010-cliproxyapi/demo/) |
+| 顺序 | 源项目 | 摘要 | 状态 | 研究笔记 | 在线演示 |
+| ---: | --- | --- | --- | --- | --- |
+| 010 | [CLIProxyAPI](https://github.com/router-for-me/CLIProxyAPI) | 统一协议网关 + 凭证运行时：通过协议与 Provider 适配器，将调用方使用的统一 API 路由到后台真实的 API Key 或 OAuth/Auth 凭证，并完成上游模型交互。 | 已发布 | [查看笔记](projects/010-cliproxyapi/README.md) | [打开 Demo](projects/010-cliproxyapi/demo/) |
 
 <!-- PROJECT_INDEX_END -->
 
