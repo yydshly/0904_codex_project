@@ -33,6 +33,22 @@
     ]
   },
   {
+    "order": 30,
+    "slug": "sopilot-growth-logic",
+    "name": "SoPilot 增长逻辑解剖台",
+    "repository": "https://sopilot.net/zh",
+    "summary": "用七步白话流程和系统架构拆解 SoPilot 如何连接定位、热点、持续内容、互动分发与浏览器自动化。",
+    "status": "published",
+    "cover": "projects/030-sopilot-growth-logic/images/cover.svg",
+    "demo": "projects/030-sopilot-growth-logic/demo/",
+    "tags": [
+      "AI Agent",
+      "Growth",
+      "Browser Automation",
+      "Content Marketing"
+    ]
+  },
+  {
     "order": 50,
     "slug": "course2md",
     "name": "course2md 视频图文时间轴",

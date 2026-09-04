@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="SoPilot 营销增长逻辑交互研究：增长飞轮、内容机制、浏览器 Agent 架构与风险边界。" />
+    <title>SoPilot 增长逻辑解剖台</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">跳到主要内容</a>
+
+    <header class="topbar">
+      <a class="wordmark" href="#top" aria-label="返回页面顶部">
+        <span class="wordmark-mark" aria-hidden="true">S</span>
+        <span>SoPilot / 增长逻辑解剖台</span>
+      </a>
+      <nav aria-label="页面导航">
+        <a href="#capabilities">能力流程</a>
+        <a href="#flywheel">增长飞轮</a>
+        <a href="#architecture">系统架构</a>
+        <a href="#boundaries">风险边界</a>
+        <a href="#experiment">验证方案</a>
+      </nav>
+      <p class="as-of">研究日期 · 2026.09.04</p>
+    </header>
+
+    <main id="main">
+      <section class="hero" id="top" aria-labelledby="page-title">
+        <div class="hero-copy">
+          <p class="kicker">INTERACTIVE PRODUCT RESEARCH · 030</p>
+          <h1 id="page-title">它不是靠一个爆款启号，<br /><span>而是把增长动作连成闭环。</span></h1>
+          <p class="hero-summary">
+            SoPilot 的核心不是“更会写文案”，而是把账号定位、热点信号、持续生产、互动分发和浏览器执行封装成可重复的营销工作流。
+          </p>
+          <div class="hero-verdict" role="note">
+            <span class="verdict-label">核心判断</span>
+            <strong>热点负责加速，持续发布负责积累，钩子负责转化注意力，互动负责取得分发入口。</strong>
+          </div>
+        </div>
+
+        <aside class="formula-card" aria-label="增长公式">
+          <div class="formula-head"><span>GROWTH MODEL</span><span class="status-dot">推断模型</span></div>
+          <p class="formula">
+            <span>G</span><i>≈</i><b>定位</b><i>×</i><b>质量</b><i>×</i><b>频率</b><i>×</i><b>互动</b><i>×</i><b>转化</b>
+          </p>
+          <p class="formula-note">这是乘法系统：任一环节接近 0，自动化只会更快地放大问题。</p>
+          <div class="signal-grid" aria-label="SoPilot 能覆盖的增长变量">
+            <div><span>01</span><strong>策略</strong><small>产品 / 账号诊断</small></div>
+            <div><span>02</span><strong>生产</strong><small>选题 / 内容日历</small></div>
+            <div><span>03</span><strong>分发</strong><small>多平台 / 自动发布</small></div>
+            <div><span>04</span><strong>互动</strong><small>评论 / 转帖 / 私信</small></div>
+          </div>
+        </aside>
+      </section>
+
+      <section class="section capability-flow-section" id="capabilities" aria-labelledby="capability-flow-title">
+        <div class="section-intro">
+          <div>
+            <p class="kicker">00 · PLAIN-LANGUAGE OVERVIEW</p>
+            <h2 id="capability-flow-title">先看它能帮你完成什么</h2>
+          </div>
+          <p>不从技术名词出发，而是按照个人创作者每天真实会经历的步骤来理解。</p>
+        </div>
+
+        <figure class="capability-flow-figure">
+          <img
+            src="capability-flow.png"
+            alt="SoPilot 帮助个人 IP 从明确方向、收集素材、AI 整理和生成内容，到多平台发布、参与讨论并根据结果调整的七步流程"
+            width="1672"
+            height="939"
+          />
+          <figcaption>
+            <strong>一句话：</strong>它把你的定位、日常积累和外部信息，整理成可以持续生产、分发和复盘的内容循环。
+          </figcaption>
+        </figure>
+
+        <div class="capability-summary" aria-label="SoPilot 能力摘要">
+          <article><span>01</span><div><strong>想清楚讲什么</strong><p>辅助明确账号定位、受众、内容主线和发布节奏。</p></div></article>
+          <article><span>02</span><div><strong>把素材变成内容</strong><p>把热点、实践和用户问题整理成选题、钩子和内容初稿。</p></div></article>
+          <article><span>03</span><div><strong>持续分发与互动</strong><p>适配多个平台，辅助发布，并进入相关话题与评论区。</p></div></article>
+          <article><span>04</span><div><strong>记录结果再调整</strong><p>保留执行记录；真正的效果归因仍需要平台和转化数据。</p></div></article>
+        </div>
+      </section>
+
+      <section class="section flywheel-section" id="flywheel" aria-labelledby="flywheel-title">
+        <div class="section-intro">
+          <div><p class="kicker">01 · GROWTH FLYWHEEL</p><h2 id="flywheel-title">账号增长的六段飞轮</h2></div>
+          <p>选择一个阶段，查看它如何工作，以及 SoPilot 在其中承担什么角色。</p>
+        </div>
+
+        <div class="flywheel-workbench">
+          <div class="stage-list" role="tablist" aria-label="增长飞轮阶段">
+            <button class="stage-button is-active" type="button" role="tab" aria-selected="true" data-stage="positioning"><span>01</span><strong>定位</strong><small>确定账号为什么存在</small></button>
+            <button class="stage-button" type="button" role="tab" aria-selected="false" data-stage="signals"><span>02</span><strong>信号</strong><small>寻找正在升温的话题</small></button>
+            <button class="stage-button" type="button" role="tab" aria-selected="false" data-stage="production"><span>03</span><strong>生产</strong><small>持续输出内容资产</small></button>
+            <button class="stage-button" type="button" role="tab" aria-selected="false" data-stage="distribution"><span>04</span><strong>分发</strong><small>适配并发布到渠道</small></button>
+            <button class="stage-button" type="button" role="tab" aria-selected="false" data-stage="engagement"><span>05</span><strong>互动</strong><small>进入已有流量场</small></button>
+            <button class="stage-button" type="button" role="tab" aria-selected="false" data-stage="learning"><span>06</span><strong>学习</strong><small>复盘结果，修正策略</small></button>
+          </div>
+
+          <article class="stage-detail" role="tabpanel" aria-live="polite">
+            <div class="detail-topline"><span id="stage-index">01 / 定位</span><span id="stage-evidence" class="evidence confirmed">官网明确</span></div>
+            <h3 id="stage-title">先让平台和用户知道“你是谁”</h3>
+            <p id="stage-summary" class="detail-summary">输入产品网址、X 账号或一句营销需求，生成定位、受众、内容主线、关键词和转化路径。它解决的是启号最常见的问题：每天发，但主题漂移。</p>
+            <div class="detail-columns">
+              <div><p class="micro-label">SOPILOT 动作</p><ul id="stage-actions"><li>提取产品与账号上下文</li><li>形成受众与差异化定位</li><li>生成栏目和内容边界</li></ul></div>
+              <div><p class="micro-label">增长作用</p><ul id="stage-impact"><li>让账号标签更集中</li><li>降低持续创作的决策成本</li><li>提高主页访问后的认知一致性</li></ul></div>
+            </div>
+            <div class="detail-bottom"><p><span>关键指标</span><strong id="stage-metric">主页访问 → 关注转化率</strong></p><a id="stage-source" href="https://sopilot.net/zh/workspace" target="_blank" rel="noreferrer">查看对应证据 ↗</a></div>
+          </article>
+        </div>
+
+        <div class="mechanism-grid" aria-label="三种常见增长机制分析">
+          <article>
+            <span class="mechanism-number">A</span><h3>关注热点事件？</h3>
+            <p><strong>是，但热点只是加速器。</strong>起爆帖监控帮助账号在话题仍在上升时进入评论区，借用既有流量，而不是等待自己的帖子自然分发。</p>
+            <div class="mechanism-meter"><i style="--score: 78%"></i></div><small>对早期曝光的重要度 · 高</small>
+          </article>
+          <article>
+            <span class="mechanism-number">B</span><h3>持续发布？</h3>
+            <p><strong>这是基础盘。</strong>专栏定位、批量选题和内容日历把灵感型创作改造成稳定供给，帮助平台形成账号标签，也积累用户认知。</p>
+            <div class="mechanism-meter"><i style="--score: 92%"></i></div><small>对长期增长的重要度 · 很高</small>
+          </article>
+          <article>
+            <span class="mechanism-number">C</span><h3>技巧型钩子？</h3>
+            <p><strong>有用，但不能代替价值。</strong>情绪、结构、首句和话题标签改善“停下来读”的概率；内容是否值得收藏和关注，仍取决于洞察与可信度。</p>
+            <div class="mechanism-meter"><i style="--score: 69%"></i></div><small>对单条内容表现的重要度 · 中高</small>
+          </article>
+        </div>
+      </section>
+
+      <section class="section architecture-section" id="architecture" aria-labelledby="architecture-title">
+        <div class="section-intro architecture-intro">
+          <div><p class="kicker">02 · LOGIC ARCHITECTURE</p><h2 id="architecture-title">浏览器 Agent 如何把策略变成动作</h2></div>
+          <p>依据官方 Agent 配置和插件文档还原；模型供应商、后端框架和热点评分算法未公开。</p>
+        </div>
+
+        <div class="architecture-map" aria-label="SoPilot 逻辑架构">
+          <div class="arch-column inputs">
+            <p class="arch-label">INPUT / 上下文</p>
+            <div class="arch-node"><span>01</span><strong>产品资料</strong><small>网址、卖点、品牌口吻</small></div>
+            <div class="arch-node"><span>02</span><strong>当前网页</strong><small>标题、正文、HTML、帖子</small></div>
+            <div class="arch-node"><span>03</span><strong>用户目标</strong><small>平台、受众、增长任务</small></div>
+          </div>
+          <div class="arch-connector" aria-hidden="true"><span>读取</span></div>
+          <div class="arch-column agent-core">
+            <p class="arch-label">AGENT CORE / 编排</p>
+            <div class="core-shell">
+              <div class="core-row"><span>系统提示词</span><b>角色 · 步骤 · 规则</b></div>
+              <div class="core-row"><span>页面变量</span><b>{title} · {content} · CSS</b></div>
+              <div class="core-row"><span>轻量逻辑</span><b>for · if · 特殊函数</b></div>
+              <div class="model-core"><small>语言模型</small><strong>理解 · 生成 · 结构化</strong><em>供应商未披露</em></div>
+            </div>
+          </div>
+          <div class="arch-connector" aria-hidden="true"><span>调用</span></div>
+          <div class="arch-column executor">
+            <p class="arch-label">EXECUTOR / 浏览器执行</p>
+            <div class="arch-node hot"><span>04</span><strong>内容脚本</strong><small>DOM 读取与元素定位</small></div>
+            <div class="arch-node hot"><span>05</span><strong>动作执行</strong><small>填充、滚动、点击、发布</small></div>
+            <div class="arch-node hot"><span>06</span><strong>状态记录</strong><small>成功、失败、跳过、去重</small></div>
+          </div>
+          <div class="arch-output"><span>X</span><span>小红书</span><span>公众号</span><span>LinkedIn</span><span>目录站</span></div>
+        </div>
+
+        <div class="architecture-notes">
+          <article><p class="micro-label">确定事实</p><h3>DOM 是连接 AI 和网页的桥</h3><p>Agent 可通过 CSS 选择器读取指定元素，并把生成结果插入输入框；网站匹配规则决定插件何时展示对应 Agent。</p></article>
+          <article><p class="micro-label">合理推断</p><h3>云端控制面 + 本地执行面</h3><p>产品资料、Agent 配置和内容资产由网站管理；真实页面操作发生在用户已登录的浏览器里，因而可以复用登录态。</p></article>
+          <article><p class="micro-label">尚未闭环</p><h3>发布不等于增长学习</h3><p>公开资料证明了从策略到发布的闭环，但没有证明曝光、转化和收入数据会自动回流并优化下一轮策略。</p></article>
+        </div>
+      </section>
+
+      <section class="section comparison-section" aria-labelledby="comparison-title">
+        <div class="section-intro"><div><p class="kicker">03 · WHAT CREATES GROWTH</p><h2 id="comparison-title">工具能放大什么，不能替代什么</h2></div></div>
+        <div class="comparison-table" role="table" aria-label="SoPilot 能力与增长必要条件对比">
+          <div class="comparison-row comparison-head" role="row"><span role="columnheader">增长环节</span><span role="columnheader">SoPilot 能做</span><span role="columnheader">仍需人工负责</span></div>
+          <div class="comparison-row" role="row"><strong role="cell">定位</strong><span role="cell">生成受众、栏目和内容策略初稿</span><span role="cell">判断真正的差异化与商业价值</span></div>
+          <div class="comparison-row" role="row"><strong role="cell">内容</strong><span role="cell">提高选题、写作和跨平台改写速度</span><span role="cell">提供真实经验、证据和独特观点</span></div>
+          <div class="comparison-row" role="row"><strong role="cell">分发</strong><span role="cell">降低发布和重复填写的操作成本</span><span role="cell">决定渠道优先级与发布节奏</span></div>
+          <div class="comparison-row" role="row"><strong role="cell">互动</strong><span role="cell">发现目标帖并生成上下文相关回复</span><span role="cell">控制边界、避免骚扰、维护关系</span></div>
+          <div class="comparison-row" role="row"><strong role="cell">转化</strong><span role="cell">持续制造主页访问和触点</span><span role="cell">优化产品、主页承诺、落地页和成交路径</span></div>
+        </div>
+      </section>
+
+      <section class="section boundaries-section" id="boundaries" aria-labelledby="boundaries-title">
+        <div class="section-intro light-intro">
+          <div><p class="kicker">04 · BOUNDARIES</p><h2 id="boundaries-title">增长越自动，护栏越重要</h2></div>
+          <p>这些边界会直接影响账号、搜索排名与企业数据安全。</p>
+        </div>
+        <div class="risk-grid">
+          <article class="risk-card critical">
+            <div><span>R1</span><b>账号平台风险</b></div><h3>网页脚本式 X 自动化与官方规则存在冲突</h3>
+            <p>X 的自动化规则反对非 API 的网页脚本自动化，并限制自动点赞、未经用户主动请求的批量回复。高频使用可能导致限流或封禁。</p>
+            <a href="https://help.x.com/en/rules-and-policies/x-automation" target="_blank" rel="noreferrer">X Automation Rules ↗</a>
+          </article>
+          <article class="risk-card warning">
+            <div><span>R2</span><b>SEO 风险</b></div><h3>外链数量不等于搜索价值</h3>
+            <p>Google 将自动程序创建的外链、低质量目录链接和带优化锚文本的论坛评论列为链接垃圾。目录提交应以相关性、真实性和人工复核为前提。</p>
+            <a href="https://developers.google.com/search/docs/essentials/spam-policies" target="_blank" rel="noreferrer">Google Spam Policies ↗</a>
+          </article>
+          <article class="risk-card neutral">
+            <div><span>R3</span><b>数据与权限</b></div><h3>浏览器执行能力天然需要较高权限</h3>
+            <p>能够读取和修改网页，才可能自动填表和发布；企业使用前应确认站点访问范围、数据保留、模型供应商和审计机制。</p>
+            <a href="https://support.google.com/chrome_webstore/answer/186213" target="_blank" rel="noreferrer">Chrome 权限说明 ↗</a>
+          </article>
+        </div>
+      </section>
+
+      <section class="section experiment-section" id="experiment" aria-labelledby="experiment-title">
+        <div class="experiment-heading">
+          <div><p class="kicker">05 · 14-DAY TEST</p><h2 id="experiment-title">不要先问“能涨多少”，先验证哪一环有效</h2></div>
+          <p>用一个非核心账号，以人工审批模式运行两周。</p>
+        </div>
+        <ol class="experiment-list">
+          <li><span>01</span><div><strong>建立基线</strong><p>记录过去两周发布量、互动率、主页访问、关注和有效点击。</p></div><em>DAY 0</em></li>
+          <li><span>02</span><div><strong>固定定位与三条内容主线</strong><p>不要同时测试定位、频率、钩子和渠道，否则无法归因。</p></div><em>DAY 1</em></li>
+          <li><span>03</span><div><strong>稳定发布 + 有选择的热点互动</strong><p>每条内容人工校对；只参与与账号定位高度相关的讨论。</p></div><em>DAY 2–13</em></li>
+          <li><span>04</span><div><strong>评价商业信号</strong><p>优先看主页访问、有效关注、点击和咨询，不只看生成数量或点赞。</p></div><em>DAY 14</em></li>
+        </ol>
+        <div class="recommendation"><span>建议</span><p>先使用策略、内容日历和辅助发布；暂缓全自动点赞、批量评论和批量外链，直到规则与风险评估完成。</p></div>
+      </section>
+
+      <section class="section sources-section" aria-labelledby="sources-title">
+        <div><p class="kicker">SOURCES</p><h2 id="sources-title">证据与限制</h2></div>
+        <p class="source-note">产品能力主要依据一手官方资料；增长因果是基于功能链路的分析，不等于独立效果评测。</p>
+        <div class="source-links">
+          <a href="https://sopilot.net/zh/workspace" target="_blank" rel="noreferrer"><span>01</span>AI 营销工作台</a>
+          <a href="https://sopilot.net/zh/docs/agent-create-guide" target="_blank" rel="noreferrer"><span>02</span>Agent 配置文档</a>
+          <a href="https://sopilot.net/zh/x-auto-engagement" target="_blank" rel="noreferrer"><span>03</span>X 自动互动</a>
+          <a href="https://sopilot.net/zh/docs/directory-submit-guide" target="_blank" rel="noreferrer"><span>04</span>外链提交指南</a>
+          <a href="https://chromewebstore.google.com/detail/sopilot-social-media-mark/fdglpcinfnlemkfmoggkcekcepniekgb" target="_blank" rel="noreferrer"><span>05</span>Chrome Web Store</a>
+          <a href="https://sopilot.net/privacy" target="_blank" rel="noreferrer"><span>06</span>隐私政策</a>
+        </div>
+      </section>
+    </main>
+
+    <footer><p>SoPilot Growth Logic Study · 独立产品研究，不代表 SoPilot 官方</p><a href="#top">回到顶部 ↑</a></footer>
+    <script src="app.js" defer></script>
+  </body>
+</html>

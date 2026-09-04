@@ -16,6 +16,7 @@
 | ---: | --- | --- | --- | --- | --- |
 | 010 | [CLIProxyAPI](https://github.com/router-for-me/CLIProxyAPI) | 统一协议网关 + 凭证运行时：通过协议与 Provider 适配器，将调用方使用的统一 API 路由到后台真实的 API Key 或 OAuth/Auth 凭证，并完成上游模型交互。 | 已发布 | [查看笔记](projects/010-cliproxyapi/README.md) | [打开 Demo](https://yydshly.github.io/0904_codex_project/projects/010-cliproxyapi/demo/) |
 | 020 | [Noty Edge Deck](https://github.com/aimen08/noty) | 把屏幕边缘的低打扰交互抽象为可运行 Web Demo，并给出 Windows 常驻工具的实现架构、业务适配判断与 P0–P3 扩展路线。 | 已发布 | [查看笔记](projects/020-noty-edge-deck/README.md) | [打开 Demo](https://yydshly.github.io/0904_codex_project/projects/020-noty-edge-deck/demo/) |
+| 030 | [SoPilot 增长逻辑解剖台](https://sopilot.net/zh) | 用七步白话流程和系统架构拆解 SoPilot 如何连接定位、热点、持续内容、互动分发与浏览器自动化。 | 已发布 | [查看笔记](projects/030-sopilot-growth-logic/README.md) | [打开 Demo](https://yydshly.github.io/0904_codex_project/projects/030-sopilot-growth-logic/demo/) |
 | 050 | [course2md 视频图文时间轴](https://github.com/mizorewww/course2md) | 本地优先的视频图文时间轴工具：并行提取稳定关键帧与字幕或 ASR 文本，按时间戳合并为可追溯的 Markdown、HTML 和结构化 JSON。 | 已发布 | [查看笔记](projects/050-course2md/README.md) | — |
 
 ### 项目图文速览
@@ -37,6 +38,16 @@
 > 把屏幕边缘的低打扰交互抽象为可运行 Web Demo，并给出 Windows 常驻工具的实现架构、业务适配判断与 P0–P3 扩展路线。
 
 **状态：** 已发布 · [源项目](https://github.com/aimen08/noty) · [完整研究笔记](projects/020-noty-edge-deck/README.md) · [在线演示](https://yydshly.github.io/0904_codex_project/projects/020-noty-edge-deck/demo/)
+
+---
+
+#### 030 · [SoPilot 增长逻辑解剖台](projects/030-sopilot-growth-logic/README.md)
+
+<a href="projects/030-sopilot-growth-logic/README.md"><img src="projects/030-sopilot-growth-logic/images/cover.svg" alt="SoPilot 增长逻辑解剖台 演示图" width="760"></a>
+
+> 用七步白话流程和系统架构拆解 SoPilot 如何连接定位、热点、持续内容、互动分发与浏览器自动化。
+
+**状态：** 已发布 · [源项目](https://sopilot.net/zh) · [完整研究笔记](projects/030-sopilot-growth-logic/README.md) · [在线演示](https://yydshly.github.io/0904_codex_project/projects/030-sopilot-growth-logic/demo/)
 
 ---
 

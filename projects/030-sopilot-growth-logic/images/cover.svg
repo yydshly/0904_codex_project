@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">SoPilot 增长逻辑研究封面</title>
+  <desc id="desc">展示定位、信号、生产、分发、互动和学习六个阶段组成的增长飞轮。</desc>
+  <rect width="1600" height="900" fill="#071118"/>
+  <g opacity=".25" stroke="#8ae66e">
+    <path d="M0 170h1600M0 340h1600M0 510h1600M0 680h1600"/>
+    <path d="M200 0v900M400 0v900M600 0v900M800 0v900M1000 0v900M1200 0v900M1400 0v900"/>
+  </g>
+  <text x="96" y="108" fill="#8ae66e" font-family="Arial,sans-serif" font-size="22" font-weight="700" letter-spacing="5">INTERACTIVE RESEARCH · 030</text>
+  <text x="96" y="222" fill="#f3f7f0" font-family="Arial,'Microsoft YaHei',sans-serif" font-size="76" font-weight="700">SoPilot 增长逻辑解剖台</text>
+  <text x="96" y="292" fill="#9badb7" font-family="Arial,'Microsoft YaHei',sans-serif" font-size="30">热点加速 · 持续积累 · 钩子转化 · 互动分发</text>
+  <g transform="translate(166 520)" font-family="Arial,'Microsoft YaHei',sans-serif">
+    <path d="M90 0h190M340 0h190M590 0h190M840 0h190M1090 0h170" stroke="#28414c" stroke-width="4"/>
+    <g fill="#8ae66e"><circle cx="90" cy="0" r="55"/><circle cx="340" cy="0" r="55"/><circle cx="590" cy="0" r="55"/><circle cx="840" cy="0" r="55"/><circle cx="1090" cy="0" r="55"/></g>
+    <circle cx="1340" cy="0" r="55" fill="#ff6a4d"/>
+    <g fill="#071118" font-size="28" font-weight="800" text-anchor="middle"><text x="90" y="10">01</text><text x="340" y="10">02</text><text x="590" y="10">03</text><text x="840" y="10">04</text><text x="1090" y="10">05</text><text x="1340" y="10">06</text></g>
+    <g fill="#f3f7f0" font-size="27" font-weight="700" text-anchor="middle"><text x="90" y="105">定位</text><text x="340" y="105">信号</text><text x="590" y="105">生产</text><text x="840" y="105">分发</text><text x="1090" y="105">互动</text><text x="1340" y="105">学习</text></g>
+  </g>
+  <rect x="96" y="770" width="1408" height="2" fill="#28414c"/>
+  <text x="96" y="825" fill="#9badb7" font-family="Arial,'Microsoft YaHei',sans-serif" font-size="24">增长不是内容数量，而是从注意力到商业转化的完整乘法系统。</text>
+</svg>
