@@ -11,6 +11,17 @@
     "tags": ["Go", "LLM Gateway", "OAuth", "Protocol Translation"]
   },
   {
+    "order": 20,
+    "slug": "noty-edge-deck",
+    "name": "Noty Edge Deck",
+    "repository": "https://github.com/aimen08/noty",
+    "summary": "把屏幕边缘的低打扰交互抽象为可运行 Web Demo，并给出 Windows 常驻工具的实现架构、业务适配判断与 P0–P3 扩展路线。",
+    "status": "published",
+    "cover": "projects/020-noty-edge-deck/images/readme-page-effect.png",
+    "demo": "projects/020-noty-edge-deck/demo/",
+    "tags": ["Swift", "macOS", "Interaction Design", "Local-first", "Web Demo"]
+  },
+  {
     "order": 50,
     "slug": "course2md",
     "name": "course2md 视频图文时间轴",

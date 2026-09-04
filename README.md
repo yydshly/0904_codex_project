@@ -15,6 +15,7 @@
 | 顺序 | 源项目 | 摘要 | 状态 | 研究笔记 | 在线演示 |
 | ---: | --- | --- | --- | --- | --- |
 | 010 | [CLIProxyAPI](https://github.com/router-for-me/CLIProxyAPI) | 统一协议网关 + 凭证运行时：通过协议与 Provider 适配器，将调用方使用的统一 API 路由到后台真实的 API Key 或 OAuth/Auth 凭证，并完成上游模型交互。 | 已发布 | [查看笔记](projects/010-cliproxyapi/README.md) | [打开 Demo](projects/010-cliproxyapi/demo/) |
+| 020 | [Noty Edge Deck](https://github.com/aimen08/noty) | 把屏幕边缘的低打扰交互抽象为可运行 Web Demo，并给出 Windows 常驻工具的实现架构、业务适配判断与 P0–P3 扩展路线。 | 已发布 | [查看笔记](projects/020-noty-edge-deck/README.md) | [打开 Demo](projects/020-noty-edge-deck/demo/) |
 | 050 | [course2md 视频图文时间轴](https://github.com/mizorewww/course2md) | 本地优先的视频图文时间轴工具：并行提取稳定关键帧与字幕或 ASR 文本，按时间戳合并为可追溯的 Markdown、HTML 和结构化 JSON。 | 已发布 | [查看笔记](projects/050-course2md/README.md) | — |
 
 ### 项目图文速览
@@ -29,6 +30,16 @@
 
 ---
 
+#### 020 · [Noty Edge Deck](projects/020-noty-edge-deck/README.md)
+
+<a href="projects/020-noty-edge-deck/README.md"><img src="projects/020-noty-edge-deck/images/readme-page-effect.png" alt="Noty Edge Deck 演示图" width="760"></a>
+
+> 把屏幕边缘的低打扰交互抽象为可运行 Web Demo，并给出 Windows 常驻工具的实现架构、业务适配判断与 P0–P3 扩展路线。
+
+**状态：** 已发布 · [源项目](https://github.com/aimen08/noty) · [完整研究笔记](projects/020-noty-edge-deck/README.md) · [在线演示](projects/020-noty-edge-deck/demo/)
+
+---
+
 #### 050 · [course2md 视频图文时间轴](projects/050-course2md/README.md)
 
 <a href="projects/050-course2md/README.md"><img src="projects/050-course2md/images/course2md-modular-overview.png" alt="course2md 视频图文时间轴 演示图" width="760"></a>
@@ -38,16 +49,6 @@
 **状态：** 已发布 · [源项目](https://github.com/mizorewww/course2md) · [完整研究笔记](projects/050-course2md/README.md)
 
 <!-- PROJECT_INDEX_END -->
-
-## CLIProxyAPI 快速理解
-
-> **统一协议网关 + 凭证运行时：**通过协议与 Provider 适配器，将调用方使用的统一 API，转换并路由到后台真实的 API Key 或 OAuth/Auth 凭证，完成上游模型调用，再将响应转换回调用方协议。
-
-![CLIProxyAPI 宏观架构：我们的代码通过统一 API 进入代理平台，平台分别使用 API Key 或 OAuth/Auth 适配真实模型上游](projects/010-cliproxyapi/images/proxy-platform-overview.png)
-
-- [完整研究笔记](projects/010-cliproxyapi/README.md)：能力、两种代理方式、Auth 形成、凭证调度、业务一对一/一对多、风险与源码索引。
-- [在线交互知识页](https://yydshly.github.io/0904_codex_project/projects/010-cliproxyapi/demo/)：切换查看 API Key 和 OAuth/Auth 两条代理路径。
-- [本地 OAuth + PKCE 实验](projects/011-oauth-pkce-flow-demo/README.md)：真实模拟浏览器 Redirect、Callback、Token 交换、过期与刷新，不连接真实账号。
 
 ## 仓库结构
 
