@@ -1,0 +1,14 @@
+{
+  "name": "github-project-research-index",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "catalog:update": "node scripts/catalog.mjs --write",
+    "catalog:check": "node scripts/catalog.mjs --check",
+    "pages:build": "node scripts/build-pages.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

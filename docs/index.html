@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="优秀 GitHub 项目的研究摘要、有序索引与演示入口。" />
+    <title>GitHub 项目研究档案</title>
+    <link rel="stylesheet" href="assets/site.css" />
+  </head>
+  <body>
+    <header class="hero">
+      <nav class="nav" aria-label="主要导航">
+        <a class="brand" href="./" aria-label="返回研究档案首页">
+          <span class="brand-mark" aria-hidden="true">R</span>
+          <span>REPO / RESEARCH</span>
+        </a>
+        <a class="github-link" href="https://github.com/yydshly/0904_codex_project">查看 GitHub</a>
+      </nav>
+
+      <div class="hero-content">
+        <p class="eyebrow">CURATED · TESTED · DOCUMENTED</p>
+        <h1>把值得反复阅读的<br />GitHub 项目整理成档案。</h1>
+        <p class="intro">记录项目的核心设计、真实验证与可复用经验。按研究顺序浏览，也可以直接前往原仓库或在线演示。</p>
+      </div>
+    </header>
+
+    <main>
+      <section class="catalog" aria-labelledby="catalog-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">PROJECT INDEX</p>
+            <h2 id="catalog-title">研究索引</h2>
+          </div>
+          <p id="project-count" class="count" aria-live="polite">正在读取…</p>
+        </div>
+
+        <div id="project-list" class="project-grid" aria-live="polite"></div>
+      </section>
+    </main>
+
+    <footer>
+      <p>持续更新的个人开源项目研究档案。</p>
+    </footer>
+
+    <template id="project-template">
+      <article class="project-card">
+        <div class="cover-wrap">
+          <img class="cover" alt="" loading="lazy" />
+          <span class="order"></span>
+        </div>
+        <div class="card-body">
+          <div class="meta-row">
+            <span class="status"></span>
+            <span class="tags"></span>
+          </div>
+          <h3></h3>
+          <p class="summary"></p>
+          <div class="actions">
+            <a class="report-link">研究笔记</a>
+            <a class="repository-link">原仓库</a>
+            <a class="demo-link">在线演示</a>
+          </div>
+        </div>
+      </article>
+    </template>
+
+    <script type="module" src="assets/site.js"></script>
+  </body>
+</html>
