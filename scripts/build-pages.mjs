@@ -1,4 +1,4 @@
-import { cp, mkdir, readFile, rm } from "node:fs/promises";
+import { cp, mkdir, readFile, rm, stat } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -21,11 +21,14 @@ for (const project of projects) {
   if (project.demo?.startsWith("projects/")) {
     const demoSource = path.resolve(rootDirectory, project.demo);
     const demoDestination = path.resolve(outputDirectory, project.demo);
-    await mkdir(path.dirname(demoDestination), { recursive: true });
-    await cp(demoSource, demoDestination, {
+    const demoIsDirectory = (await stat(demoSource)).isDirectory();
+    const demoRootSource = demoIsDirectory ? demoSource : path.dirname(demoSource);
+    const demoRootDestination = demoIsDirectory ? demoDestination : path.dirname(demoDestination);
+    await mkdir(path.dirname(demoRootDestination), { recursive: true });
+    await cp(demoRootSource, demoRootDestination, {
       recursive: true,
       filter: (sourcePath) => {
-        const relativeSegments = path.relative(demoSource, sourcePath).split(path.sep);
+        const relativeSegments = path.relative(demoRootSource, sourcePath).split(path.sep);
         const excludedDirectory = relativeSegments.some((segment) => [".git", ".openai", "dist"].includes(segment));
         return !excludedDirectory && !sourcePath.endsWith(".tar.gz") && path.basename(sourcePath) !== ".gitignore";
       }
