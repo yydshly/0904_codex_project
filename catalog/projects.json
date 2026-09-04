@@ -28,7 +28,7 @@
     "repository": "https://sopilot.net/zh",
     "summary": "用七步白话流程和系统架构拆解 SoPilot 如何连接定位、热点、持续内容、互动分发与浏览器自动化。",
     "status": "published",
-    "cover": "projects/030-sopilot-growth-logic/images/cover.svg",
+    "cover": "projects/030-sopilot-growth-logic/images/03-capability-flow.png",
     "demo": "projects/030-sopilot-growth-logic/demo/",
     "tags": ["AI Agent", "Growth", "Browser Automation", "Content Marketing"]
   },

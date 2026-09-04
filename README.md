@@ -43,7 +43,7 @@
 
 #### 030 · [SoPilot 增长逻辑解剖台](projects/030-sopilot-growth-logic/README.md)
 
-<a href="projects/030-sopilot-growth-logic/README.md"><img src="projects/030-sopilot-growth-logic/images/cover.svg" alt="SoPilot 增长逻辑解剖台 演示图" width="760"></a>
+<a href="projects/030-sopilot-growth-logic/README.md"><img src="projects/030-sopilot-growth-logic/images/03-capability-flow.png" alt="SoPilot 增长逻辑解剖台 演示图" width="760"></a>
 
 > 用七步白话流程和系统架构拆解 SoPilot 如何连接定位、热点、持续内容、互动分发与浏览器自动化。
 
