@@ -53,6 +53,100 @@ modeButtons.forEach((button, index) => {
 
 renderFeed();
 
+const atlasLabels = {
+  category: { china: "国内", finance: "财经", tech: "科技", world: "国际", sports: "体育" },
+  method: { api: "JSON / API", html: "HTML 解析", rss: "RSS", embedded: "内嵌数据", hybrid: "混合回退" },
+  type: { hottest: "热榜排序", realtime: "时间线" },
+};
+
+const atlasLedger = document.querySelector("#source-ledger");
+const atlasDetail = document.querySelector("#source-detail");
+const atlasCount = document.querySelector("#atlas-count");
+const atlasSearch = document.querySelector("#source-search");
+const methodFilter = document.querySelector("#method-filter");
+const atlasFilterButtons = [...document.querySelectorAll("[data-atlas-filter]")];
+let atlasCategory = "all";
+let selectedAtlasId = sourceAtlas[0].id;
+
+function getFilteredSources() {
+  const query = atlasSearch.value.trim().toLowerCase();
+  return sourceAtlas.filter((source) => {
+    const categoryMatch = atlasCategory === "all" || source.category === atlasCategory;
+    const methodMatch = methodFilter.value === "all" || source.method === methodFilter.value;
+    const haystack = [source.name, source.label, source.id, source.host, source.endpoint, source.access, atlasLabels.method[source.method]].join(" ").toLowerCase();
+    return categoryMatch && methodMatch && (!query || haystack.includes(query));
+  });
+}
+
+function renderSourceDetail(source) {
+  if (!source || !atlasDetail) return;
+  selectedAtlasId = source.id;
+  const sourcePath = `server/sources/${source.file}`;
+  const codeUrl = `https://github.com/ourongxing/newsnow/blob/2173126f804bec0201769f59d933add6c4632d17/${sourcePath}`;
+  atlasDetail.innerHTML = `
+    <div class="source-detail-top">
+      <span class="method-badge method-${source.method}">${atlasLabels.method[source.method]}</span>
+      <span>${atlasLabels.category[source.category]} / ${atlasLabels.type[source.type]}</span>
+    </div>
+    <div class="source-detail-title"><span>${source.name.slice(0, 2)}</span><div><h3>${source.name} · ${source.label}</h3><code>${source.id}</code></div></div>
+    <dl>
+      <div><dt>上游主机</dt><dd>${source.host}</dd></div>
+      <div><dt>入口路径</dt><dd><code>${source.endpoint}</code></dd></div>
+      <div><dt>刷新门控</dt><dd>${source.interval} 分钟</dd></div>
+      <div><dt>获取过程</dt><dd>${source.access}</dd></div>
+    </dl>
+    <div class="source-risk"><span>MAINTENANCE NOTE</span><p>${source.note}</p></div>
+    <a class="code-link" href="${codeUrl}" target="_blank" rel="noreferrer"><span>查看固定版本源码</span><code>${sourcePath} ↗</code></a>
+  `;
+}
+
+function renderAtlas() {
+  const sources = getFilteredSources();
+  atlasCount.textContent = `${String(sources.length).padStart(2, "0")} RESULTS`;
+  if (!sources.some((source) => source.id === selectedAtlasId)) selectedAtlasId = sources[0]?.id;
+  atlasLedger.innerHTML = sources.length ? sources.map((source) => `
+    <button type="button" role="option" aria-selected="${source.id === selectedAtlasId}" class="ledger-row${source.id === selectedAtlasId ? " is-active" : ""}" data-atlas-source="${source.id}">
+      <span class="ledger-name"><b>${source.name}</b><small>${source.label}</small></span>
+      <code>${source.id}</code>
+      <span class="method-badge method-${source.method}">${atlasLabels.method[source.method]}</span>
+      <span class="ledger-interval">${source.interval}m</span>
+    </button>
+  `).join("") : `<div class="atlas-empty"><b>没有匹配的来源</b><span>尝试清空搜索词或切换筛选条件。</span></div>`;
+
+  const selected = sources.find((source) => source.id === selectedAtlasId);
+  if (selected) renderSourceDetail(selected);
+  else atlasDetail.innerHTML = `<div class="atlas-empty"><b>等待选择</b><span>左侧出现匹配来源后，这里会展示获取链路。</span></div>`;
+
+  [...atlasLedger.querySelectorAll("[data-atlas-source]")].forEach((button) => {
+    button.addEventListener("click", () => {
+      selectedAtlasId = button.dataset.atlasSource;
+      renderAtlas();
+    });
+  });
+}
+
+atlasFilterButtons.forEach((button) => button.addEventListener("click", () => {
+  atlasCategory = button.dataset.atlasFilter;
+  atlasFilterButtons.forEach((item) => item.classList.toggle("is-active", item === button));
+  renderAtlas();
+}));
+atlasSearch.addEventListener("input", renderAtlas);
+methodFilter.addEventListener("change", renderAtlas);
+renderAtlas();
+
+const toggleDisabled = document.querySelector("#toggle-disabled");
+const disabledList = document.querySelector("#disabled-list");
+disabledList.innerHTML = `
+  <div><strong>Cloudflare 构建关闭（5 个条目）</strong>${disabledOnCloudflare.map((source) => `<p><code>${source.id}</code><span>${source.name} · ${source.method}</span></p>`).join("")}</div>
+  <div><strong>默认关闭 / 未进入注册表（4 处配置）</strong>${disabledByDefault.map((source) => `<p><b>${source.name}</b><span>${source.detail}</span></p>`).join("")}</div>
+`;
+toggleDisabled.addEventListener("click", () => {
+  const expanded = toggleDisabled.getAttribute("aria-expanded") === "true";
+  toggleDisabled.setAttribute("aria-expanded", String(!expanded));
+  disabledList.hidden = expanded;
+  toggleDisabled.textContent = expanded ? "查看 5 个 Cloudflare 关闭项 + 4 处默认关闭配置" : "收起关闭项";
+});
+
 const layers = {
   request: {
     code: "01 / REQUEST",

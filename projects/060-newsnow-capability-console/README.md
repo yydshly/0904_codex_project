@@ -9,7 +9,8 @@
 - 原仓库：<https://github.com/ourongxing/newsnow>
 - 原站：<https://newsnow.busiyi.world/>
 - 网页演示：[`demo/index.html`](demo/index.html)
-- 研究状态：已完成第一版
+- 完整来源台账：[`SOURCES.md`](SOURCES.md)
+- 研究状态：已完成来源级源码核对
 - 主要技术：TypeScript、React、Nitro、SQLite / Cloudflare D1、MCP
 - 研究版本：NewsNow v0.0.41，`2173126f804bec0201769f59d933add6c4632d17`
 - 最后更新：2026-09-05
@@ -18,7 +19,20 @@
 
 NewsNow 表面是一个多栏热榜阅读器，源码中更值得复用的是一套轻量信号接入模式：每个平台由独立 getter 负责取数，再统一成 `NewsItem`，通过缓存控制访问频率，最后同时服务网页、JSON API 和 MCP。它适合作为外部信息雷达的输入层，但不应被误认为完整的新闻分析或舆情系统。
 
-本次研究重点回答五个问题：它已经实现什么、一次请求怎样流经系统、适合进入哪些业务场景、目前缺少哪些关键能力，以及团队应当把差异化建设放在哪里。
+本次研究重点回答六个问题：有哪些来源、每个来源怎样获取、一次请求怎样流经系统、适合进入哪些业务场景、目前缺少哪些关键能力，以及团队应当把差异化建设放在哪里。
+
+## 来源结论
+
+来源层是这个仓库最有价值、也最容易被表面页面掩盖的部分。按固定源码版本逐项核对后：
+
+- Cloudflare 实例可见 47 个非重定向来源条目，由 41 个 getter 家族实现。
+- 其中 25 个走 JSON / API，13 个解析 HTML，4 个读取 RSS，3 个从 HTML 或 JavaScript 抽取内嵌 JSON，2 个实现 API + RSS 回退。
+- 另有 5 个来源条目只在 Cloudflare 构建关闭：36氪快讯、人气榜，哔哩哔哩热门视频、排行榜，以及快手热榜。
+- LINUX DO、果核剥壳、什么值得买等 getter 仍在源码中，但注册配置默认关闭；“代码存在”和“实例可见”是两种状态。
+- 获取方式并非都很轻：微博依赖静态 Cookie，财联社需要签名，酷安需要动态 App Token，抖音和雪球先取会话 Cookie，卫星通讯社在 Cloudflare 上依赖额外代理。
+- 联合早报展示项实际抓取第三方“早晨报”页面；参考消息的源码端点使用 HTTP。这类真实链路比 Logo 或来源名称更值得在生产审计中披露。
+
+逐项入口、刷新间隔、getter 文件与维护风险见 [NewsNow 来源与获取方式台账](SOURCES.md)。
 
 ## 核心能力
 
@@ -58,6 +72,9 @@ NewsNow 表面是一个多栏热榜阅读器，源码中更值得复用的是一
 网页采用“热点信号控制台”而不是传统长报告：
 
 - 首屏可切换“最热、实时、关注、MCP”四种能力视图，并切换四类代表性来源。
+- 来源图谱可按栏目、获取方式或关键字筛选全部 47 个来源，并逐项查看上游入口、刷新门控、源码文件和维护风险。
+- 来源登记流水线展示 `pre-sources.ts → source.ts → getters.ts → /api/s` 的配置、生成、装载与交付关系。
+- 关闭项抽屉区分 Cloudflare 环境关闭与源码默认关闭，避免把 getter 数量误当成实例可用数量。
 - 底层原理区可逐层查看请求入口、缓存门控、来源适配、字段标准化和交付端。
 - 能力矩阵明确区分仓库已实现能力和仍需建设的情报能力。
 - 角色工作台覆盖管理层、产品研发、品牌公关、内容团队与 AI Agent。
@@ -74,7 +91,7 @@ python -m http.server 4178 --bind 127.0.0.1 --directory projects/060-newsnow-cap
 
 然后访问 <http://127.0.0.1:4178/>。
 
-已验证页面可以从本地静态服务器正常返回，首屏来源和模式切换、架构分层、角色场景与键盘方向键导航均由原生 JavaScript 实现。页面不依赖第三方运行时，也不会从公共 NewsNow 实例跨域拉取数据。
+已验证页面可以从本地静态服务器正常返回；来源搜索、栏目与方法筛选、关闭项展开、首屏来源和模式切换、架构分层、角色场景与键盘方向键导航均由原生 JavaScript 实现。页面不依赖第三方运行时，也不会从公共 NewsNow 实例跨域拉取数据。
 
 ## 可复用的启发
 
@@ -105,4 +122,3 @@ python -m http.server 4178 --bind 127.0.0.1 --directory projects/060-newsnow-cap
 - [缓存表实现](https://github.com/ourongxing/newsnow/blob/main/server/database/cache.ts)
 - [统一类型定义](https://github.com/ourongxing/newsnow/blob/main/shared/types.ts)
 - [官方 MCP Server](https://github.com/ourongxing/newsnow-mcp-server)
-

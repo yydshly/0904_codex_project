@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="NewsNow 能力控制台：交互展示多源热榜聚合、缓存回源、标准化 API、MCP 接入与可扩展方向。"
+      content="NewsNow 源码能力控制台：逐项梳理 47 个来源的获取方式、刷新间隔、getter 实现、维护风险，以及缓存、API、MCP 与扩展方向。"
     />
     <title>NewsNow 能力控制台 · Signal Intake Layer</title>
     <link rel="stylesheet" href="styles.css" />
@@ -20,6 +20,7 @@
         </a>
         <nav aria-label="页面导航">
           <a href="#console">控制台</a>
+          <a href="#source-atlas">来源</a>
           <a href="#architecture">原理</a>
           <a href="#scenarios">场景</a>
           <a href="#extensions">扩展</a>
@@ -72,10 +73,87 @@
           </div>
         </section>
 
+        <section class="content-section atlas-section" id="source-atlas" aria-labelledby="atlas-title">
+          <div class="section-heading atlas-heading">
+            <div>
+              <p class="eyebrow">02 / SOURCE ATLAS</p>
+              <h2 id="atlas-title">47 个来源条目，<br />5 种获取方式。</h2>
+            </div>
+            <div class="atlas-intro">
+              <p>这不是一张站点 Logo 表，而是一份按源码核对的采集台账。47 个 Cloudflare 可见条目来自 41 个 getter 家族；同一平台的快讯、热榜和深度内容可能走不同接口。</p>
+              <small>快照：NewsNow v0.0.41 · commit 2173126 · 不代表所有上游此刻均健康</small>
+            </div>
+          </div>
+
+          <div class="method-summary" aria-label="来源获取方式分布">
+            <article><span>25</span><div><b>JSON / API</b><small>结构化接口或 JSON Feed</small></div></article>
+            <article><span>13</span><div><b>HTML 解析</b><small>Cheerio 或正则选择器</small></div></article>
+            <article><span>04</span><div><b>RSS</b><small>原生 Feed / 自定义 XML 解析</small></div></article>
+            <article><span>03</span><div><b>内嵌数据</b><small>HTML / JavaScript 中抽取 JSON</small></div></article>
+            <article><span>02</span><div><b>混合回退</b><small>API 优先，RSS 兜底</small></div></article>
+          </div>
+
+          <div class="atlas-workbench">
+            <div class="atlas-toolbar">
+              <label class="atlas-search" for="source-search">
+                <span>SEARCH</span>
+                <input id="source-search" type="search" placeholder="名称 / ID / 主机 / 获取方式" autocomplete="off" />
+              </label>
+              <div class="atlas-filters" role="group" aria-label="按栏目筛选">
+                <button class="is-active" type="button" data-atlas-filter="all">全部 <span>47</span></button>
+                <button type="button" data-atlas-filter="china">国内 <span>17</span></button>
+                <button type="button" data-atlas-filter="finance">财经 <span>12</span></button>
+                <button type="button" data-atlas-filter="tech">科技 <span>11</span></button>
+                <button type="button" data-atlas-filter="world">国际 <span>5</span></button>
+                <button type="button" data-atlas-filter="sports">体育 <span>2</span></button>
+              </div>
+              <label class="method-filter" for="method-filter">
+                <span>METHOD</span>
+                <select id="method-filter">
+                  <option value="all">全部方式</option>
+                  <option value="api">JSON / API</option>
+                  <option value="html">HTML 解析</option>
+                  <option value="rss">RSS</option>
+                  <option value="embedded">内嵌数据</option>
+                  <option value="hybrid">混合回退</option>
+                </select>
+              </label>
+            </div>
+
+            <div class="atlas-main">
+              <div class="atlas-results">
+                <div class="atlas-results-head"><span id="atlas-count">47 RESULTS</span><span>点击来源查看源码链路</span></div>
+                <div class="source-ledger" id="source-ledger" role="listbox" aria-label="来源列表"></div>
+              </div>
+              <article class="source-detail" id="source-detail" aria-live="polite"></article>
+            </div>
+          </div>
+
+          <div class="source-methodology">
+            <article class="registry-flow">
+              <div class="panel-label">HOW A SOURCE ENTERS THE SYSTEM</div>
+              <ol>
+                <li><span>01</span><div><b>登记</b><small>shared/pre-sources.ts<br />名称、栏目、类型、间隔、禁用条件</small></div></li>
+                <li><span>02</span><div><b>实现</b><small>server/sources/*.ts<br />API、HTML、RSS 或代理 getter</small></div></li>
+                <li><span>03</span><div><b>生成</b><small>scripts/source.ts<br />sources.json、拼音索引、更新列表</small></div></li>
+                <li><span>04</span><div><b>装载</b><small>server/getters.ts<br />glob 自动汇总所有 getter</small></div></li>
+                <li><span>05</span><div><b>交付</b><small>/api/s?id=…<br />缓存门控、最多 30 条、统一 NewsItem</small></div></li>
+              </ol>
+            </article>
+            <aside class="source-caveats">
+              <div class="panel-label">REGISTRY ≠ RUNTIME HEALTH</div>
+              <h3>“有源码”只证明已实现，<br />不证明现在可用。</h3>
+              <p>Cookie、签名、DOM、接口参数、反爬策略和代理依赖都会变化。生产使用应在来源清单之外，再维护成功率、响应时间、连续空结果和字段漂移。</p>
+              <button type="button" id="toggle-disabled" aria-expanded="false">查看 5 个 Cloudflare 关闭项 + 4 处默认关闭配置</button>
+              <div class="disabled-list" id="disabled-list" hidden></div>
+            </aside>
+          </div>
+        </section>
+
         <section class="content-section architecture-section" id="architecture" aria-labelledby="architecture-title">
           <div class="section-heading">
             <div>
-              <p class="eyebrow">02 / UNDER THE HOOD</p>
+              <p class="eyebrow">03 / UNDER THE HOOD</p>
               <h2 id="architecture-title">请求触发，<br />不是持续爬全网。</h2>
             </div>
             <p>页面或 API 请求到来后，系统先检查缓存与该来源的刷新间隔；只有满足回源条件，才调用对应采集器访问上游。</p>
@@ -116,7 +194,7 @@
         <section class="content-section capability-section" id="capabilities" aria-labelledby="capability-title">
           <div class="section-heading compact">
             <div>
-              <p class="eyebrow">03 / CAPABILITY SURFACE</p>
+              <p class="eyebrow">04 / CAPABILITY SURFACE</p>
               <h2 id="capability-title">已经具备什么，<br />还缺少什么？</h2>
             </div>
             <div class="legend"><span><i class="done"></i>仓库已实现</span><span><i class="gap"></i>需要扩展</span></div>
@@ -164,7 +242,7 @@
 
         <section class="boundary-section" aria-labelledby="boundary-title">
           <div>
-            <p class="eyebrow">04 / PRODUCT BOUNDARY</p>
+            <p class="eyebrow">05 / PRODUCT BOUNDARY</p>
             <h2 id="boundary-title">它交付线索，<br />不交付结论。</h2>
           </div>
           <div class="boundary-matrix">
@@ -178,7 +256,7 @@
         <section class="content-section scenario-section" id="scenarios" aria-labelledby="scenario-title">
           <div class="section-heading">
             <div>
-              <p class="eyebrow">05 / USE CASE SWITCHBOARD</p>
+              <p class="eyebrow">06 / USE CASE SWITCHBOARD</p>
               <h2 id="scenario-title">放进不同团队，<br />它会变成什么？</h2>
             </div>
             <p>选择角色，查看 NewsNow 作为“信号入口”能够提供的输入、动作与边界。</p>
@@ -199,7 +277,7 @@
         <section class="content-section extension-section" id="extensions" aria-labelledby="extension-title">
           <div class="section-heading">
             <div>
-              <p class="eyebrow">06 / EXTENSION ROADMAP</p>
+              <p class="eyebrow">07 / EXTENSION ROADMAP</p>
               <h2 id="extension-title">从热点面板，<br />走向业务情报。</h2>
             </div>
             <p>扩展重点不在增加更多卡片，而在可靠采集、历史沉淀、语义加工和业务触发。</p>
@@ -229,7 +307,7 @@
 
         <section class="meaning-section" aria-labelledby="meaning-title">
           <div class="meaning-copy">
-            <p class="eyebrow">07 / WHY IT MATTERS TO US</p>
+            <p class="eyebrow">08 / WHY IT MATTERS TO US</p>
             <h2 id="meaning-title">可复用的是采集层，<br />真正的壁垒在下游。</h2>
             <p>NewsNow 已经解决了最琐碎的一步：把异构热榜转成机器可读信号。我们无需从零维护几十种输入，但也不应把公共演示站当作生产数据服务。</p>
           </div>
@@ -248,15 +326,18 @@
 
         <section class="sources-section" aria-labelledby="sources-title">
           <div>
-            <p class="eyebrow">08 / SOURCE OF TRUTH</p>
+            <p class="eyebrow">09 / SOURCE OF TRUTH</p>
             <h2 id="sources-title">所有判断，<br />回到源码。</h2>
           </div>
           <div class="source-links">
-            <a href="https://github.com/ourongxing/newsnow/blob/main/shared/pre-sources.ts" target="_blank" rel="noreferrer"><span>01</span><strong>数据源注册与刷新间隔</strong><small>shared/pre-sources.ts ↗</small></a>
-            <a href="https://github.com/ourongxing/newsnow/tree/main/server/sources" target="_blank" rel="noreferrer"><span>02</span><strong>平台采集适配器</strong><small>server/sources ↗</small></a>
-            <a href="https://github.com/ourongxing/newsnow/blob/main/server/api/s/index.ts" target="_blank" rel="noreferrer"><span>03</span><strong>API、缓存与回源决策</strong><small>server/api/s/index.ts ↗</small></a>
-            <a href="https://github.com/ourongxing/newsnow/blob/main/shared/types.ts" target="_blank" rel="noreferrer"><span>04</span><strong>统一 NewsItem 数据结构</strong><small>shared/types.ts ↗</small></a>
-            <a href="https://github.com/ourongxing/newsnow-mcp-server/blob/main/src/index.ts" target="_blank" rel="noreferrer"><span>05</span><strong>官方 MCP 工具封装</strong><small>newsnow-mcp-server ↗</small></a>
+            <a href="https://github.com/ourongxing/newsnow/blob/2173126f804bec0201769f59d933add6c4632d17/shared/pre-sources.ts" target="_blank" rel="noreferrer"><span>01</span><strong>数据源注册与刷新间隔</strong><small>shared/pre-sources.ts ↗</small></a>
+            <a href="https://github.com/ourongxing/newsnow/tree/2173126f804bec0201769f59d933add6c4632d17/server/sources" target="_blank" rel="noreferrer"><span>02</span><strong>平台采集适配器</strong><small>server/sources ↗</small></a>
+            <a href="https://github.com/ourongxing/newsnow/blob/2173126f804bec0201769f59d933add6c4632d17/server/getters.ts" target="_blank" rel="noreferrer"><span>03</span><strong>getter 自动装载</strong><small>server/getters.ts ↗</small></a>
+            <a href="https://github.com/ourongxing/newsnow/blob/2173126f804bec0201769f59d933add6c4632d17/server/utils/source.ts" target="_blank" rel="noreferrer"><span>04</span><strong>RSS、RSSHub 与代理抽象</strong><small>server/utils/source.ts ↗</small></a>
+            <a href="https://github.com/ourongxing/newsnow/blob/2173126f804bec0201769f59d933add6c4632d17/scripts/source.ts" target="_blank" rel="noreferrer"><span>05</span><strong>来源配置生成流程</strong><small>scripts/source.ts ↗</small></a>
+            <a href="https://github.com/ourongxing/newsnow/blob/2173126f804bec0201769f59d933add6c4632d17/server/api/s/index.ts" target="_blank" rel="noreferrer"><span>06</span><strong>API、缓存与回源决策</strong><small>server/api/s/index.ts ↗</small></a>
+            <a href="https://github.com/ourongxing/newsnow/blob/2173126f804bec0201769f59d933add6c4632d17/shared/types.ts" target="_blank" rel="noreferrer"><span>07</span><strong>统一 NewsItem 数据结构</strong><small>shared/types.ts ↗</small></a>
+            <a href="https://github.com/ourongxing/newsnow-mcp-server/blob/main/src/index.ts" target="_blank" rel="noreferrer"><span>08</span><strong>官方 MCP 工具封装</strong><small>newsnow-mcp-server ↗</small></a>
           </div>
         </section>
       </main>
@@ -267,6 +348,7 @@
         <a href="https://newsnow.busiyi.world/" target="_blank" rel="noreferrer">打开原站 ↗</a>
       </footer>
     </div>
+    <script src="source-data.js"></script>
     <script src="app.js"></script>
   </body>
 </html>
