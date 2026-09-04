@@ -157,7 +157,7 @@
     "repository": "https://github.com/lnkiai/m3e-canvas",
     "summary": "把 Material 3 Expressive 多屏草图、主题与交互编译成面向 Coding Agent 的结构化实现提示词，并提供可点击预览与可导入演示工程。",
     "status": "published",
-    "cover": "projects/100-m3e-canvas/images/cover.svg",
+    "cover": "projects/100-m3e-canvas/images/overview.svg",
     "demo": "https://lnkiai.github.io/m3e-canvas/",
     "tags": [
       "Next.js",

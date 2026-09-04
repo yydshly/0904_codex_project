@@ -121,7 +121,7 @@
 
 #### 100 · [M3E Canvas](projects/100-m3e-canvas/README.md)
 
-<a href="projects/100-m3e-canvas/README.md"><img src="projects/100-m3e-canvas/images/cover.svg" alt="M3E Canvas 演示图" width="760"></a>
+<a href="projects/100-m3e-canvas/README.md"><img src="projects/100-m3e-canvas/images/overview.svg" alt="M3E Canvas 演示图" width="760"></a>
 
 > 把 Material 3 Expressive 多屏草图、主题与交互编译成面向 Coding Agent 的结构化实现提示词，并提供可点击预览与可导入演示工程。
 

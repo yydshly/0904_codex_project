@@ -1,0 +1,209 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1200" viewBox="0 0 1600 1200" role="img" aria-labelledby="title desc">
+  <title id="title">M3E Canvas 全量能力与实现原理</title>
+  <desc id="desc">展示 M3E Canvas 从图形化手机界面编辑、结构化数据模型、规则编译与交互预览，到提示词、JSON、PNG 和原型产物的完整流程，并与 Claude Design 和 OpenDesign 对比。</desc>
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f9faff"/>
+      <stop offset="1" stop-color="#edf2ff"/>
+    </linearGradient>
+    <linearGradient id="hero" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#244aa5"/>
+      <stop offset="1" stop-color="#5369d9"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="160%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#152457" flood-opacity="0.12"/>
+    </filter>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0 0L10 5L0 10Z" fill="#4057bd"/>
+    </marker>
+    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M32 0H0V32" fill="none" stroke="#4057bd" stroke-opacity="0.045"/>
+    </pattern>
+  </defs>
+  <style>
+    .font { font-family: Inter, "Segoe UI", "Microsoft YaHei", sans-serif; }
+    .title { font-size: 38px; font-weight: 800; fill: #17213b; }
+    .subtitle { font-size: 19px; fill: #59627a; }
+    .kicker { font-size: 17px; font-weight: 800; fill: #4057bd; letter-spacing: 1px; }
+    .section { font-size: 25px; font-weight: 800; fill: #17213b; }
+    .head { font-size: 19px; font-weight: 800; fill: #17213b; }
+    .body { font-size: 17px; fill: #394258; }
+    .small { font-size: 15px; fill: #657089; }
+    .code { font-family: Consolas, "SFMono-Regular", monospace; font-size: 16px; font-weight: 700; fill: #2f469f; }
+    .white { fill: #ffffff; }
+    .blue { fill: #4057bd; }
+    .muted { fill: #69738b; }
+    .card { fill: #ffffff; stroke: #d9dfef; stroke-width: 1.5; }
+    .soft { fill: #eef1ff; }
+    .line { stroke: #d9dfef; stroke-width: 1.5; }
+  </style>
+
+  <rect width="1600" height="1200" fill="url(#background)"/>
+  <rect width="1600" height="1200" fill="url(#grid)"/>
+  <circle cx="1480" cy="70" r="190" fill="#d7e2ff" opacity="0.68"/>
+  <circle cx="80" cy="1120" r="220" fill="#eadbff" opacity="0.46"/>
+
+  <g class="font">
+    <text x="54" y="54" class="kicker">M3E CANVAS · CAPABILITY &amp; IMPLEMENTATION ATLAS</text>
+    <text x="54" y="98" class="title">把手机 UI 原型编译成可执行的开发规格</text>
+    <text x="54" y="130" class="subtitle">人控制产品意图 · 规则解释结构事实 · 可选 AI 补充语义 · Coding Agent 负责最终实现</text>
+
+    <g transform="translate(54 166)">
+      <g filter="url(#shadow)"><rect width="252" height="118" rx="22" class="card"/></g>
+      <text x="20" y="31" class="kicker">01 · 输入</text>
+      <text x="20" y="60" class="head">人定义产品</text>
+      <text x="20" y="87" class="body">页面 · 组件 · 文案</text>
+      <text x="20" y="109" class="small">主题 · 点击 · 返回 · 滑动</text>
+    </g>
+    <path d="M314 225H342" stroke="#4057bd" stroke-width="3" marker-end="url(#arrow)"/>
+    <g transform="translate(352 166)">
+      <g filter="url(#shadow)"><rect width="252" height="118" rx="22" class="card"/></g>
+      <text x="20" y="31" class="kicker">02 · 图形化编辑</text>
+      <text x="20" y="60" class="head">画布表达需求</text>
+      <text x="20" y="87" class="body">29 类 M3 组件 · 多屏</text>
+      <text x="20" y="109" class="small">拖拽 · 对齐 · 磁吸 · Inspector</text>
+    </g>
+    <path d="M612 225H640" stroke="#4057bd" stroke-width="3" marker-end="url(#arrow)"/>
+    <g transform="translate(650 166)">
+      <g filter="url(#shadow)"><rect width="252" height="118" rx="22" class="card"/></g>
+      <text x="20" y="31" class="kicker">03 · 结构化 IR</text>
+      <text x="20" y="60" class="code">Doc → Frame → Group → Item</text>
+      <text x="20" y="87" class="body">Theme · Platform · Action</text>
+      <text x="20" y="109" class="small">坐标 · 层级 · 状态 · Transition</text>
+    </g>
+    <path d="M910 225H938" stroke="#4057bd" stroke-width="3" marker-end="url(#arrow)"/>
+    <g transform="translate(948 166)">
+      <g filter="url(#shadow)"><rect width="252" height="118" rx="22" class="card"/></g>
+      <text x="20" y="31" class="kicker">04 · 规则编译</text>
+      <text x="20" y="60" class="head">把坐标解释成语义</text>
+      <text x="20" y="87" class="body">行列 · 包含 · 覆盖 · 对齐</text>
+      <text x="20" y="109" class="small">导航说明 · Android / Web 适配</text>
+    </g>
+    <path d="M1208 225H1236" stroke="#4057bd" stroke-width="3" marker-end="url(#arrow)"/>
+    <g transform="translate(1246 166)">
+      <g filter="url(#shadow)"><rect width="300" height="118" rx="22" class="card"/></g>
+      <text x="20" y="31" class="kicker">05 · 产物</text>
+      <text x="20" y="60" class="head">给人和 Agent 使用</text>
+      <text x="20" y="87" class="body">Prompt · JSON · PNG · Preview</text>
+      <text x="20" y="109" class="small">再由 Codex / Claude Code 生成代码</text>
+    </g>
+
+    <text x="54" y="338" class="section">界面能力与展示效果</text>
+    <g transform="translate(54 362)" filter="url(#shadow)">
+      <rect width="520" height="430" rx="28" class="card"/>
+    </g>
+    <g transform="translate(72 382)">
+      <rect width="486" height="42" rx="13" fill="#eef0f8"/>
+      <text x="16" y="27" class="small">配色　形状　字体　动效　AI　语言</text>
+      <rect y="54" width="92" height="314" rx="14" fill="#f4f5fa"/>
+      <text x="12" y="80" class="head">组件</text>
+      <text x="12" y="108" class="small">Actions</text><text x="12" y="132" class="small">Navigation</text>
+      <text x="12" y="156" class="small">Cards</text><text x="12" y="180" class="small">Inputs</text>
+      <text x="12" y="204" class="small">Content</text><text x="12" y="228" class="small">Progress</text>
+      <g transform="translate(112 64)">
+        <rect width="125" height="248" rx="22" fill="#faf9fd" stroke="#aeb6ca" stroke-width="2"/>
+        <rect width="125" height="40" rx="20" fill="#e5e9ff"/><rect y="22" width="125" height="18" fill="#e5e9ff"/>
+        <text x="13" y="26" class="small" style="font-weight:700">☰ Home ⋮</text>
+        <text x="13" y="72" class="small">★ Favorite　›</text><line x1="13" y1="84" x2="111" y2="84" class="line"/>
+        <text x="13" y="112" class="small">▣ Inbox　›</text><line x1="13" y1="124" x2="111" y2="124" class="line"/>
+        <text x="13" y="152" class="small">⌁ Archive　›</text>
+        <rect y="205" width="125" height="43" rx="0" fill="#eef0f8"/>
+        <text x="12" y="231" class="small">Home　Search</text>
+      </g>
+      <path d="M247 188H266" stroke="#4057bd" stroke-width="3" marker-end="url(#arrow)"/>
+      <g transform="translate(276 64)">
+        <rect width="125" height="248" rx="22" fill="#faf9fd" stroke="#aeb6ca" stroke-width="2"/>
+        <rect width="125" height="40" rx="20" fill="#e5e9ff"/><rect y="22" width="125" height="18" fill="#e5e9ff"/>
+        <text x="10" y="26" class="small" style="font-weight:700">‹ Detail ⋮</text>
+        <rect x="10" y="62" width="105" height="92" rx="16" fill="#e5e9ff"/>
+        <text x="20" y="91" class="small" style="font-weight:700">Team Brief</text>
+        <text x="20" y="116" class="small">Message · owners</text>
+        <text x="20" y="137" class="small">· next actions</text>
+        <rect x="11" y="173" width="50" height="34" rx="17" fill="#4057bd"/><rect x="64" y="173" width="50" height="34" rx="17" fill="#4057bd"/>
+        <text x="22" y="195" class="small white">Save</text><text x="73" y="195" class="small white">Share</text>
+        <text x="18" y="233" class="small">‹ Back</text>
+      </g>
+      <rect x="414" y="54" width="72" height="314" rx="14" fill="#f4f5fa"/>
+      <text x="424" y="80" class="head">编辑</text>
+      <text x="424" y="109" class="small">文案</text><text x="424" y="133" class="small">图标</text>
+      <text x="424" y="157" class="small">样式</text><text x="424" y="181" class="small">尺寸</text>
+      <text x="424" y="205" class="small">状态</text><text x="424" y="229" class="small">跳转</text>
+      <text x="424" y="253" class="small">转场</text><text x="424" y="292" class="head blue">Prompt</text>
+      <rect y="382" width="486" height="30" rx="10" fill="#eef0f8"/>
+      <text x="14" y="403" class="small">缩放　选择/抓手　新增屏幕　预览　撤销/重做　项目</text>
+    </g>
+
+    <text x="604" y="338" class="section">底层实现原理</text>
+    <g transform="translate(604 362)" filter="url(#shadow)"><rect width="520" height="430" rx="28" class="card"/></g>
+    <g transform="translate(626 388)">
+      <rect width="476" height="54" rx="18" fill="url(#hero)"/>
+      <text x="18" y="33" class="head white">Next.js 16 + React 19 · 浏览器端应用</text>
+      <g transform="translate(0 72)">
+        <text x="0" y="18" class="code">app/page.tsx</text><text x="170" y="18" class="body">拖拽、缩放、对齐、磁吸、Undo/Redo</text>
+        <line x1="0" y1="35" x2="476" y2="35" class="line"/>
+        <text x="0" y="62" class="code">lib/tokens.ts</text><text x="170" y="62" class="body">29 种组件注册表＋Doc 数据类型</text>
+        <line x1="0" y1="79" x2="476" y2="79" class="line"/>
+        <text x="0" y="106" class="code">M3Node.tsx</text><text x="170" y="106" class="body">Item × Palette × Theme 统一渲染</text>
+        <line x1="0" y1="123" x2="476" y2="123" class="line"/>
+        <text x="0" y="150" class="code">lib/tidy.ts</text><text x="170" y="150" class="body">贴边、居中、归位和行布局规则</text>
+        <line x1="0" y1="167" x2="476" y2="167" class="line"/>
+        <text x="0" y="194" class="code">Preview.tsx</text><text x="170" y="194" class="body">页面栈、Swipe、Spring、7 类转场</text>
+        <line x1="0" y1="211" x2="476" y2="211" class="line"/>
+        <text x="0" y="238" class="code">lib/prompt.ts</text><text x="170" y="238" class="body">几何事实 → 布局/交互自然语言</text>
+        <line x1="0" y1="255" x2="476" y2="255" class="line"/>
+        <text x="0" y="282" class="code">project.ts</text><text x="170" y="282" class="body">JSON 校验、导入导出、localStorage</text>
+        <line x1="0" y1="299" x2="476" y2="299" class="line"/>
+        <text x="0" y="326" class="code">lib/ai.ts</text><text x="170" y="326" class="body">可选 AI 只补写语义，不负责坐标</text>
+      </g>
+    </g>
+
+    <text x="1154" y="338" class="section">结果与能力边界</text>
+    <g transform="translate(1154 362)" filter="url(#shadow)"><rect width="392" height="430" rx="28" class="card"/></g>
+    <g transform="translate(1176 384)">
+      <rect width="348" height="64" rx="18" fill="url(#hero)"/>
+      <text x="17" y="28" class="head white">① Implementation Prompt · 核心</text>
+      <text x="17" y="51" class="small white">结构、视觉、交互、平台工程约束</text>
+      <rect y="78" width="348" height="62" rx="18" class="soft"/>
+      <text x="17" y="105" class="head">② .m3e-canvas.json · 真相源</text>
+      <text x="17" y="128" class="small">可重开、版本化和再次编译</text>
+      <rect y="154" width="348" height="62" rx="18" class="soft"/>
+      <text x="17" y="181" class="head">③ PNG · 单屏视觉快照</text>
+      <text x="17" y="204" class="small">用于评审、文档和视觉上下文</text>
+      <rect y="230" width="348" height="62" rx="18" class="soft"/>
+      <text x="17" y="257" class="head">④ Preview · 交互验证</text>
+      <text x="17" y="280" class="small">点击、返回、滑动和转场</text>
+      <line x1="0" y1="315" x2="348" y2="315" class="line"/>
+      <text x="0" y="344" class="head">不直接产出</text>
+      <text x="0" y="370" class="body">React / Compose / Flutter 源码</text>
+      <text x="0" y="394" class="body">后端逻辑或可发布 App</text>
+    </g>
+
+    <text x="54" y="850" class="section">它与 Claude Design / OpenDesign 不在同一层</text>
+    <g transform="translate(54 875)">
+      <rect width="476" height="145" rx="24" fill="#e9edff" stroke="#b9c4f3" stroke-width="2"/>
+      <text x="22" y="34" class="head blue">M3E Canvas · UI 规格编译器</text>
+      <text x="22" y="64" class="body">人拖拽＋规则确定性 → Prompt / JSON / PNG / Preview</text>
+      <text x="22" y="93" class="body">范围：竖屏手机、Material 3、多屏流程</text>
+      <text x="22" y="122" class="small">最适合：精确控制产品意图，跨模型交接</text>
+    </g>
+    <g transform="translate(562 875)">
+      <rect width="476" height="145" rx="24" class="card"/>
+      <text x="22" y="34" class="head">Claude Design · 云端 AI 设计师</text>
+      <text x="22" y="64" class="body">自然语言＋上下文 → 视觉设计、原型、HTML/PDF/PPTX</text>
+      <text x="22" y="93" class="body">范围：UI、网站、Slides、营销物料</text>
+      <text x="22" y="122" class="small">最适合：快速探索高质量视觉方向</text>
+    </g>
+    <g transform="translate(1070 875)">
+      <rect width="476" height="145" rx="24" class="card"/>
+      <text x="22" y="34" class="head">OpenDesign · 开源 AI 设计＋代码工作台</text>
+      <text x="22" y="64" class="body">Prompt / DESIGN.md / Agent → 可运行原型和前端代码</text>
+      <text x="22" y="93" class="body">范围：UI、Dashboard、Slides、图片/视频</text>
+      <text x="22" y="122" class="small">最适合：自托管、代码所有权和直接交付</text>
+    </g>
+
+    <g transform="translate(54 1050)" filter="url(#shadow)"><rect width="1492" height="104" rx="25" fill="#17213b"/></g>
+    <text x="82" y="1082" class="kicker" style="fill:#b9c8ff">真正的意义</text>
+    <text x="82" y="1114" class="head white">把“截图＋口头需求”升级为“可验证、可版本化、可多目标编译的 UI 中间表示”</text>
+    <text x="82" y="1141" class="small white">对我们的方向：接入公司 Design System＋业务组件 → 稳定 Schema → Web / Compose / Flutter Adapter → MCP / Git Diff / 自动校验与一致性评测</text>
+  </g>
+</svg>

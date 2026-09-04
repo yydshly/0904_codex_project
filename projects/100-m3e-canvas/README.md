@@ -2,7 +2,7 @@
 
 > 一个面向 Material 3 Expressive 的浏览器原型工具：用受约束的组件搭建多屏流程，再把主题、布局和交互编译成可交给 Codex、Claude Code、Cursor 等工具的实现说明。
 
-![M3E Canvas 从双屏原型、交互连线到结构化提示词的能力示意](images/cover.svg)
+![M3E Canvas 的界面能力、实现原理、产物、竞品差异与扩展方向全景](images/overview.svg)
 
 ## 项目信息
 
