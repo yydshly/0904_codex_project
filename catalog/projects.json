@@ -130,5 +130,16 @@
     "cover": "projects/120-invoiceflowai/images/architecture.svg",
     "demo": "",
     "tags": ["Python", "IMAP", "Document Processing", "OCR", "Workflow Automation"]
+  },
+  {
+    "order": 130,
+    "slug": "ego-lite",
+    "name": "ego-lite Agent 浏览器控制架构",
+    "repository": "https://github.com/citrolabs/ego-lite",
+    "summary": "把浏览器控制 SDK 扩展为面向 AI Agent 的执行环境：通过语义快照、登录态复用、Space 隔离和人机接管，让 Codex、Claude 等模型执行真实的登录态网页任务。",
+    "status": "published",
+    "cover": "projects/130-ego-lite/images/cover.svg",
+    "demo": "",
+    "tags": ["TypeScript", "Browser Automation", "AI Agent", "CDP", "Chromium"]
   }
 ]

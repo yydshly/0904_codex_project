@@ -26,6 +26,7 @@
 | 100 | [M3E Canvas](https://github.com/lnkiai/m3e-canvas) | 把 Material 3 Expressive 多屏草图、主题与交互编译成面向 Coding Agent 的结构化实现提示词，并提供可点击预览与可导入演示工程。 | 已发布 | [查看笔记](projects/100-m3e-canvas/README.md) | [打开 Demo](https://lnkiai.github.io/m3e-canvas/) |
 | 110 | [Open2Hub 热榜聚合架构](https://top.open2hub.com/) | 以 Open2Hub 的 REBANG 热榜为研究对象，将公开信息聚合能力整理为来源、采集、处理、存储、聚合服务与产品展示六个模块。 | 已发布 | [查看笔记](projects/110-open2hub/README.md) | — |
 | 120 | [InvoiceFlowAI 邮件发票处理架构](https://github.com/EthanYoQ/Invoice-Downloader) | 将邮箱驱动的发票整理拆解为 IMAP 接入、MIME 候选发现、链接恢复、分层识别、业务验收、串行归档与人工复核，为类似文档自动化系统提供可复用参考架构。 | 已发布 | [查看笔记](projects/120-invoiceflowai/README.md) | — |
+| 130 | [ego-lite Agent 浏览器控制架构](https://github.com/citrolabs/ego-lite) | 把浏览器控制 SDK 扩展为面向 AI Agent 的执行环境：通过语义快照、登录态复用、Space 隔离和人机接管，让 Codex、Claude 等模型执行真实的登录态网页任务。 | 已发布 | [查看笔记](projects/130-ego-lite/README.md) | — |
 
 ### 项目图文速览
 
@@ -146,6 +147,16 @@
 > 将邮箱驱动的发票整理拆解为 IMAP 接入、MIME 候选发现、链接恢复、分层识别、业务验收、串行归档与人工复核，为类似文档自动化系统提供可复用参考架构。
 
 **状态：** 已发布 · [源项目](https://github.com/EthanYoQ/Invoice-Downloader) · [完整研究笔记](projects/120-invoiceflowai/README.md)
+
+---
+
+#### 130 · [ego-lite Agent 浏览器控制架构](projects/130-ego-lite/README.md)
+
+<a href="projects/130-ego-lite/README.md"><img src="projects/130-ego-lite/images/cover.svg" alt="ego-lite Agent 浏览器控制架构 演示图" width="760"></a>
+
+> 把浏览器控制 SDK 扩展为面向 AI Agent 的执行环境：通过语义快照、登录态复用、Space 隔离和人机接管，让 Codex、Claude 等模型执行真实的登录态网页任务。
+
+**状态：** 已发布 · [源项目](https://github.com/citrolabs/ego-lite) · [完整研究笔记](projects/130-ego-lite/README.md)
 
 <!-- PROJECT_INDEX_END -->
 

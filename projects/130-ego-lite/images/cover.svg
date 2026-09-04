@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="820" viewBox="0 0 1440 820" role="img" aria-labelledby="title desc">
+  <title id="title">ego-lite Agent 浏览器控制架构</title>
+  <desc id="desc">用户任务经 Agent 进入浏览器控制 SDK。ego-browser 与 Playwright、Puppeteer 位于同一层，但增加语义快照、登录态复用、Space 隔离和人机接管能力。</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#071426"/>
+      <stop offset="0.55" stop-color="#0b1d35"/>
+      <stop offset="1" stop-color="#102845"/>
+    </linearGradient>
+    <linearGradient id="ego" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#3dd9c5"/>
+      <stop offset="1" stop-color="#4c8dff"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#000814" flood-opacity="0.35"/>
+    </filter>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+      <path d="M0 0L10 5L0 10Z" fill="#72a7d8"/>
+    </marker>
+    <style>
+      .title { font: 700 40px Inter, "Segoe UI", sans-serif; fill: #f7fbff; }
+      .sub { font: 400 18px Inter, "Segoe UI", sans-serif; fill: #9eb6cc; }
+      .section { font: 700 18px Inter, "Segoe UI", sans-serif; fill: #91a9c0; letter-spacing: 1.4px; }
+      .boxTitle { font: 700 22px Inter, "Segoe UI", sans-serif; fill: #f7fbff; }
+      .boxText { font: 400 16px Inter, "Segoe UI", sans-serif; fill: #b8cadb; }
+      .small { font: 500 14px Inter, "Segoe UI", sans-serif; fill: #8ca8c1; }
+      .darkTitle { font: 800 23px Inter, "Segoe UI", sans-serif; fill: #041421; }
+      .darkText { font: 600 15px Inter, "Segoe UI", sans-serif; fill: #0b3141; }
+      .line { fill: none; stroke: #72a7d8; stroke-width: 2.5; marker-end: url(#arrow); }
+    </style>
+  </defs>
+
+  <rect width="1440" height="820" rx="32" fill="url(#bg)"/>
+  <circle cx="1270" cy="90" r="170" fill="#1c65a5" opacity="0.13"/>
+  <circle cx="170" cy="760" r="220" fill="#26c6b8" opacity="0.08"/>
+
+  <text x="72" y="78" class="title">ego-lite：Agent 浏览器控制架构</text>
+  <text x="72" y="112" class="sub">模型负责理解与决策，SDK 负责定位控件并把动作翻译为浏览器协议</text>
+
+  <rect x="72" y="168" width="190" height="104" rx="18" fill="#102b48" stroke="#315878" filter="url(#shadow)"/>
+  <text x="167" y="208" text-anchor="middle" class="boxTitle">用户任务</text>
+  <text x="167" y="239" text-anchor="middle" class="boxText">目标与约束</text>
+
+  <rect x="320" y="168" width="230" height="104" rx="18" fill="#102b48" stroke="#315878" filter="url(#shadow)"/>
+  <text x="435" y="207" text-anchor="middle" class="boxTitle">Codex / Claude</text>
+  <text x="435" y="238" text-anchor="middle" class="boxText">理解任务 · 生成代码</text>
+
+  <path d="M262 220H310" class="line"/>
+  <path d="M550 220H598" class="line"/>
+
+  <rect x="606" y="142" width="762" height="304" rx="24" fill="#0b1728" stroke="#345878" stroke-width="2"/>
+  <text x="638" y="178" class="section">浏览器控制 SDK 层</text>
+  <text x="1334" y="178" text-anchor="end" class="small">高级 API → 控件定位 → 协议指令 → 浏览器执行</text>
+
+  <rect x="638" y="205" width="218" height="196" rx="20" fill="url(#ego)" filter="url(#shadow)"/>
+  <text x="747" y="246" text-anchor="middle" class="darkTitle">ego-browser</text>
+  <text x="747" y="278" text-anchor="middle" class="darkText">面向 AI Agent</text>
+  <line x1="670" y1="297" x2="824" y2="297" stroke="#0b3141" opacity="0.28"/>
+  <text x="747" y="326" text-anchor="middle" class="darkText">Snapshot / @N 定位</text>
+  <text x="747" y="353" text-anchor="middle" class="darkText">操作 API → CDP</text>
+  <text x="747" y="380" text-anchor="middle" class="darkText">Runtime + 原生桥</text>
+
+  <rect x="884" y="205" width="218" height="196" rx="20" fill="#132b47" stroke="#375a78"/>
+  <text x="993" y="246" text-anchor="middle" class="boxTitle">Playwright</text>
+  <text x="993" y="281" text-anchor="middle" class="boxText">Locator + Action</text>
+  <text x="993" y="311" text-anchor="middle" class="boxText">自动等待</text>
+  <text x="993" y="341" text-anchor="middle" class="boxText">→ 浏览器协议</text>
+
+  <rect x="1130" y="205" width="206" height="196" rx="20" fill="#132b47" stroke="#375a78"/>
+  <text x="1233" y="246" text-anchor="middle" class="boxTitle">Puppeteer</text>
+  <text x="1233" y="281" text-anchor="middle" class="boxText">Page / Element</text>
+  <text x="1233" y="311" text-anchor="middle" class="boxText">轻量封装</text>
+  <text x="1233" y="341" text-anchor="middle" class="boxText">→ CDP</text>
+
+  <path d="M747 401V472" class="line"/>
+  <path d="M993 401V538" class="line"/>
+  <path d="M1233 401V538" class="line"/>
+
+  <rect x="606" y="483" width="284" height="126" rx="20" fill="#14334c" stroke="#36bdae" stroke-width="2" filter="url(#shadow)"/>
+  <text x="748" y="519" text-anchor="middle" class="boxTitle">Agent 专用能力</text>
+  <text x="748" y="550" text-anchor="middle" class="boxText">语义快照 · 登录态复用</text>
+  <text x="748" y="580" text-anchor="middle" class="boxText">Space 隔离 · 人机接管</text>
+
+  <rect x="606" y="649" width="284" height="92" rx="18" fill="#102b48" stroke="#315878"/>
+  <text x="748" y="685" text-anchor="middle" class="boxTitle">ego lite</text>
+  <text x="748" y="715" text-anchor="middle" class="boxText">定制 Chromium 浏览器</text>
+
+  <rect x="972" y="549" width="264" height="92" rx="18" fill="#102b48" stroke="#315878"/>
+  <text x="1104" y="585" text-anchor="middle" class="boxTitle">Chrome / Chromium</text>
+  <text x="1104" y="615" text-anchor="middle" class="boxText">通用浏览器宿主</text>
+
+  <path d="M748 609V639" class="line"/>
+  <path d="M890 695H952V595H962" class="line"/>
+
+  <rect x="972" y="681" width="264" height="92" rx="18" fill="#173750" stroke="#4d7595"/>
+  <text x="1104" y="717" text-anchor="middle" class="boxTitle">真实网站</text>
+  <text x="1104" y="747" text-anchor="middle" class="boxText">操作 · 提取 · 表单 · 下载</text>
+
+  <path d="M1104 641V671" class="line"/>
+  <path d="M890 727H962" class="line"/>
+
+  <rect x="72" y="331" width="478" height="278" rx="24" fill="#0b1728" stroke="#294967"/>
+  <text x="104" y="372" class="section">共同原理</text>
+  <text x="104" y="416" class="boxTitle">1  高级操作 API</text>
+  <text x="330" y="416" class="boxText">click / fill / goto</text>
+  <text x="104" y="462" class="boxTitle">2  控件发现与定位</text>
+  <text x="330" y="462" class="boxText">Snapshot / Locator / DOM</text>
+  <text x="104" y="508" class="boxTitle">3  协议命令</text>
+  <text x="330" y="508" class="boxText">CDP：DOM / Input / Page</text>
+  <text x="104" y="554" class="boxTitle">4  浏览器执行</text>
+  <text x="330" y="554" class="boxText">页面变化后重新观察</text>
+
+  <text x="72" y="774" class="small">核心差异：ego-browser 把通用浏览器控制能力包装成适合 Agent 长任务、登录态任务和人机协作的执行环境。</text>
+</svg>
