@@ -17,6 +17,7 @@
 | 010 | [CLIProxyAPI](https://github.com/router-for-me/CLIProxyAPI) | 统一协议网关 + 凭证运行时：通过协议与 Provider 适配器，将调用方使用的统一 API 路由到后台真实的 API Key 或 OAuth/Auth 凭证，并完成上游模型交互。 | 已发布 | [查看笔记](projects/010-cliproxyapi/README.md) | [打开 Demo](https://yydshly.github.io/0904_codex_project/projects/010-cliproxyapi/demo/) |
 | 020 | [Noty Edge Deck](https://github.com/aimen08/noty) | 把屏幕边缘的低打扰交互抽象为可运行 Web Demo，并给出 Windows 常驻工具的实现架构、业务适配判断与 P0–P3 扩展路线。 | 已发布 | [查看笔记](projects/020-noty-edge-deck/README.md) | [打开 Demo](https://yydshly.github.io/0904_codex_project/projects/020-noty-edge-deck/demo/) |
 | 030 | [SoPilot 增长逻辑解剖台](https://sopilot.net/zh) | 用七步白话流程和系统架构拆解 SoPilot 如何连接定位、热点、持续内容、互动分发与浏览器自动化。 | 已发布 | [查看笔记](projects/030-sopilot-growth-logic/README.md) | [打开 Demo](https://yydshly.github.io/0904_codex_project/projects/030-sopilot-growth-logic/demo/) |
+| 040 | [TopHub 能力图谱](https://tophub.today/) | 说明公开 HTML、JSON 与扩展入口如何经过节点规则、周期采集、字段整理和历史快照，转化为浏览、提醒及 API 等热点信号服务。 | 已发布 | [查看笔记](projects/040-tophub-capability-atlas/README.md) | [打开 Demo](https://yydshly.github.io/0904_codex_project/projects/040-tophub-capability-atlas/demo/) |
 | 050 | [course2md 视频图文时间轴](https://github.com/mizorewww/course2md) | 本地优先的视频图文时间轴工具：并行提取稳定关键帧与字幕或 ASR 文本，按时间戳合并为可追溯的 Markdown、HTML 和结构化 JSON。 | 已发布 | [查看笔记](projects/050-course2md/README.md) | — |
 
 ### 项目图文速览
@@ -48,6 +49,16 @@
 > 用七步白话流程和系统架构拆解 SoPilot 如何连接定位、热点、持续内容、互动分发与浏览器自动化。
 
 **状态：** 已发布 · [源项目](https://sopilot.net/zh) · [完整研究笔记](projects/030-sopilot-growth-logic/README.md) · [在线演示](https://yydshly.github.io/0904_codex_project/projects/030-sopilot-growth-logic/demo/)
+
+---
+
+#### 040 · [TopHub 能力图谱](projects/040-tophub-capability-atlas/README.md)
+
+<a href="projects/040-tophub-capability-atlas/README.md"><img src="projects/040-tophub-capability-atlas/images/architecture.svg" alt="TopHub 能力图谱 演示图" width="760"></a>
+
+> 说明公开 HTML、JSON 与扩展入口如何经过节点规则、周期采集、字段整理和历史快照，转化为浏览、提醒及 API 等热点信号服务。
+
+**状态：** 已发布 · [源项目](https://tophub.today/) · [完整研究笔记](projects/040-tophub-capability-atlas/README.md) · [在线演示](https://yydshly.github.io/0904_codex_project/projects/040-tophub-capability-atlas/demo/)
 
 ---
 

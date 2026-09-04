@@ -49,6 +49,23 @@
     ]
   },
   {
+    "order": 40,
+    "slug": "tophub-capability-atlas",
+    "name": "TopHub 能力图谱",
+    "repository": "https://tophub.today/",
+    "summary": "说明公开 HTML、JSON 与扩展入口如何经过节点规则、周期采集、字段整理和历史快照，转化为浏览、提醒及 API 等热点信号服务。",
+    "status": "published",
+    "cover": "projects/040-tophub-capability-atlas/images/architecture.svg",
+    "demo": "projects/040-tophub-capability-atlas/demo/",
+    "tags": [
+      "Web Research",
+      "Trend Intelligence",
+      "Data Pipeline",
+      "API",
+      "Product Strategy"
+    ]
+  },
+  {
     "order": 50,
     "slug": "course2md",
     "name": "course2md 视频图文时间轴",

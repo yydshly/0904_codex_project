@@ -1,0 +1,391 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="TopHub 今日热榜能力图谱：来源、处理链路、输出形态、业务意义、使用场景与可扩展方向。"
+    />
+    <title>TopHub 能力图谱 · 互联网注意力雷达</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">跳到主要内容</a>
+
+    <div class="site-shell">
+      <header class="topbar">
+        <a class="brand" href="#overview" aria-label="返回概览">
+          <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+          <span><strong>SIGNAL ATLAS</strong><small>RESEARCH / 040</small></span>
+        </a>
+        <nav class="topnav" aria-label="页面导航">
+          <a href="#capabilities">能力</a>
+          <a href="#scenarios">场景</a>
+          <a href="#extensions">扩展</a>
+          <a href="#sources">依据</a>
+        </nav>
+        <span class="research-badge"><i aria-hidden="true"></i> 研究快照 · 2026.09</span>
+      </header>
+
+      <main id="main">
+        <section class="overview" id="overview" aria-labelledby="page-title">
+          <div class="overview-copy">
+            <p class="eyebrow">TOPHUB / 今日热榜</p>
+            <h1 id="page-title">互联网的<br /><em>注意力雷达</em></h1>
+            <p class="definition">
+              它不生产新闻，也不拥有完整内容。它把分散在不同平台的“热门榜单”转成统一、可检索、可回溯、可订阅的信号流。
+            </p>
+            <div class="fact-row" aria-label="官方公开规模指标">
+              <div><strong>HTML / JSON</strong><span>节点提取方式</span></div>
+              <div><strong>≈ 5 min</strong><span>主要榜单刷新</span></div>
+              <div><strong>Web · iOS · Android</strong><span>多端使用</span></div>
+            </div>
+            <p class="fact-note">信息来自官方使用指南与自定义节点规则；具体后端实现未公开。</p>
+          </div>
+
+          <div class="flow-console" aria-label="TopHub 数据处理链路">
+            <div class="console-head">
+              <div><span class="status-dot" aria-hidden="true"></span> SIGNAL PIPELINE</div>
+              <span>05 STAGES</span>
+            </div>
+            <div class="pipeline" role="tablist" aria-label="数据处理阶段">
+              <button class="pipeline-step is-active" type="button" role="tab" aria-selected="true" data-stage="source">
+                <span>01</span><strong>来源</strong><small>SOURCE</small>
+              </button>
+              <i aria-hidden="true">→</i>
+              <button class="pipeline-step" type="button" role="tab" aria-selected="false" data-stage="collect">
+                <span>02</span><strong>采集</strong><small>COLLECT</small>
+              </button>
+              <i aria-hidden="true">→</i>
+              <button class="pipeline-step" type="button" role="tab" aria-selected="false" data-stage="normalize">
+                <span>03</span><strong>标准化</strong><small>NORMALIZE</small>
+              </button>
+              <i aria-hidden="true">→</i>
+              <button class="pipeline-step" type="button" role="tab" aria-selected="false" data-stage="store">
+                <span>04</span><strong>沉淀</strong><small>STORE</small>
+              </button>
+              <i aria-hidden="true">→</i>
+              <button class="pipeline-step" type="button" role="tab" aria-selected="false" data-stage="deliver">
+                <span>05</span><strong>输出</strong><small>DELIVER</small>
+              </button>
+            </div>
+            <div class="stage-detail" id="stage-detail" role="tabpanel" aria-live="polite">
+              <span class="stage-index">01 / SOURCE</span>
+              <div>
+                <h2>各平台公开榜单，是它的原始信号源</h2>
+                <p>微博热搜、知乎热榜、百度热点、公众号热文、技术社区排行、财经媒体榜单，以及其他公开排名页或 JSON 接口。</p>
+              </div>
+              <ul>
+                <li>公开排行页面</li>
+                <li>公开 JSON 接口</li>
+                <li>用户定制节点</li>
+              </ul>
+            </div>
+            <div class="boundary-strip">
+              <span>擅长：发现已上榜信号</span>
+              <span>不等于：全网舆情</span>
+              <span>不负责：事实核查</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="content-section capability-section" id="capabilities" aria-labelledby="capability-title">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">01 / CAPABILITY MAP</p>
+              <h2 id="capability-title">它把“看榜”扩展成了一组<br />热点信号服务</h2>
+            </div>
+            <p>基础能力负责获取和组织榜单；高级能力围绕历史、分析、订阅与自动化继续放大数据价值。</p>
+          </div>
+
+          <div class="capability-grid">
+            <article class="capability-card capability-primary">
+              <span class="card-code">C01 · FOUNDATION</span>
+              <h3>多源热榜聚合</h3>
+              <p>把散落在不同网站和 App 的热门榜单集中到统一入口，降低跨平台浏览成本。</p>
+              <ul><li>分类导航</li><li>节点详情</li><li>原站跳转</li></ul>
+            </article>
+            <article class="capability-card">
+              <span class="card-code">C02 · ORGANIZE</span>
+              <h3>订阅与分组</h3>
+              <p>用户主动选择来源，形成自己的榜单组合，而不是完全交给推荐算法。</p>
+              <ul><li>关注节点</li><li>自定义分组</li><li>订阅动态</li></ul>
+            </article>
+            <article class="capability-card">
+              <span class="card-code">C03 · RETRIEVE</span>
+              <h3>搜索与回溯</h3>
+              <p>从一次性阅读升级为可检索的历史资料，寻找某个关键词曾在哪些榜单出现。</p>
+              <ul><li>全站搜索</li><li>历史上榜</li><li>榜单快照</li></ul>
+            </article>
+            <article class="capability-card">
+              <span class="card-code">C04 · SYNTHESIZE</span>
+              <h3>热点再组织</h3>
+              <p>日报、榜中榜、话题聚合与热点日历，把原始列表变成更适合阅读和规划的视图。</p>
+              <ul><li>日报</li><li>榜中榜</li><li>话题 / 日历</li></ul>
+            </article>
+            <article class="capability-card">
+              <span class="card-code">C05 · MONITOR</span>
+              <h3>追踪与过滤</h3>
+              <p>按关键词、排名、来源或热度设置规则，只保留与目标相关的新信号。</p>
+              <ul><li>白名单</li><li>黑名单</li><li>阈值触发</li></ul>
+            </article>
+            <article class="capability-card">
+              <span class="card-code">C06 · DISTRIBUTE</span>
+              <h3>通知与自动化</h3>
+              <p>让系统主动推送命中结果，适合接入团队协作工具和日常情报流程。</p>
+              <ul><li>机器人推送</li><li>定时摘要</li><li>Webhook</li></ul>
+            </article>
+            <article class="capability-card capability-output">
+              <span class="card-code">C07 · DATA SERVICE</span>
+              <h3>数据开放</h3>
+              <p>通过 CSV、Excel 与 REST API 交付结构化数据，为内部系统和 AI Agent 提供上游信号。</p>
+              <ul><li>数据导出</li><li>JSON API</li><li>批量获取</li></ul>
+            </article>
+          </div>
+        </section>
+
+        <section class="content-section source-section" id="source-model" aria-labelledby="source-title">
+          <div class="section-heading compact-heading">
+            <div>
+              <p class="eyebrow">02 / SOURCE &amp; INGESTION</p>
+              <h2 id="source-title">来源是什么，如何进入系统？</h2>
+            </div>
+            <div class="evidence-key" aria-label="证据类型说明">
+              <span><i class="confirmed"></i>公开文档可确认</span>
+              <span><i class="inferred"></i>依据产品形态推断</span>
+            </div>
+          </div>
+
+          <div class="source-layout">
+            <div class="source-spectrum">
+              <div class="spectrum-head">
+                <span>INPUT SPECTRUM</span><strong>公开榜单信号</strong>
+              </div>
+              <div class="source-list">
+                <article><span>01</span><div><h3>搜索与社交</h3><p>微博热搜、百度热点、知乎热榜、短视频热门</p></div><b>高频</b></article>
+                <article><span>02</span><div><h3>新闻与内容</h3><p>公众号热文、媒体排行、科技与财经资讯</p></div><b>多样</b></article>
+                <article><span>03</span><div><h3>社区与开发</h3><p>V2EX、论坛热帖、GitHub Trending、开发者社区</p></div><b>垂直</b></article>
+                <article><span>04</span><div><h3>商业与生活</h3><p>商品排行、影视口碑、应用榜单、消费热点</p></div><b>行动</b></article>
+                <article><span>05</span><div><h3>定制节点</h3><p>为小众网站、行业站点或团队指定来源建立规则</p></div><b>扩展</b></article>
+              </div>
+            </div>
+
+            <div class="rule-card">
+              <div class="rule-head"><span>NODE RULE / 采集适配器</span><span>JSON</span></div>
+              <pre aria-label="采集规则字段示意"><code><span class="code-faint">{</span>
+  <span class="code-key">"type"</span>: <span class="code-value">"match | json"</span>,
+  <span class="code-key">"url"</span>: <span class="code-value">"source endpoint"</span>,
+  <span class="code-key">"container"</span>: <span class="code-value">"list area"</span>,
+  <span class="code-key">"item_title"</span>: <span class="code-value">"title path"</span>,
+  <span class="code-key">"item_url"</span>: <span class="code-value">"link path"</span>,
+  <span class="code-key">"item_extra"</span>: <span class="code-value">"heat / views"</span>
+<span class="code-faint">}</span></code></pre>
+              <div class="rule-note">
+                <span class="confirmed"></span>
+                <p>官方规则文档还支持简介、缩略图、链接补全等字段。说明它不是用一个通用爬虫处理全部网站，而是为不同节点配置提取规则。</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="content-section processing-section" id="processing" aria-labelledby="processing-title">
+          <div class="section-heading compact-heading">
+            <div>
+              <p class="eyebrow">03 / PROCESSING</p>
+              <h2 id="processing-title">从异构榜单到统一信号</h2>
+            </div>
+            <p>采集方式可以确认；具体后端框架、数据库和跨榜单算法并未公开，因此只描述可由页面及 API 反推的必要处理。</p>
+          </div>
+
+          <ol class="processing-track">
+            <li>
+              <span class="track-index">01</span><i aria-hidden="true"></i>
+              <div><strong>配置节点</strong><p>确定来源地址与 HTML / JSON 提取路径。</p></div>
+              <small>CONFIRMED</small>
+            </li>
+            <li>
+              <span class="track-index">02</span><i aria-hidden="true"></i>
+              <div><strong>周期拉取</strong><p>按节点刷新频率抓取榜单页面或接口。</p></div>
+              <small>CONFIRMED</small>
+            </li>
+            <li>
+              <span class="track-index">03</span><i aria-hidden="true"></i>
+              <div><strong>字段标准化</strong><p>统一标题、链接、来源、图片、附加热度和时间。</p></div>
+              <small>CONFIRMED</small>
+            </li>
+            <li class="is-inferred">
+              <span class="track-index">04</span><i aria-hidden="true"></i>
+              <div><strong>身份识别与聚合</strong><p>为搜索、话题和榜中榜建立内容关联。</p></div>
+              <small>INFERRED</small>
+            </li>
+            <li>
+              <span class="track-index">05</span><i aria-hidden="true"></i>
+              <div><strong>快照与历史</strong><p>保留榜单状态、上榜时间和历史数据集。</p></div>
+              <small>CONFIRMED</small>
+            </li>
+          </ol>
+
+          <div class="schema-panel">
+            <div class="schema-title"><span>UNIFIED SCHEMA</span><strong>统一数据对象</strong></div>
+            <div class="schema-groups">
+              <div><span>NODE</span><code>hashid</code><code>name</code><code>domain</code><code>category</code></div>
+              <i aria-hidden="true">+</i>
+              <div><span>ITEM</span><code>title</code><code>url</code><code>description</code><code>thumbnail</code></div>
+              <i aria-hidden="true">+</i>
+              <div><span>SIGNAL</span><code>extra</code><code>rank</code><code>time</code><code>snapshot</code></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="content-section output-section" id="outputs" aria-labelledby="output-title">
+          <div class="section-heading compact-heading">
+            <div>
+              <p class="eyebrow">04 / OUTPUT</p>
+              <h2 id="output-title">输出不是一种页面，而是四类交付</h2>
+            </div>
+            <p>同一份标准化信号，分别服务于阅读、判断、自动化和系统集成。</p>
+          </div>
+
+          <div class="output-grid">
+            <article>
+              <span class="output-number">01</span>
+              <h3>给人看的界面</h3>
+              <p>首页、分类页、订阅动态、搜索、节点详情、移动 App。</p>
+              <small>READ</small>
+            </article>
+            <article>
+              <span class="output-number">02</span>
+              <h3>给判断用的视图</h3>
+              <p>日报、榜中榜、话题聚合、热点日历、历史与快照。</p>
+              <small>DECIDE</small>
+            </article>
+            <article>
+              <span class="output-number">03</span>
+              <h3>给流程用的触发器</h3>
+              <p>关键词追踪、过滤规则、排名与热度阈值、机器人通知。</p>
+              <small>ACT</small>
+            </article>
+            <article>
+              <span class="output-number">04</span>
+              <h3>给机器用的数据</h3>
+              <p>CSV、Excel、REST API、Webhook，以及批量和历史查询。</p>
+              <small>INTEGRATE</small>
+            </article>
+          </div>
+        </section>
+
+        <section class="meaning-section" id="meaning" aria-labelledby="meaning-title">
+          <div class="meaning-copy">
+            <p class="eyebrow">05 / WHY IT MATTERS</p>
+            <h2 id="meaning-title">真正的意义：<br />把注意力变成可操作的信号</h2>
+            <p>热点本身不是结论。TopHub 的作用是让组织更早发现变化，再把这些公开信号与自己的客户、产品、品牌和行业数据结合。</p>
+          </div>
+          <div class="meaning-stack">
+            <article><span>01</span><div><h3>降低发现成本</h3><p>用一个入口替代几十个平台的重复巡视。</p></div></article>
+            <article><span>02</span><div><h3>增加时间维度</h3><p>把稍纵即逝的排行榜转成可检索的历史资产。</p></div></article>
+            <article><span>03</span><div><h3>连接业务动作</h3><p>当信号命中规则时，直接进入内容、公关、产品或研究流程。</p></div></article>
+          </div>
+          <aside class="decision-note">
+            <span>BUILD DECISION</span>
+            <strong>通用采集可以买；领域判断必须自己建设。</strong>
+            <p>更值得投入的是行业词表、事件归并、业务影响评分和闭环反馈，而不是重新复制一个大而全的热榜首页。</p>
+          </aside>
+        </section>
+
+        <section class="content-section scenario-section" id="scenarios" aria-labelledby="scenario-title">
+          <div class="section-heading compact-heading">
+            <div>
+              <p class="eyebrow">06 / USE CASES</p>
+              <h2 id="scenario-title">谁在什么时候使用它？</h2>
+            </div>
+            <p>选择一个角色，查看“问题—输入—输出—边界”的完整使用链路。</p>
+          </div>
+
+          <div class="scenario-workbench">
+            <div class="scenario-tabs" role="tablist" aria-label="使用角色">
+              <button type="button" role="tab" aria-selected="true" class="is-active" data-scenario="strategy"><span>01</span>战略与管理</button>
+              <button type="button" role="tab" aria-selected="false" data-scenario="content"><span>02</span>内容运营</button>
+              <button type="button" role="tab" aria-selected="false" data-scenario="brand"><span>03</span>品牌公关</button>
+              <button type="button" role="tab" aria-selected="false" data-scenario="product"><span>04</span>产品竞品</button>
+              <button type="button" role="tab" aria-selected="false" data-scenario="research"><span>05</span>研究分析</button>
+              <button type="button" role="tab" aria-selected="false" data-scenario="developer"><span>06</span>数据与开发</button>
+            </div>
+            <article class="scenario-detail" id="scenario-detail" role="tabpanel" aria-live="polite">
+              <div class="scenario-question"><span>CORE QUESTION</span><h3>外部环境正在发生哪些值得管理层关注的变化？</h3></div>
+              <dl>
+                <div><dt>输入</dt><dd>行业媒体、财经榜单、关键公司与政策词</dd></div>
+                <div><dt>处理</dt><dd>跨来源归并、变化速度与业务相关性判断</dd></div>
+                <div><dt>输出</dt><dd>每日外部信号简报与重大变化预警</dd></div>
+                <div><dt>边界</dt><dd>只能发现线索，不能代替战略验证与专家判断</dd></div>
+              </dl>
+            </article>
+          </div>
+        </section>
+
+        <section class="content-section extension-section" id="extensions" aria-labelledby="extension-title">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">07 / EXTENSION RADAR</p>
+              <h2 id="extension-title">从榜单聚合，走向<br />事件情报系统</h2>
+            </div>
+            <p>扩展的优先级应该从数据质量开始，再进入语义理解、业务融合和智能决策。</p>
+          </div>
+
+          <div class="extension-map">
+            <article data-horizon="NOW"><span>P0 · 数据底座</span><h3>稳定性与数据血缘</h3><p>采集健康度、延迟监控、来源版本、字段质量和合规授权。</p><small>先解决“数据可不可信”</small></article>
+            <article data-horizon="NEXT"><span>P1 · 语义层</span><h3>事件聚类与实体识别</h3><p>把相似标题归并成事件，识别公司、人物、产品、行业和地区。</p><small>从条目走向事件</small></article>
+            <article data-horizon="NEXT"><span>P1 · 指标层</span><h3>跨平台热度归一化</h3><p>比较排名速度、增量、覆盖平台数、持续时间和衰减，而非直接比较原始热度。</p><small>让信号真正可比较</small></article>
+            <article data-horizon="LATER"><span>P2 · 可信层</span><h3>信源与事实验证</h3><p>增加来源等级、相互印证、争议标记、谣言风险和内容安全判断。</p><small>热度不等于事实</small></article>
+            <article data-horizon="LATER"><span>P2 · 业务层</span><h3>私有数据融合</h3><p>将公开热点与客户反馈、销售、搜索、工单和竞品数据库关联。</p><small>形成组织独有判断</small></article>
+            <article data-horizon="LATER"><span>P2 · 行动层</span><h3>Agent 与工作流</h3><p>自动生成简报、创建任务、更新 CRM、触发公关流程，并记录处理结果。</p><small>从“知道”走向“做到”</small></article>
+          </div>
+
+          <div class="roadmap-strip" aria-label="建议实施路径">
+            <div><span>0—2 周</span><strong>接入 20—50 个高价值节点</strong><p>关键词追踪、去重、每日简报</p></div>
+            <i aria-hidden="true">→</i>
+            <div><span>3—6 周</span><strong>建立事件与重要度评分</strong><p>跨源聚合、趋势与业务匹配</p></div>
+            <i aria-hidden="true">→</i>
+            <div><span>持续演进</span><strong>接入团队工作流</strong><p>通知、任务、反馈与指标闭环</p></div>
+          </div>
+        </section>
+
+        <section class="content-section boundary-section" aria-labelledby="boundary-title">
+          <div>
+            <p class="eyebrow">08 / OPERATING BOUNDARY</p>
+            <h2 id="boundary-title">使用前必须知道的边界</h2>
+          </div>
+          <div class="boundary-grid">
+            <article><span>01</span><h3>上榜 ≠ 全网</h3><p>它主要覆盖各平台已经挑选出的热门内容，长尾讨论和未上榜风险可能缺失。</p></article>
+            <article><span>02</span><h3>热度 ≠ 事实</h3><p>榜单可以帮助发现线索，但不能证明内容准确，也不能代替事实核查。</p></article>
+            <article><span>03</span><h3>数值 ≠ 可直接比较</h3><p>不同平台的阅读量、互动量和“热度”口径并不相同，需要重新校准。</p></article>
+            <article><span>04</span><h3>聚合 ≠ 拥有内容</h3><p>官方说明主要获取榜单标题和链接，阅读与版权仍然回到原始平台。</p></article>
+          </div>
+        </section>
+
+        <section class="sources-section" id="sources" aria-labelledby="sources-title">
+          <div>
+            <p class="eyebrow">RESEARCH BASIS</p>
+            <h2 id="sources-title">研究依据</h2>
+            <p>页面将“公开可确认”“合理推断”和“建议扩展”分开表达。以下为主要一手资料。</p>
+          </div>
+          <div class="source-links">
+            <a href="https://tophub.today/help" target="_blank" rel="noreferrer"><span>01</span><strong>官方使用指南</strong><small>定位、刷新频率、基础功能 ↗</small></a>
+            <a href="https://tophub.today/help/customize-rule" target="_blank" rel="noreferrer"><span>02</span><strong>自定义节点规则</strong><small>HTML / JSON 提取机制 ↗</small></a>
+            <a href="https://www.tophubdata.com/documentation" target="_blank" rel="noreferrer"><span>03</span><strong>官方 API 文档</strong><small>数据模型、历史、快照与接口 ↗</small></a>
+            <a href="https://tophub.today/roadmap" target="_blank" rel="noreferrer"><span>04</span><strong>产品路线图</strong><small>AI 与深度分析方向 ↗</small></a>
+            <a href="https://tophub.today/help/terms" target="_blank" rel="noreferrer"><span>05</span><strong>使用条款</strong><small>自动化抓取与内容使用边界 ↗</small></a>
+          </div>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <span>TOPHUB CAPABILITY ATLAS</span>
+        <p>结论：它是上游信号采集层，不是最终决策引擎。</p>
+        <a href="#overview">回到顶部 ↑</a>
+      </footer>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>

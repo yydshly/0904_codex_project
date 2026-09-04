@@ -1,0 +1,203 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">TopHub 热点数据采集与处理概览</title>
+  <desc id="desc">展示 TopHub 可能使用的数据入口、节点规则、采集处理链路和最终输出。具体后端实现并未完全公开。</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#07130f"/>
+      <stop offset="0.55" stop-color="#0a1c16"/>
+      <stop offset="1" stop-color="#10291f"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="51%" cy="56%" r="48%">
+      <stop offset="0" stop-color="#baff6a" stop-opacity="0.14"/>
+      <stop offset="1" stop-color="#baff6a" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#c9ff82"/>
+      <stop offset="1" stop-color="#8fd54c"/>
+    </linearGradient>
+    <filter id="shadow" x="-25%" y="-25%" width="150%" height="160%">
+      <feDropShadow dx="0" dy="15" stdDeviation="18" flood-color="#000000" flood-opacity="0.22"/>
+    </filter>
+    <marker id="arrow" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M1 1l10 5-10 5z" fill="#baff6a"/>
+    </marker>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <rect width="1600" height="900" fill="url(#glow)"/>
+  <g opacity="0.075" stroke="#dfffc6" stroke-width="1">
+    <path d="M0 150h1600M0 300h1600M0 450h1600M0 600h1600M0 750h1600"/>
+    <path d="M160 0v900M320 0v900M480 0v900M640 0v900M800 0v900M960 0v900M1120 0v900M1280 0v900M1440 0v900"/>
+  </g>
+
+  <g font-family="Inter, Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif">
+    <text x="78" y="70" fill="#baff6a" font-size="18" font-weight="700" letter-spacing="4">TOPHUB / DATA FLOW OVERVIEW</text>
+    <text x="78" y="137" fill="#f4fbf5" font-size="52" font-weight="700">热点数据，如何进来、被处理、再输出</text>
+    <text x="81" y="180" fill="#91aa9f" font-size="20">一个节点对应一套来源规则，不是用同一种爬虫抓遍所有网站</text>
+
+    <!-- Left: sources -->
+    <g transform="translate(78 238)">
+      <text x="0" y="0" fill="#baff6a" font-size="15" font-weight="700" letter-spacing="3">01 / 数据入口</text>
+      <text x="0" y="35" fill="#f4fbf5" font-size="26" font-weight="700">来源与获取手段</text>
+      <text x="0" y="64" fill="#789288" font-size="15">每个站点选择一种或组合使用</text>
+
+      <g transform="translate(0 88)" filter="url(#shadow)">
+        <rect width="330" height="66" rx="15" fill="#10271f" stroke="#b7d3c5" stroke-opacity="0.2"/>
+        <rect x="14" y="13" width="48" height="40" rx="12" fill="#baff6a" fill-opacity="0.13"/>
+        <text x="38" y="39" fill="#baff6a" font-size="13" font-weight="800" text-anchor="middle">API</text>
+        <text x="78" y="28" fill="#edf8f0" font-size="18" font-weight="700">官方 / 公开接口</text>
+        <text x="78" y="49" fill="#789288" font-size="13">JSON · REST · 公共数据接口</text>
+      </g>
+
+      <g transform="translate(0 166)" filter="url(#shadow)">
+        <rect width="330" height="66" rx="15" fill="#10271f" stroke="#b7d3c5" stroke-opacity="0.2"/>
+        <rect x="14" y="13" width="48" height="40" rx="12" fill="#baff6a" fill-opacity="0.13"/>
+        <text x="38" y="39" fill="#baff6a" font-size="12" font-weight="800" text-anchor="middle">HTML</text>
+        <text x="78" y="28" fill="#edf8f0" font-size="18" font-weight="700">公开榜单页面</text>
+        <text x="78" y="49" fill="#789288" font-size="13">微博 · 知乎 · 百度等页面结构</text>
+      </g>
+
+      <g transform="translate(0 244)" filter="url(#shadow)">
+        <rect width="330" height="66" rx="15" fill="#0c2019" stroke="#baff6a" stroke-opacity="0.36" stroke-dasharray="6 5"/>
+        <rect x="14" y="13" width="48" height="40" rx="12" fill="#baff6a" fill-opacity="0.13"/>
+        <text x="38" y="39" fill="#baff6a" font-size="13" font-weight="800" text-anchor="middle">RSS</text>
+        <text x="78" y="28" fill="#edf8f0" font-size="18" font-weight="700">RSS / Atom 订阅</text>
+        <text x="78" y="49" fill="#789288" font-size="13">站点主动提供的订阅源</text>
+      </g>
+
+      <g transform="translate(0 322)" filter="url(#shadow)">
+        <rect width="330" height="66" rx="15" fill="#0c2019" stroke="#baff6a" stroke-opacity="0.36" stroke-dasharray="6 5"/>
+        <rect x="14" y="13" width="48" height="40" rx="12" fill="#baff6a" fill-opacity="0.13"/>
+        <text x="38" y="38" fill="#baff6a" font-size="11" font-weight="800" text-anchor="middle">XHR</text>
+        <text x="78" y="28" fill="#edf8f0" font-size="18" font-weight="700">页面内部数据请求</text>
+        <text x="78" y="49" fill="#789288" font-size="13">Ajax · 内嵌 JSON · 页面请求接口</text>
+      </g>
+
+      <g transform="translate(0 400)" filter="url(#shadow)">
+        <rect width="330" height="66" rx="15" fill="#0c2019" stroke="#baff6a" stroke-opacity="0.36" stroke-dasharray="6 5"/>
+        <rect x="14" y="13" width="48" height="40" rx="12" fill="#baff6a" fill-opacity="0.13"/>
+        <text x="38" y="39" fill="#baff6a" font-size="12" font-weight="800" text-anchor="middle">JS</text>
+        <text x="78" y="28" fill="#edf8f0" font-size="18" font-weight="700">浏览器渲染兜底</text>
+        <text x="78" y="49" fill="#789288" font-size="13">JS 动态页面 · 交互后生成数据</text>
+      </g>
+    </g>
+
+    <!-- Connector -->
+    <path d="M425 508H485" fill="none" stroke="#baff6a" stroke-width="3" stroke-opacity="0.78" marker-end="url(#arrow)"/>
+
+    <!-- Center: processing -->
+    <g transform="translate(496 238)">
+      <text x="0" y="0" fill="#baff6a" font-size="15" font-weight="700" letter-spacing="3">02 / 采集与处理</text>
+      <text x="0" y="35" fill="#f4fbf5" font-size="26" font-weight="700">节点规则驱动的数据流水线</text>
+      <text x="0" y="64" fill="#789288" font-size="15">变化最多的不是数据库，而是每个来源的适配规则</text>
+
+      <g transform="translate(0 88)" filter="url(#shadow)">
+        <rect width="628" height="378" rx="28" fill="#0d2119" stroke="#baff6a" stroke-opacity="0.34" stroke-width="2"/>
+
+        <g transform="translate(26 24)">
+          <rect width="576" height="74" rx="18" fill="url(#accent)"/>
+          <text x="24" y="31" fill="#10210f" font-size="19" font-weight="800">节点规则库</text>
+          <text x="24" y="55" fill="#365825" font-size="14">type · URL · 内容区域 · 单条记录 · 标题 / 链接 / 附加信息</text>
+          <rect x="454" y="18" width="96" height="38" rx="19" fill="#0b1a13" fill-opacity="0.88"/>
+          <text x="502" y="43" fill="#caff85" font-size="14" font-weight="700" text-anchor="middle">一源一规则</text>
+        </g>
+
+        <path d="M314 107v28" stroke="#baff6a" stroke-width="2.5" stroke-opacity="0.75" marker-end="url(#arrow)"/>
+
+        <g transform="translate(25 148)">
+          <path d="M102 61h18M220 61h18M338 61h18M456 61h18" stroke="#baff6a" stroke-width="2" stroke-opacity="0.52" marker-end="url(#arrow)"/>
+
+          <g>
+            <rect width="102" height="126" rx="17" fill="#143126"/>
+            <text x="16" y="25" fill="#baff6a" font-size="12" font-weight="800">01 TRIGGER</text>
+            <text x="16" y="54" fill="#edf8f0" font-size="17" font-weight="700">定时触发</text>
+            <text x="16" y="80" fill="#7f998e" font-size="13">Cron</text>
+            <text x="16" y="100" fill="#7f998e" font-size="13">队列 / 并发</text>
+          </g>
+          <g transform="translate(118)">
+            <rect width="102" height="126" rx="17" fill="#143126"/>
+            <text x="16" y="25" fill="#baff6a" font-size="12" font-weight="800">02 FETCH</text>
+            <text x="16" y="54" fill="#edf8f0" font-size="17" font-weight="700">请求获取</text>
+            <text x="16" y="80" fill="#7f998e" font-size="13">限速 / 超时</text>
+            <text x="16" y="100" fill="#7f998e" font-size="13">重试 / 状态码</text>
+          </g>
+          <g transform="translate(236)">
+            <rect width="102" height="126" rx="17" fill="#143126"/>
+            <text x="16" y="25" fill="#baff6a" font-size="12" font-weight="800">03 PARSE</text>
+            <text x="16" y="54" fill="#edf8f0" font-size="17" font-weight="700">解析提取</text>
+            <text x="16" y="80" fill="#7f998e" font-size="13">JSON Path</text>
+            <text x="16" y="100" fill="#7f998e" font-size="13">DOM / 正则</text>
+          </g>
+          <g transform="translate(354)">
+            <rect width="102" height="126" rx="17" fill="#143126"/>
+            <text x="16" y="25" fill="#baff6a" font-size="12" font-weight="800">04 CLEAN</text>
+            <text x="16" y="54" fill="#edf8f0" font-size="17" font-weight="700">统一整理</text>
+            <text x="16" y="80" fill="#7f998e" font-size="13">字段映射</text>
+            <text x="16" y="100" fill="#7f998e" font-size="13">去重 / 校验</text>
+          </g>
+          <g transform="translate(472)">
+            <rect width="102" height="126" rx="17" fill="#143126"/>
+            <text x="16" y="25" fill="#baff6a" font-size="12" font-weight="800">05 STORE</text>
+            <text x="16" y="54" fill="#edf8f0" font-size="17" font-weight="700">快照沉淀</text>
+            <text x="16" y="80" fill="#7f998e" font-size="13">缓存 / 历史</text>
+            <text x="16" y="100" fill="#7f998e" font-size="13">更新状态</text>
+          </g>
+        </g>
+
+        <g transform="translate(26 301)">
+          <rect width="576" height="50" rx="14" fill="#baff6a" fill-opacity="0.08"/>
+          <text x="18" y="31" fill="#dcebe1" font-size="14" font-weight="700">标准记录</text>
+          <text x="102" y="31" fill="#88a096" font-size="14">标题 · 链接 · 来源 · 排名 · 热度 · 时间 · 摘要（可选）</text>
+        </g>
+      </g>
+    </g>
+
+    <!-- Connector -->
+    <path d="M1136 508h55" fill="none" stroke="#baff6a" stroke-width="3" stroke-opacity="0.78" marker-end="url(#arrow)"/>
+
+    <!-- Right: outputs -->
+    <g transform="translate(1202 238)">
+      <text x="0" y="0" fill="#baff6a" font-size="15" font-weight="700" letter-spacing="3">03 / 统一输出</text>
+      <text x="0" y="35" fill="#f4fbf5" font-size="26" font-weight="700">让热点成为信号</text>
+      <text x="0" y="64" fill="#789288" font-size="15">同一份数据，多种使用方式</text>
+
+      <g transform="translate(0 88)" filter="url(#shadow)">
+        <rect width="320" height="82" rx="17" fill="#10271f" stroke="#b7d3c5" stroke-opacity="0.2"/>
+        <circle cx="36" cy="41" r="18" fill="#baff6a" fill-opacity="0.14"/>
+        <text x="36" y="47" fill="#baff6a" font-size="15" font-weight="800" text-anchor="middle">WEB</text>
+        <text x="68" y="34" fill="#edf8f0" font-size="18" font-weight="700">Web / App 浏览</text>
+        <text x="68" y="57" fill="#789288" font-size="13">分类榜单 · 搜索 · 收藏</text>
+      </g>
+      <g transform="translate(0 184)" filter="url(#shadow)">
+        <rect width="320" height="82" rx="17" fill="#10271f" stroke="#b7d3c5" stroke-opacity="0.2"/>
+        <circle cx="36" cy="41" r="18" fill="#baff6a" fill-opacity="0.14"/>
+        <text x="36" y="47" fill="#baff6a" font-size="13" font-weight="800" text-anchor="middle">PUSH</text>
+        <text x="68" y="34" fill="#edf8f0" font-size="18" font-weight="700">订阅 / 日报 / 提醒</text>
+        <text x="68" y="57" fill="#789288" font-size="13">关键词 · 来源 · 热度阈值</text>
+      </g>
+      <g transform="translate(0 280)" filter="url(#shadow)">
+        <rect width="320" height="82" rx="17" fill="#10271f" stroke="#b7d3c5" stroke-opacity="0.2"/>
+        <circle cx="36" cy="41" r="18" fill="#baff6a" fill-opacity="0.14"/>
+        <text x="36" y="47" fill="#baff6a" font-size="14" font-weight="800" text-anchor="middle">API</text>
+        <text x="68" y="34" fill="#edf8f0" font-size="18" font-weight="700">接口 / CSV / Webhook</text>
+        <text x="68" y="57" fill="#789288" font-size="13">供内部系统继续消费</text>
+      </g>
+      <g transform="translate(0 376)" filter="url(#shadow)">
+        <rect width="320" height="82" rx="17" fill="#0c2019" stroke="#baff6a" stroke-opacity="0.36" stroke-dasharray="6 5"/>
+        <circle cx="36" cy="41" r="18" fill="#baff6a" fill-opacity="0.14"/>
+        <text x="36" y="47" fill="#baff6a" font-size="14" font-weight="800" text-anchor="middle">AI</text>
+        <text x="68" y="34" fill="#edf8f0" font-size="18" font-weight="700">趋势分析 / AI 摘要</text>
+        <text x="68" y="57" fill="#789288" font-size="13">聚类 · 事件线 · 选题发现</text>
+      </g>
+    </g>
+
+    <!-- Footer -->
+    <g transform="translate(78 796)">
+      <rect width="1444" height="66" rx="18" fill="#baff6a" fill-opacity="0.09"/>
+      <circle cx="28" cy="33" r="6" fill="#baff6a"/>
+      <text x="48" y="29" fill="#dff0e3" font-size="16" font-weight="700">核心资产：节点适配规则 + 可回溯的热点历史快照</text>
+      <text x="48" y="51" fill="#789288" font-size="13">说明：官方规则明确支持 HTML / JSON；虚线入口是常见扩展手段，TopHub 是否采用并未公开。</text>
+      <text x="1410" y="39" fill="#6f897f" font-size="14" text-anchor="end" letter-spacing="2">README VISUAL / 040</text>
+    </g>
+  </g>
+</svg>

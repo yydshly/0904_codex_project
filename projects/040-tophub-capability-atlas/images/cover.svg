@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">TopHub 能力图谱</title>
+  <desc id="desc">深绿色背景上的五段数据处理链路，从来源、采集、标准化、沉淀到输出。</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#07110f"/><stop offset="1" stop-color="#10251f"/></linearGradient>
+    <radialGradient id="glow" cx="78%" cy="22%" r="52%"><stop offset="0" stop-color="#b9f36a" stop-opacity=".18"/><stop offset="1" stop-color="#b9f36a" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/><rect width="1600" height="900" fill="url(#glow)"/>
+  <g stroke="#b2dfca" stroke-opacity=".09"><path d="M0 140h1600M0 260h1600M0 380h1600M0 500h1600M0 620h1600M0 740h1600"/><path d="M180 0v900M420 0v900M660 0v900M900 0v900M1140 0v900M1380 0v900"/></g>
+  <g font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif">
+    <text x="100" y="108" fill="#b9f36a" font-size="22" font-weight="700" letter-spacing="4">SIGNAL ATLAS / 040</text>
+    <text x="100" y="250" fill="#edf7ef" font-size="92" font-weight="700">TopHub 能力图谱</text>
+    <text x="104" y="308" fill="#8da49c" font-size="28">把分散的热门榜单，转成可检索、可回溯、可行动的信号流</text>
+    <g transform="translate(100 455)">
+      <g fill="#0d1916" stroke="#b2dfca" stroke-opacity=".3"><rect width="220" height="170" rx="18"/><rect x="270" width="220" height="170" rx="18"/><rect x="540" width="220" height="170" rx="18"/><rect x="810" width="220" height="170" rx="18"/><rect x="1080" width="220" height="170" rx="18"/></g>
+      <g fill="#b9f36a" font-size="18" font-weight="700" letter-spacing="2"><text x="26" y="38">01</text><text x="296" y="38">02</text><text x="566" y="38">03</text><text x="836" y="38">04</text><text x="1106" y="38">05</text></g>
+      <g fill="#edf7ef" font-size="31" font-weight="700"><text x="26" y="102">来源</text><text x="296" y="102">采集</text><text x="566" y="102">标准化</text><text x="836" y="102">沉淀</text><text x="1106" y="102">输出</text></g>
+      <g fill="#587068" font-size="15" letter-spacing="2"><text x="26" y="137">SOURCE</text><text x="296" y="137">COLLECT</text><text x="566" y="137">NORMALIZE</text><text x="836" y="137">STORE</text><text x="1106" y="137">DELIVER</text></g>
+      <g fill="#b9f36a" font-size="24"><text x="237" y="96">→</text><text x="507" y="96">→</text><text x="777" y="96">→</text><text x="1047" y="96">→</text></g>
+    </g>
+    <text x="100" y="790" fill="#8da49c" font-size="22">能力 · 来源 · 处理 · 输出 · 意义 · 场景 · 扩展</text>
+    <text x="1500" y="790" fill="#587068" font-size="18" text-anchor="end">RESEARCH SNAPSHOT / 2026.09</text>
+  </g>
+</svg>
