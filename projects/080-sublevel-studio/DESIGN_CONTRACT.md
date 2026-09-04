@@ -2,28 +2,28 @@
 
 ```text
 Entry mode: revision-led
-Request revision: 5 — 总结研究结论，把原作、机制、扩展图谱、半开住宅与庭院路线统一整理进网页；README 用上游真实预览图引导；完成远端提交
+Request revision: 7 — 采用轻量回顾版：上游官方效果图 + 我们四张关键状态截图，汇总进外部 README 后提交远端
 Target user and context: 正在研究沉浸式个人作品展示、需要判断下一步场景产品方向的团队
 Desired first impression: 先在一个清楚的研究索引中理解“这是什么、证明了什么、可以看哪些样例”，再自主进入原作或任一扩展场景
 Visual ambition: Immersive
 Experience architecture: Spatial Stage
 Visual constraints: 延续暖橡木、米白织物、陶土、植物绿与蓝紫暮色；庭院石径和发光门是第一视觉锚点；室内保持半开剖面但从每个房间的进入机位表现其独立布局
-Information constraints: 网页首屏先给出核心结论、能力边界和五个可运行入口；后续保留原作证据、机制实验、七种扩展方向和住宅深入分析；README 首图必须来自并链接到上游仓库，不把上游图片提交进本仓库
+Information constraints: README 需说明“我们的库是什么、包含哪些可运行产物、如何查看”；上游与本地原创必须清楚分栏并标注来源；样例画廊按原作、机制、方向、住宅的阅读顺序组织
 Operation constraints: 主按钮完成庭院入户；房间按钮、3D 地标和完整导览共享路线状态；允许有限环绕观察，任何手动操作可暂停导览；Escape 返回庭院
 State constraints: courtyard、foyer、living、study、gallery、terrace 六个可深链状态；entering 为单向门廊转场；每个状态同步相机、门、局部灯光、地标、内容面板与 URL
-Environment constraints: 新场景独立在 `demo/residence/journey/`，保留现有 `demo/residence/`；纯静态 CDN ES Module；无授权外部模型；Pages 输出排除上游源码
+Environment constraints: 以本地 4188 静态服务生成 16:9 JPG；上游只引用其官方远端预览图，本仓库提交四张原创演示截图；source 与临时浏览器文件不提交；Pages 输出排除 source
 Scene base: WebGL / Three.js
 Scene persistence: 从庭院到露台保持同一 WebGL 世界；详情只在前景侧栏 / 移动 sheet 中变化
 Foreground control model: 顶部返回与进度、左侧入户/导览动作、右侧房间叙述、底部房间路线与小型平面图
 State-to-scene mapping: courtyard 强调石径和亮门；foyer 开门并显示身份陈列；living 点亮壁炉与照片；study 点亮项目屏；gallery 激活时间画框；terrace 展示后院远景与最终行动；失败时保留完整 DOM 路线
 Mobile transformation: 房间详情转为紧凑 bottom sheet；路线横向滚动；小地图折叠为当前/下一站标签；Canvas 仍为全屏背景
 Fallback: 静态庭院—住宅剖面构图 + 六个可操作房间按钮 + 当前房间文字，不依赖 WebGL 才能理解路线
-Primary journey: 打开研究网页 → 首屏阅读结论 → 从样例索引选择原作 / 机制 / 场景图谱 / 半开住宅 / 庭院住宅 → 返回总览继续阅读完整分析
-User-defined phases: 1. 总结相关结论；2. 把信息与全部样例整理进网页；3. README 用源库样例效果图引导；4. 验证、提交并推送远端 GitHub
-Required artifacts: 总览索引 HTML / CSS、五个样例入口、README 上游预览图引导、更新后的验证记录、限定于 080 子项目的 Git commit 与 origin push
-Autonomy authorization: 用户明确要求整理网页、更新 README、提交并推送远端 GitHub；可完成范围内的可逆实现、验证、commit 与 push
+Primary journey: 打开 GitHub README → 先看上游官方效果图 → 理解我们的库包含什么 → 浏览机制 / 扩展图谱 / 半开住宅 / 庭院住宅四张图 → 进入对应运行页面
+User-defined phases: 1. 总结我们的库；2. 用图片汇总原有与我们的样例；3. 整理到外部 README；4. 验证、提交并推送远端 GitHub
+Required artifacts: README 库总结与五项样例画廊；上游远端效果图；本地四张 16:9 JPG；图片来源说明；图片尺寸/体积与页面回归；限定 080 子项目的 Git commit 与 origin push
+Autonomy authorization: 用户明确允许简单录制或图片展示，并要求汇总、提交与推送远端 GitHub；可完成范围内的截图、压缩、文档、commit 与 push
 User-decision boundary: 尚无真实住宅总平面、个人内容和授权模型；本轮使用程序化布局与明确占位内容，不虚构私人经历，不加入自由行走、碰撞或后端内容管理
-Observable completion criteria: 总览首屏在桌面和移动端都能快速说明核心意义并看到五个入口；所有入口地址正确可操作；原有长内容与 WebGL 状态不回归；README 首图来自并链接上游仓库；浏览器、键盘、减少动态、静态构建通过；只提交 080 子项目并成功推送 origin/main
+Observable completion criteria: README 能区分上游与我们的产物并用五个图卡完成回顾；四张本地 JPG 均为 960×540、清晰且体积适合 Git，分别覆盖机制、扩展图谱、半开住宅与庭院路线；链接正确、原页面不回归；只提交 080 子项目并成功推送 origin/main
 ```
 
 ## Coverage record
@@ -62,14 +62,19 @@ Observable completion criteria: 总览首屏在桌面和移动端都能快速说
 | 2 | 保留原有各幕和实时能力 | original / lab / extensions | 浏览器回归、Canvas 状态 | 5–8 | pass | 原作快照载入；实验台 Canvas 1280×800、31 calls；图谱选中 memory；两套住宅均 ready |
 | 3 | README 使用源库效果图引导 | external README | Markdown 链接与远端资源 | 3 / 9 | pass | 首图直接引用上游 raw preview 并链接官方体验，图片说明记录来源、未复制和无许可证边界 |
 | 4 | 多端、构建与远端提交 | 1280 / 760 / 390 / git | 浏览器、命令、commit、push | 7–9 | pass | 三视口无横向溢出、无应用 error；五个 JS、目录索引、Pages 三路由与 diff check 通过；commit/push 记录见 Git 历史 |
+| 1 | 总结我们的研究/演示库 | external README | 内容审阅、链接 | 3 / 9 | pass | 新增五层产物矩阵，明确这是研究证据、机制实验和场景模板，不是上游再发行或 npm SDK |
+| 2 | 展示上游原作 | upstream official preview | 远端图片与来源链接 | 3 / 8 | pass | README 保留官方预览图并链接官方体验，明确远端引用、署名和无许可证边界 |
+| 2 | 展示我们的四个样例 | lab / extensions / residence / journey | 4 张浏览器截图 | 5–8 | pass | 四张真实浏览器状态均视觉通过、无应用 error，并输出为 960×540 JPG |
+| 3 | README 一页式样例画廊 | GitHub Markdown | 图片渲染、对应页面链接 | 3 / 7 | pass | 五项按原作→机制→方向→半开住宅→庭院住宅排序；四张本地图均链接对应 Pages 路由 |
+| 4 | 图片、页面、构建与远端 | dimensions / browser / Pages / git | 尺寸、大小、回归、commit、push | 7–9 | pass | 图片 46–70 KB；五个 JS、13 项目录索引、Pages 三路由、diff check、限定 commit 与 origin/main push 通过 |
 
 ## Selected WebGL route
 
 ```text
-Selected pattern: Story-driven 3D portfolio / guided multi-room residence
-Evidence branch: residence runtime → preserved semi-open sample → courtyard threshold → room graph → guided camera tour
-Required inputs: current warm-residence design system, deterministic room anchors, procedural architecture and explicit content responsibilities; real personal media remains a future replacement layer
-Expected output: a separate playable courtyard-to-room journey with one flat navigable plane, motivated lights, deep-linked room states and a readable DOM route
+Selected pattern: README visual recap for a story-driven WebGL research library
+Evidence branch: upstream official preview → mechanism lab → expansion atlas → semi-open residence → courtyard multi-room journey
+Required inputs: verified local routes, four representative 16:9 browser states, explicit upstream attribution and Git-friendly JPG budget
+Expected output: one external README summary with a five-item linked image gallery and concise library capability map
 What should update the skill: project documentation only; no reusable skill conclusion without runtime asset evidence
 ```
 
@@ -102,4 +107,8 @@ What should update the skill: project documentation only; no reusable skill conc
 - Revision 5 accessibility / motion / theme: 样例链接可键盘聚焦且 focus outline 为 solid；既有 `?motion=reduce` 路径保持；本演示仅支持已记录的暗色编辑主题。
 - Revision 5 README evidence: 上游预览资源 `https://raw.githubusercontent.com/MengTo/sublevel-studio/main/assets/sublevel-studio-preview.jpg` 可访问，点击图片进入官方在线体验；本仓库不保存副本。
 - Revision 5 engineering: 五个 JS 语法、13 项目录索引、Pages 构建、summary / residence / journey 产物与 diff check 通过。
-- Final decision: revision 5 scoped delivery closed；无 `continue`、`defer` 或 `blocked` 项。
+- Revision 7 image evidence: `02-mechanism-lab.jpg` 70,029 B；`03-expansion-atlas.jpg` 46,597 B；`04-residence-slice.jpg` 63,124 B；`05-residence-journey.jpg` 59,674 B；均为 RGB JPEG 960×540。
+- Revision 7 runtime capture: Playwright Chromium 1280×720，分别验证 lab overview、extensions memory、residence ready/home、journey ready/courtyard，四页控制台均无应用 error。
+- Revision 7 README: 上游图片继续由官方 raw URL 提供；本地四图组成两列表格并链接 GitHub Pages；`images/showcase/README.md` 记录来源、状态、复现地址和生成规格。
+- Revision 7 engineering: 五个 JS 语法、13 项目录索引、Pages 构建及 summary / residence / journey 产物、图片尺寸/体积和 diff check 通过。
+- Final decision: revision 7 scoped delivery closed；无 `continue`、`defer` 或 `blocked` 项。

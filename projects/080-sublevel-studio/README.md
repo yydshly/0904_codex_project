@@ -2,16 +2,45 @@
 
 > 它不是一个可安装的“组件库”，而是一份高密度的 Three.js 单页作品集概念：空间叙事、小游戏、DOM 内容、实时纹理和 Shader 后期被编排进同一体验。建议先看原作效果，再阅读拆解和我们的扩展样例。
 
+## 快速回顾
+
+### 01 · 上游原作
+
 [![Sublevel Studio 上游原作：京都町屋三维大厅预览](https://raw.githubusercontent.com/MengTo/sublevel-studio/main/assets/sublevel-studio-preview.jpg)](https://mengto.github.io/sublevel-studio/)
 
 *上图由 [Sublevel Studio 上游仓库](https://github.com/MengTo/sublevel-studio)直接提供，点击进入官方在线体验；本仓库没有复制或再分发该图片。上游未附开源许可证。*
 
-**推荐阅读路线：** [先打开研究总览与五个样例](demo/) → [体验半开住宅](demo/residence/) → [从庭院进入多房间住宅](demo/residence/journey/)。
+### 我们的四个演示样例
+
+点击图片进入 GitHub Pages 在线演示。
+
+| 02 · 机制实验台 | 03 · 七种扩展世界 |
+| --- | --- |
+| [![机制实验台：四个三维能力节点](images/showcase/02-mechanism-lab.jpg)](https://yydshly.github.io/0904_codex_project/projects/080-sublevel-studio/demo/#lab) | [![扩展图谱：记忆住宅空间结构](images/showcase/03-expansion-atlas.jpg)](https://yydshly.github.io/0904_codex_project/projects/080-sublevel-studio/demo/#extensions) |
+| 空间状态、实时纹理、交互反馈与 Shader 后期。 | 比较七种空间方向、素材难度与推荐切入点。 |
+| 04 · 半开记忆住宅 | 05 · 庭院入户住宅 |
+| [![半开视角的温馨客厅书房](images/showcase/04-residence-slice.jpg)](https://yydshly.github.io/0904_codex_project/projects/080-sublevel-studio/demo/residence/) | [![从暮色庭院走进多房间住宅](images/showcase/05-residence-journey.jpg)](https://yydshly.github.io/0904_codex_project/projects/080-sublevel-studio/demo/residence/journey/) |
+| 一间客厅书房、四个记忆节点和约 24 秒导览。 | 庭院、玄关、客厅、书房、记忆廊、露台完整路线。 |
+
+**推荐阅读路线：** [研究总览](https://yydshly.github.io/0904_codex_project/projects/080-sublevel-studio/demo/) → [半开住宅](https://yydshly.github.io/0904_codex_project/projects/080-sublevel-studio/demo/residence/) → [庭院多房间住宅](https://yydshly.github.io/0904_codex_project/projects/080-sublevel-studio/demo/residence/journey/)。
+
+## 我们的库现在是什么
+
+这是一个“研究证据 + 可运行机制 + 场景模板”的子项目，不是对上游源码的再发行，也不是已经封装完成的 npm SDK。
+
+| 层级 | 我们提供的产物 | 可以复用什么 |
+| --- | --- | --- |
+| 原作证据 | 上游在线页与本地研究快照的选择器 | 先验证真实能力，再讨论迁移方向 |
+| 机制实验 | 独立 Three.js 能力实验台 | 状态驱动相机、CanvasTexture、交互反馈、后期合成 |
+| 方向研究 | 七种扩展场景和记忆住宅深入分析 | 内容到空间的映射、资产阶梯和实施路线 |
+| 住宅模板 | 半开房间与庭院多房间两条原创路线 | 房间图、镜头导演、可见灯光登记、DOM/WebGL 同步 |
+| 交付基础 | 深链接、键盘、减少动态、无 WebGL 回退和 Pages 构建 | 把沉浸式原型转成可分享、可检查的网页 |
 
 ## 项目信息
 
 - 原仓库：<https://github.com/MengTo/sublevel-studio>
 - 上游在线演示：<https://mengto.github.io/sublevel-studio/>
+- 在线研究总览：<https://yydshly.github.io/0904_codex_project/projects/080-sublevel-studio/demo/>
 - 原作优先演示与能力实验台：[打开 Demo](demo/)
 - 温馨记忆住宅垂直切片：[进入住宅](demo/residence/)
 - 庭院入户与多房间路线：[从庭院进门](demo/residence/journey/)

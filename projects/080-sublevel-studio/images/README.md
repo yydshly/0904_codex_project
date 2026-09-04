@@ -13,3 +13,9 @@
 - 远端来源：<https://github.com/MengTo/sublevel-studio/blob/main/assets/sublevel-studio-preview.jpg>
 - 使用方式：README 通过上游 `raw.githubusercontent.com` 地址直接引用，并链接到官方在线体验；本仓库不提交该图片副本。
 - 权利边界：上游仓库未提供开源许可证，因此只将其作为来源明确的原作效果引导，不主张复制、修改或再分发权。
+
+## `showcase/`
+
+- 内容：机制实验、扩展图谱、半开住宅与庭院入户四张本地演示截图。
+- 来源与复现地址：见 [showcase/README.md](showcase/README.md)。
+- 规格：统一为 960×540 的渐进式 JPEG，面向 GitHub README 快速回顾；不包含上游图片或模型副本。
